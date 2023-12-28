@@ -1,6 +1,5 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
-const googleBookSchema = require("./GoogleBook");
 
 const profileSchema = new Schema({
   name: {
@@ -26,7 +25,12 @@ const profileSchema = new Schema({
       ref: "Profile",
     },
   ],
-  favoriteBooks: [googleBookSchema],
+  favoriteBooks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Book",
+    },
+  ],
   booksToLend: {
     type: Schema.Types.ObjectId,
     ref: "Book",

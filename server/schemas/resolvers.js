@@ -1,4 +1,4 @@
-const { Profile } = require("../models");
+const { Profile, Book } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
@@ -16,6 +16,14 @@ const resolvers = {
         return Profile.findOne({ _id: context.user._id });
       }
       throw AuthenticationError;
+    },
+
+    books: async () => {
+      return Book.find();
+    },
+
+    book: async (parent, { bookId }) => {
+      return Book.findOne({ _id: bookId });
     },
   },
 

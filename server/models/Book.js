@@ -16,7 +16,12 @@ const bookSchema = new Schema({
   description: {
     type: String,
   },
-  genre: {
+  // saved book id from GoogleBooks
+  bookId: {
+    type: String,
+    required: true,
+  },
+  link: {
     type: String,
   },
   owner: {
