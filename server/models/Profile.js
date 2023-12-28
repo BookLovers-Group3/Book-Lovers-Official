@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
+const googleBookSchema = require("./GoogleBook");
 
 const profileSchema = new Schema({
   name: {
@@ -19,6 +20,38 @@ const profileSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  friends: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Profile",
+    },
+  ],
+  favoriteBooks: [googleBookSchema],
+  booksToLend: {
+    type: Schema.Types.ObjectId,
+    ref: "Book",
+  },
+  booksLent: {
+    type: Schema.Types.ObjectId,
+    ref: "Book",
+  },
+  booksBorrowed: {
+    type: Schema.Types.ObjectId,
+    ref: "Book",
+  },
+  gender: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+  },
+  relationshipstatus: [
+    {
+      type: String,
+    },
+  ],
 });
 
 // set up pre-save middleware to create password
