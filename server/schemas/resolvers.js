@@ -29,8 +29,14 @@ const resolvers = {
   },
 
   Mutation: {
-    addProfile: async (parent, { name, email, password }) => {
-      const profile = await Profile.create({ name, email, password });
+    addProfile: async (parent, { name, email, password, gender, status }) => {
+      const profile = await Profile.create({
+        name,
+        email,
+        password,
+        gender,
+        status,
+      });
       const token = signToken(profile);
 
       return { token, profile };
@@ -68,6 +74,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+
     // Add a third argument to the resolver to access data in our `context`
 
     // Set up mutation so a logged in user can only remove their profile and no one else's
