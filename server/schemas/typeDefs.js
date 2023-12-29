@@ -58,8 +58,17 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
 
     addFavBook(bookId: ID!): Profile
+    removeFavBook(bookId: ID!): Profile
+    addFriend(profileId: ID!): Profile
+    removeFriend(profileId: ID!): Profile
+    addBooksToLend(bookId: ID!): Profile
+    removeBooksToLend(bookId: ID!): Profile
+    addBooksLent(bookId: ID!): Profile
+    removeBooksLent(bookId: ID!): Profile
+    addBooksBorrowed(bookId: ID!): Profile
+    removeBooksBorrowed(bookId: ID!): Profile
+    updateStatus(newStatus: String!): Profile
     removeProfile: Profile
-    removeSkill(skill: String!): Profile
   }
 `;
 
