@@ -1,4 +1,4 @@
-const { Profile, Book } = require("../models");
+const { Profile, Book, Ledger } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
@@ -29,6 +29,7 @@ const resolvers = {
   },
 
   Mutation: {
+    // create a profile
     addProfile: async (parent, { name, email, password, gender, status }) => {
       const profile = await Profile.create({
         name,
@@ -41,7 +42,7 @@ const resolvers = {
 
       return { token, profile };
     },
-
+    // login
     login: async (parent, { email, password }) => {
       const profile = await Profile.findOne({ email });
 
@@ -58,7 +59,7 @@ const resolvers = {
       const token = signToken(profile);
       return { token, profile };
     },
-
+    // add a favorite book
     addFavBook: async (parent, { bookId }, context) => {
       if (context.user) {
         return Profile.findOneAndUpdate(
@@ -74,7 +75,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-
+    //  remove a favorite book
     removeFavBook: async (parent, { bookId }, context) => {
       if (context.user) {
         return Profile.findOneAndDelete(
@@ -84,7 +85,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-
+    // add a friend
     addFriend: async (parent, { profileId }, context) => {
       if (context.user) {
         return Profile.findOneAndUpdate(
@@ -100,7 +101,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-
+    // remove a friend
     removeFriend: async (parent, { profileId }, context) => {
       if (context.user) {
         return Profile.findOneAndDelete(
@@ -110,7 +111,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-
+    // add a book to books to lend
     addBooksToLend: async (parent, { bookId }, context) => {
       if (context.user) {
         return Profile.findOneAndUpdate(
@@ -126,7 +127,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-
+    // remove a book from books to lend
     removeBooksToLend: async (parent, { bookId }, context) => {
       if (context.user) {
         return Profile.findOneAndDelete(
@@ -136,7 +137,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-
+    // add a book to books lent
     addBooksLent: async (parent, { bookId }, context) => {
       if (context.user) {
         return Profile.findOneAndUpdate(
@@ -152,7 +153,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-
+    // remove a book from books lent
     removeBooksLent: async (parent, { bookId }, context) => {
       if (context.user) {
         return Profile.findOneAndDelete(
@@ -162,7 +163,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-
+    // add a book to books borrowed
     addBooksBorrowed: async (parent, { bookId }, context) => {
       if (context.user) {
         return Profile.findOneAndUpdate(
@@ -178,8 +179,8 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-
-    removeFromBooksBorrowed: async (parent, { bookId }, context) => {
+    // remove a book from books borrowed
+    removeBooksBorrowed: async (parent, { bookId }, context) => {
       if (context.user) {
         return Profile.findOneAndDelete(
           { _id: context.user._id },
@@ -188,8 +189,8 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-
-    updateStatus: async (parent, { newStatus }, context) => {
+    // update the user status
+    updateProfileStatus: async (parent, { newStatus }, context) => {
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -204,13 +205,121 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-
-    // Add a third argument to the resolver to access data in our `context`
-
     // Set up mutation so a logged in user can only remove their profile and no one else's
     removeProfile: async (parent, args, context) => {
       if (context.user) {
         return Profile.findOneAndDelete({ _id: context.user._id });
+      }
+      throw AuthenticationError;
+    },
+    // create a book
+    addBook: async (
+      parent,
+      {
+        title,
+        authors,
+        image,
+        description,
+        googleBookId,
+        link,
+        owner,
+        borrower,
+        isAvailable,
+      },
+      context
+    ) => {
+      if (context.user) {
+        return Book.create({
+          title,
+          authors,
+          image,
+          description,
+          googleBookId,
+          link,
+          owner,
+          borrower,
+          isAvailable,
+        });
+      }
+      throw AuthenticationError;
+    },
+    // update book borrower
+    updateBookBorrower: async (parent, { bookId, profildId }, context) => {
+      if (context.user) {
+        return Book.findOneAndUpdate(
+          { _id: bookId },
+          {
+            borrower: profildId,
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw AuthenticationError;
+    },
+    // update book availability
+    updateBookAvailability: async (parent, { bookId }, context) => {
+      if (context.user) {
+        const book = await Book.findById(bookId);
+
+        if (!book) {
+          throw new Error("Book not found");
+        }
+        const updatedBook = Book.findOneAndUpdate(
+          { _id: bookId },
+          { $set: { isAvailable: { $not: book.isAvailable } } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        return updatedBook;
+      }
+      throw AuthenticationError;
+    },
+    // create a ledger
+    addLedger: async (
+      parent,
+      { bookId, lender, borrower, lendDate, returnDate, status },
+      context
+    ) => {
+      if (context.user) {
+        return Ledger.create({
+          bookId,
+          lender,
+          borrower,
+          lendDate,
+          returnDate,
+          status,
+        });
+      }
+      throw AuthenticationError;
+    },
+    // update a ledger return date
+    updateLedger: async (parent, { ledgerId }, context) => {
+      if (context.user) {
+        const ledger = await Ledger.findById(ledgerId);
+
+        if (!ledger) {
+          throw new Error("Ledger not found");
+        }
+        const updatedLedger = Ledger.findOneAndUpdate(
+          { _id: ledgerId },
+          {
+            $set: {
+              returnDate: Date.now(),
+              status: { $not: ledger.status },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+
+        return updatedLedger;
       }
       throw AuthenticationError;
     },

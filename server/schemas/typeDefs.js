@@ -21,13 +21,12 @@ const typeDefs = `
     title: String!
     authors: [String]
     image: String
-    description: String
-    bookId: String!
+    description: String!
+    googleBookId: String
     link: String
     owner: ID
     borrower: ID
     isAvailable: Boolean!
-    
   }
 
   type Ledger {
@@ -37,6 +36,7 @@ const typeDefs = `
     borrower: ID!
     lendDate: Date
     returnDate: Date
+    status: Boolean!
   }
 
   type Auth {
@@ -55,7 +55,6 @@ const typeDefs = `
   type Mutation {
     addProfile(name: String!, email: String!, password: String!, gender: String!, status: String!): Auth
     login(email: String!, password: String!): Auth
-
     addFavBook(bookId: ID!): Profile
     removeFavBook(bookId: ID!): Profile
     addFriend(profileId: ID!): Profile
@@ -66,8 +65,13 @@ const typeDefs = `
     removeBooksLent(bookId: ID!): Profile
     addBooksBorrowed(bookId: ID!): Profile
     removeBooksBorrowed(bookId: ID!): Profile
-    updateStatus(newStatus: String!): Profile
+    updateProfileStatus(newStatus: String!): Profile
     removeProfile: Profile
+    addBook: Book
+    updateBookBorrower: Book
+    updateBookAvailability: Book
+    addLedger: Ledger
+    updateLedger: Ledger
   }
 `;
 
