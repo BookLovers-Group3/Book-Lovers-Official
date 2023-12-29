@@ -19,6 +19,9 @@ const ledgerSchema = new Schema({
   returnDate: {
     type: Date,
   },
+  status: {
+    type: Boolean,
+  },
 });
 
 const Ledger = model("Ledger", ledgerSchema);

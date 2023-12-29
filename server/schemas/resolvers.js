@@ -1,5 +1,10 @@
 const { Profile, Book, Ledger } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
+// const jwt = require("jsonwebtoken");
+// const secret = "mysecretssshhhhhhh";
+// const expiration = "2h";
+// const token =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiY2hnZGF2ZUBnbWFpbC5jb20iLCJuYW1lIjoiY2hnZGF2ZSIsIl9pZCI6IjY1OGY0Mjg0MDFjNjI5NWU4ZDZmNDgxZCJ9LCJpYXQiOjE3MDM4ODc0OTIsImV4cCI6MTcwMzk3Mzg5Mn0.WrvFmWaMjQy3d5Gj3vB0sdS4_3wBHuFA0TbR06Vj3-0";
 
 const resolvers = {
   Query: {
@@ -61,6 +66,13 @@ const resolvers = {
     },
     // add a favorite book
     addFavBook: async (parent, { bookId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      //   console.log(data);
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -77,16 +89,32 @@ const resolvers = {
     },
     //  remove a favorite book
     removeFavBook: async (parent, { bookId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
-        return Profile.findOneAndDelete(
+        return Profile.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { favoriteBooks: bookId } }
+          { $pull: { favoriteBooks: bookId } },
+          {
+            new: true,
+            runValidators: true,
+          }
         );
       }
       throw AuthenticationError;
     },
     // add a friend
     addFriend: async (parent, { profileId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -103,16 +131,32 @@ const resolvers = {
     },
     // remove a friend
     removeFriend: async (parent, { profileId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
-        return Profile.findOneAndDelete(
+        return Profile.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { friends: profileId } }
+          { $pull: { friends: profileId } },
+          {
+            new: true,
+            runValidators: true,
+          }
         );
       }
       throw AuthenticationError;
     },
     // add a book to books to lend
     addBooksToLend: async (parent, { bookId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -129,16 +173,32 @@ const resolvers = {
     },
     // remove a book from books to lend
     removeBooksToLend: async (parent, { bookId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
-        return Profile.findOneAndDelete(
+        return Profile.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { booksToLend: bookId } }
+          { $pull: { booksToLend: bookId } },
+          {
+            new: true,
+            runValidators: true,
+          }
         );
       }
       throw AuthenticationError;
     },
     // add a book to books lent
     addBooksLent: async (parent, { bookId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -155,16 +215,32 @@ const resolvers = {
     },
     // remove a book from books lent
     removeBooksLent: async (parent, { bookId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
-        return Profile.findOneAndDelete(
+        return Profile.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { booksLent: bookId } }
+          { $pull: { booksLent: bookId } },
+          {
+            new: true,
+            runValidators: true,
+          }
         );
       }
       throw AuthenticationError;
     },
     // add a book to books borrowed
     addBooksBorrowed: async (parent, { bookId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -181,16 +257,32 @@ const resolvers = {
     },
     // remove a book from books borrowed
     removeBooksBorrowed: async (parent, { bookId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
-        return Profile.findOneAndDelete(
+        return Profile.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { booksBorrowed: bookId } }
+          { $pull: { booksBorrowed: bookId } },
+          {
+            new: true,
+            runValidators: true,
+          }
         );
       }
       throw AuthenticationError;
     },
     // update the user status
     updateProfileStatus: async (parent, { newStatus }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -207,6 +299,12 @@ const resolvers = {
     },
     // Set up mutation so a logged in user can only remove their profile and no one else's
     removeProfile: async (parent, args, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Profile.findOneAndDelete({ _id: context.user._id });
       }
@@ -228,6 +326,12 @@ const resolvers = {
       },
       context
     ) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Book.create({
           title,
@@ -236,7 +340,7 @@ const resolvers = {
           description,
           googleBookId,
           link,
-          owner,
+          owner: context,
           borrower,
           isAvailable,
         });
@@ -244,12 +348,18 @@ const resolvers = {
       throw AuthenticationError;
     },
     // update book borrower
-    updateBookBorrower: async (parent, { bookId, profildId }, context) => {
+    updateBookBorrower: async (parent, { bookId, profileId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Book.findOneAndUpdate(
           { _id: bookId },
           {
-            borrower: profildId,
+            borrower: profileId,
           },
           {
             new: true,
@@ -261,6 +371,12 @@ const resolvers = {
     },
     // update book availability
     updateBookAvailability: async (parent, { bookId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         const book = await Book.findById(bookId);
 
@@ -269,7 +385,7 @@ const resolvers = {
         }
         const updatedBook = Book.findOneAndUpdate(
           { _id: bookId },
-          { $set: { isAvailable: { $not: book.isAvailable } } },
+          { $set: { isAvailable: !book.isAvailable } },
           {
             new: true,
             runValidators: true,
@@ -282,16 +398,21 @@ const resolvers = {
     // create a ledger
     openLedger: async (
       parent,
-      { bookId, lender, borrower, lendDate, returnDate, status },
+      { bookId, lender, borrower, status },
       context
     ) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Ledger.create({
           bookId,
           lender,
           borrower,
-          lendDate,
-          returnDate,
+          lendDate: Date.now(),
           status,
         });
       }
@@ -299,6 +420,12 @@ const resolvers = {
     },
     // update a ledger return date
     closeLedger: async (parent, { ledgerId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         const ledger = await Ledger.findById(ledgerId);
 
@@ -310,7 +437,7 @@ const resolvers = {
           {
             $set: {
               returnDate: Date.now(),
-              status: { $not: ledger.status },
+              status: !ledger.status,
             },
           },
           {

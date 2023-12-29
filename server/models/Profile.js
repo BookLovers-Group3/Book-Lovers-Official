@@ -31,18 +31,24 @@ const profileSchema = new Schema({
       ref: "Book",
     },
   ],
-  booksToLend: {
-    type: Schema.Types.ObjectId,
-    ref: "Book",
-  },
-  booksLent: {
-    type: Schema.Types.ObjectId,
-    ref: "Book",
-  },
-  booksBorrowed: {
-    type: Schema.Types.ObjectId,
-    ref: "Book",
-  },
+  booksToLend: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Book",
+    },
+  ],
+  booksLent: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Book",
+    },
+  ],
+  booksBorrowed: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Book",
+    },
+  ],
   gender: {
     type: String,
     required: true,

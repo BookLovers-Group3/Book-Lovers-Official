@@ -6,14 +6,14 @@ const typeDefs = `
     name: String
     email: String
     password: String
-    friends: [ID!]!
-    favoriteBooks: [ID!]!
-    booksToLend: [ID!]!
-    booksLent: [ID!]!
-    booksBorrowed: [ID!]!
+    friends: [ID!]
+    favoriteBooks: [ID!]
+    booksToLend: [ID!]
+    booksLent: [ID!]
+    booksBorrowed: [ID!]
     gender: String!
     status: String!
-    relationshipStatus: [String!]!
+    relationshipStatus: [String!]
   }
 
   type Book {
@@ -21,7 +21,7 @@ const typeDefs = `
     title: String!
     authors: [String]
     image: String
-    description: String!
+    description: String
     googleBookId: String
     link: String
     owner: ID
@@ -36,7 +36,7 @@ const typeDefs = `
     borrower: ID!
     lendDate: Date
     returnDate: Date
-    status: Boolean!
+    status: Boolean
   }
 
   type Auth {
@@ -67,11 +67,11 @@ const typeDefs = `
     removeBooksBorrowed(bookId: ID!): Profile
     updateProfileStatus(newStatus: String!): Profile
     removeProfile: Profile
-    addBook: Book
-    updateBookBorrower: Book
-    updateBookAvailability: Book
-    openLedger: Ledger
-    closeLedger: Ledger
+    addBook(title: String!, authors: [String], image: String, description: String, googleBookId: String, link: String,owner: ID, borrower: ID, isAvailable: Boolean!): Book
+    updateBookBorrower(bookId: ID!, profileId: ID!): Book
+    updateBookAvailability(bookId: ID!): Book
+    openLedger(bookId: ID!, lender: ID!, borrower: ID!, status: Boolean!): Ledger
+    closeLedger(ledgerId: ID!): Ledger
   }
 `;
 
