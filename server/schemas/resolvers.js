@@ -1,5 +1,10 @@
 const { Profile, Book, Ledger } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
+const jwt = require("jsonwebtoken");
+const secret = "mysecretssshhhhhhh";
+const expiration = "2h";
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiY2hnZGF2ZUBnbWFpbC5jb20iLCJuYW1lIjoiY2hnZGF2ZSIsIl9pZCI6IjY1OGY0Mjg0MDFjNjI5NWU4ZDZmNDgxZCJ9LCJpYXQiOjE3MDM4ODc0OTIsImV4cCI6MTcwMzk3Mzg5Mn0.WrvFmWaMjQy3d5Gj3vB0sdS4_3wBHuFA0TbR06Vj3-0";
 
 const resolvers = {
   Query: {
@@ -61,6 +66,13 @@ const resolvers = {
     },
     // add a favorite book
     addFavBook: async (parent, { bookId }, context) => {
+      try {
+        const { data } = jwt.verify(token, secret, { maxAge: expiration });
+        context.user = data;
+        console.log(data);
+      } catch {
+        console.log("Invalid token");
+      }
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -77,10 +89,20 @@ const resolvers = {
     },
     //  remove a favorite book
     removeFavBook: async (parent, { bookId }, context) => {
+      try {
+        const { data } = jwt.verify(token, secret, { maxAge: expiration });
+        context.user = data;
+      } catch {
+        console.log("Invalid token");
+      }
       if (context.user) {
-        return Profile.findOneAndDelete(
+        return Profile.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { favoriteBooks: bookId } }
+          { $pull: { favoriteBooks: bookId } },
+          {
+            new: true,
+            runValidators: true,
+          }
         );
       }
       throw AuthenticationError;
@@ -104,7 +126,7 @@ const resolvers = {
     // remove a friend
     removeFriend: async (parent, { profileId }, context) => {
       if (context.user) {
-        return Profile.findOneAndDelete(
+        return Profile.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { friends: profileId } }
         );
@@ -130,7 +152,7 @@ const resolvers = {
     // remove a book from books to lend
     removeBooksToLend: async (parent, { bookId }, context) => {
       if (context.user) {
-        return Profile.findOneAndDelete(
+        return Profile.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { booksToLend: bookId } }
         );
@@ -156,7 +178,7 @@ const resolvers = {
     // remove a book from books lent
     removeBooksLent: async (parent, { bookId }, context) => {
       if (context.user) {
-        return Profile.findOneAndDelete(
+        return Profile.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { booksLent: bookId } }
         );
@@ -182,7 +204,7 @@ const resolvers = {
     // remove a book from books borrowed
     removeBooksBorrowed: async (parent, { bookId }, context) => {
       if (context.user) {
-        return Profile.findOneAndDelete(
+        return Profile.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { booksBorrowed: bookId } }
         );

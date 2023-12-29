@@ -6,14 +6,14 @@ const typeDefs = `
     name: String
     email: String
     password: String
-    friends: [ID!]!
-    favoriteBooks: [ID!]!
-    booksToLend: [ID!]!
-    booksLent: [ID!]!
-    booksBorrowed: [ID!]!
+    friends: [ID!]
+    favoriteBooks: [ID!]
+    booksToLend: [ID!]
+    booksLent: [ID!]
+    booksBorrowed: [ID!]
     gender: String!
     status: String!
-    relationshipStatus: [String!]!
+    relationshipStatus: [String!]
   }
 
   type Book {
