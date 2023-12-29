@@ -280,7 +280,7 @@ const resolvers = {
       throw AuthenticationError;
     },
     // create a ledger
-    addLedger: async (
+    openLedger: async (
       parent,
       { bookId, lender, borrower, lendDate, returnDate, status },
       context
@@ -298,7 +298,7 @@ const resolvers = {
       throw AuthenticationError;
     },
     // update a ledger return date
-    updateLedger: async (parent, { ledgerId }, context) => {
+    closeLedger: async (parent, { ledgerId }, context) => {
       if (context.user) {
         const ledger = await Ledger.findById(ledgerId);
 

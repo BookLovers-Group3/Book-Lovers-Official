@@ -70,8 +70,8 @@ const typeDefs = `
     addBook: Book
     updateBookBorrower: Book
     updateBookAvailability: Book
-    addLedger: Ledger
-    updateLedger: Ledger
+    openLedger: Ledger
+    closeLedger: Ledger
   }
 `;
 
