@@ -3,10 +3,11 @@ const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
   Query: {
+    // get all profiles
     profiles: async () => {
       return Profile.find();
     },
-
+    // get one profile per profileID
     profile: async (parent, { profileId }) => {
       return Profile.findOne({ _id: profileId });
     },
@@ -17,11 +18,11 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-
+    // get all books
     books: async () => {
       return Book.find();
     },
-
+    // get one book per bookID
     book: async (parent, { bookId }) => {
       return Book.findOne({ _id: bookId });
     },
@@ -34,6 +35,7 @@ const resolvers = {
 
       return { token, profile };
     },
+
     login: async (parent, { email, password }) => {
       const profile = await Profile.findOne({ email });
 
@@ -51,6 +53,21 @@ const resolvers = {
       return { token, profile };
     },
 
+    addFavBook: async (parent, { bookId }, context) => {
+      if (context.user) {
+        return Profile.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: { favoriteBooks: bookId },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw AuthenticationError;
+    },
     // Add a third argument to the resolver to access data in our `context`
 
     // Set up mutation so a logged in user can only remove their profile and no one else's
