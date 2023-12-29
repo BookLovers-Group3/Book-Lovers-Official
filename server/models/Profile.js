@@ -19,6 +19,43 @@ const profileSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  friends: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Profile",
+    },
+  ],
+  favoriteBooks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Book",
+    },
+  ],
+  booksToLend: {
+    type: Schema.Types.ObjectId,
+    ref: "Book",
+  },
+  booksLent: {
+    type: Schema.Types.ObjectId,
+    ref: "Book",
+  },
+  booksBorrowed: {
+    type: Schema.Types.ObjectId,
+    ref: "Book",
+  },
+  gender: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+  },
+  relationshipstatus: [
+    {
+      type: String,
+    },
+  ],
 });
 
 // set up pre-save middleware to create password
