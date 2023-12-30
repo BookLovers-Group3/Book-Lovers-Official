@@ -1,21 +1,29 @@
 import { useState, useEffect } from 'react';
 import { useMutation, useQuery } from "@apollo/client";
+import {
+    Container,
+    Col,
+    Form,
+    Button,
+    Card,
+    Row
+} from 'react-bootstrap';
 
 import { searchGoogleBooks } from "../../utils/API";
 
 
-const Search = () => {
+const BookSearch = () => {
 
     const [searchedBooks, setSearchedBooks] = useState([]);
     const [searchInput, setSearchInput] = useState('');
 
-    const [savedBookIds, setSavedBookIds] = useState(
-        userData
-          ? userData.savedBooks?.map((book) => {
-              return book.bookId;
-            })
-          : []
-    )
+    // const [savedBookIds, setSavedBookIds] = useState(
+    //     userData
+    //       ? userData.savedBooks?.map((book) => {
+    //           return book.bookId;
+    //         })
+    //       : []
+    // )
 
     const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -92,7 +100,7 @@ const Search = () => {
                     <Card.Title>{book.title}</Card.Title>
                     <p className='small'>Authors: {book.authors}</p>
                     <Card.Text>{book.description}</Card.Text>
-                    {Auth.loggedIn() && (
+                    {/* {Auth.loggedIn() && (
                       <Button
                         disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
                         className='btn-block btn-info'
@@ -101,7 +109,7 @@ const Search = () => {
                           ? 'This book has already been saved!'
                           : 'Save this Book!'}
                       </Button>
-                    )}
+                    )} */}
                   </Card.Body>
                 </Card>
               </Col>
@@ -113,4 +121,4 @@ const Search = () => {
     );
 };  
   
-export default Search;
+export default BookSearch;
