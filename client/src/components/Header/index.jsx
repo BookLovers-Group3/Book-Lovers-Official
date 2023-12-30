@@ -10,12 +10,12 @@ const Header = () => {
   };
   console.log("logged in?", Auth.loggedIn());
   return (
-    <header className="bg-info text-dark display-flex align-center">
-      <div className="flex-column justify-space-between-lg justify-center align-center text-center">
-        <img className="logo-image" src="../images/Logo-2.png" alt="Logo" />
-        <Link style={{ textDecoration: "none" }} className="text-dark" to="/">
-          <h1 style={{ fontSize: "3rem" }}>Book 💌 Lovers</h1>
+    <header>
+      <div className="custom-header">
+        <Link style={{ textDecoration: "none" }} to="/">
+          <h1 style={{ fontSize: "4rem" }}>Book L&#9825;vers</h1>
         </Link>
+        <img className="logo-image" src="../images/Logo-2.png" alt="Logo" />
         <p className="m-0" style={{ fontSize: "1.75rem", fontWeight: "700" }}>
           Share your books and social.
         </p>

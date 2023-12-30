@@ -1,8 +1,16 @@
 
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
 
 
 header {
+  h1 {
+    color: #4e8d7c;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
+      font-family: 'Dancing Script', cursive;
+  }
+
   .logo-image {
     width: 150px;
   }
