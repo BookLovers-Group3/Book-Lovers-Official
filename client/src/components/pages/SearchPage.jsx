@@ -12,7 +12,7 @@ import {
 import { searchGoogleBooks } from "../../utils/API";
 
 
-const BookSearch = () => {
+const BuildBookList = () => {
 
     const [searchedBooks, setSearchedBooks] = useState([]);
     const [searchInput, setSearchInput] = useState('');
@@ -59,7 +59,7 @@ const BookSearch = () => {
       <>
       <div className="text-light bg-dark p-5">
         <Container>
-          <h1>Search for Books!</h1>
+          <h1>Populate your own lending library here!</h1>
           <Form onSubmit={handleFormSubmit}>
             <Row>
               <Col xs={12} md={8}>
@@ -86,7 +86,7 @@ const BookSearch = () => {
         <h2 className='pt-5'>
           {searchedBooks.length
             ? `Viewing ${searchedBooks.length} results:`
-            : 'Search for a book to begin'}
+            : 'Search for a book to add it to your personal library list'}
         </h2>
         <Row>
           {searchedBooks.map((book) => {
@@ -121,4 +121,4 @@ const BookSearch = () => {
     );
 };  
   
-export default BookSearch;
+export default BuildBookList;

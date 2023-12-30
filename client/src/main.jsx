@@ -6,7 +6,7 @@ import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
 import ErrorPage from "./components/pages/ErrorPage";
-import BookSearch from "./components/pages/SearchPage.jsx";
+import BuildBookList from "./components/pages/SearchPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,8 +27,8 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
       {
-        path: "/book-search",
-        element: <BookSearch />
+        path: "/build-book-list",
+        element: <BuildBookList />
       }
     ],
   },
