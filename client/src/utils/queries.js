@@ -26,3 +26,16 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const QUERY_BOOKS_Lending = gql`
+  query booksLending {
+    booksLending {
+      _id
+      authors
+      description
+      image
+      owner
+      title
+    }
+  }
+`;

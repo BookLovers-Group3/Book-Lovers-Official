@@ -4,7 +4,7 @@ const { signToken, AuthenticationError } = require("../utils/auth");
 // const secret = "mysecretssshhhhhhh";
 // const expiration = "2h";
 // const token =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiY2hnZGF2ZUBnbWFpbC5jb20iLCJuYW1lIjoiY2hnZGF2ZSIsIl9pZCI6IjY1OGY0Mjg0MDFjNjI5NWU4ZDZmNDgxZCJ9LCJpYXQiOjE3MDM4ODc0OTIsImV4cCI6MTcwMzk3Mzg5Mn0.WrvFmWaMjQy3d5Gj3vB0sdS4_3wBHuFA0TbR06Vj3-0";
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiY2hnZGF2ZUBnbWFpbC5jb20iLCJuYW1lIjoiY2hnZGF2ZSIsIl9pZCI6IjY1OGY0Mjg0MDFjNjI5NWU4ZDZmNDgxZCJ9LCJpYXQiOjE3MDM5NzUyNTEsImV4cCI6MTcwNDA2MTY1MX0.8ZKij4fI5K5cqhb6GP66SkpU-Kfbui093xRSCGU8t-k";
 
 const resolvers = {
   Query: {
@@ -23,9 +23,9 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    // get all books
-    books: async () => {
-      return Book.find();
+    // get all books that are avaiable to borrow
+    booksLending: async () => {
+      return Book.find({ isAvailable: true });
     },
     // get one book per bookID
     book: async (parent, { bookId }) => {
