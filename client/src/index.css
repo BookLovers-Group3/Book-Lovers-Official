@@ -1,7 +1,5 @@
-
-
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -14,15 +12,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-
-  --ivory: #F3F2DA; 
-  --green: #4E8D7C, 
-  --darkgreen: #045762, 
-  --pink: #EA97AD
-  
-  }  
-  
-  
+  --ivory: #f3f2da;
+  --green: #4e8d7c;
+  --darkgreen: #045762;
+  --pink: #ea97ad;
+}
 
 a {
   font-weight: 500;

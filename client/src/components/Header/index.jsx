@@ -12,13 +12,14 @@ const Header = () => {
   return (
     <header>
       <div className="custom-header">
-        <Link style={{ textDecoration: "none" }} to="/">
+        <Link style={{ textDecoration: "none" }} className="text-dark" to="/">
           <h1 style={{ fontSize: "4rem" }}>Book L&#9825;vers</h1>
         </Link>
-        <img className="logo-image" src="../images/Logo-2.png" alt="Logo" />
+
         <p className="m-0" style={{ fontSize: "1.75rem", fontWeight: "700" }}>
           Share your books and social.
         </p>
+        <img className="logo-image" src="../images/Logo-2.png" alt="Logo" />
         <div>
           {Auth.loggedIn() ? (
             <>
