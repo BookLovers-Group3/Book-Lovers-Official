@@ -9,51 +9,74 @@ import {
     Row
 } from 'react-bootstrap';
 
+import auth from '../../../../server/utils/auth';
 import { searchGoogleBooks } from "../../utils/API";
-
+import { QUERY_ME } from "../../utils/queries"
+import { FAV_BOOK } from '../../utils/mutations';
 
 const BuildBookList = () => {
+    const [favoriteBook, { error, data }] = useMutation(FAV_BOOK);
 
     const [searchedBooks, setSearchedBooks] = useState([]);
     const [searchInput, setSearchInput] = useState('');
 
-    // const [savedBookIds, setSavedBookIds] = useState(
-    //     userData
-    //       ? userData.savedBooks?.map((book) => {
-    //           return book.bookId;
-    //         })
-    //       : []
-    // )
+    const userData = data?.me
+
+    const [favBookIds, setFavBookIds] = useState(
+      userData
+        ? userData.savedBooks?.map((book) => {
+            return book.bookId;
+          })
+        : []
+    )
+
+    useEffect(() => {
+      console.log('favBookIds: ', favBookIds)
+      return () => saveBookIds(favBookIds);
+    });
 
     const handleFormSubmit = async (event) => {
-    event.preventDefault();
+      event.preventDefault();
 
-    if (!searchInput) {
-      return false;
-    }
-
-    try {
-      const response = await searchGoogleBooks(searchInput);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
+      if (!searchInput) {
+        return false;
       }
 
-      const { items } = await response.json();
+      try {
+        const response = await searchGoogleBooks(searchInput);
 
-      const bookData = items.map((book) => ({
-        bookId: book.id,
-        authors: book.volumeInfo.authors || ['No author to display'],
-        title: book.volumeInfo.title,
-        description: book.volumeInfo.description || ['No description yet'],
-        image: book.volumeInfo.imageLinks?.thumbnail || '',
-      }));
+        if (!response.ok) {
+          throw new Error('something went wrong!');
+        }
 
-      setSearchedBooks(bookData);
-      setSearchInput('');
-    } catch (err) {
-      console.error(err);
+        const { items } = await response.json();
+
+        const bookData = items.map((book) => ({
+          bookId: book.id,
+          authors: book.volumeInfo.authors || ['No author to display'],
+          title: book.volumeInfo.title,
+          description: book.volumeInfo.description || ['No description yet'],
+          image: book.volumeInfo.imageLinks?.thumbnail || '',
+        }));
+
+        setSearchedBooks(bookData);
+        setSearchInput('');
+      } catch (err) {
+        console.error(err);
     }};
+
+    const handleFavBook = async (bookId) => {
+      console.log('Book Info: ', bookId)
+      const bookToFavorite = searchedBooks.find((book) => book.bookId === bookId);
+
+      try {
+        const { data } = await favoriteBook({
+          variables: { bookToFavorite }
+        })
+      } catch (e) {
+        console.log(e)
+      }
+    };
 
     return (
       <>
@@ -100,16 +123,16 @@ const BuildBookList = () => {
                     <Card.Title>{book.title}</Card.Title>
                     <p className='small'>Authors: {book.authors}</p>
                     <Card.Text>{book.description}</Card.Text>
-                    {/* {Auth.loggedIn() && (
+                    {auth.loggedIn() && (
                       <Button
                         disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
                         className='btn-block btn-info'
-                        onClick={() => handleSaveBook(book.bookId)}>
+                        onClick={() => handleFavBook(book.bookId)}>
                         {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
                           ? 'This book has already been saved!'
                           : 'Save this Book!'}
                       </Button>
-                    )} */}
+                    )}
                   </Card.Body>
                 </Card>
               </Col>
