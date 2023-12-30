@@ -35,3 +35,11 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+// add to favorites
+
+// add to lending list
+
+// remove from favorites
+
+// remove from lending list
