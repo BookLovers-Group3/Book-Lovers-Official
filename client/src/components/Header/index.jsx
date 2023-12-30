@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import Auth from "../../utils/auth";
+import "./header.scss";
 
 const Header = () => {
   const logout = (event) => {
@@ -9,12 +10,11 @@ const Header = () => {
   };
   console.log("logged in?", Auth.loggedIn());
   return (
-    <header className="bg-info text-dark mb-4 py-3 display-flex align-center">
-      <div className="container flex-column justify-space-between-lg justify-center align-center text-center">
-        <Link className="text-dark" to="/">
-          <h1 className="m-0" style={{ fontSize: "3rem" }}>
-            Book ❤️ Lovers
-          </h1>
+    <header className="bg-info text-dark display-flex align-center">
+      <div className="flex-column justify-space-between-lg justify-center align-center text-center">
+        <img className="logo-image" src="../images/Logo-2.png" alt="Logo" />
+        <Link style={{ textDecoration: "none" }} className="text-dark" to="/">
+          <h1 style={{ fontSize: "3rem" }}>Book 💌 Lovers</h1>
         </Link>
         <p className="m-0" style={{ fontSize: "1.75rem", fontWeight: "700" }}>
           Share your books and social.
@@ -25,7 +25,9 @@ const Header = () => {
               <Link className="btn btn-lg btn-primary m-2" to="/me">
                 View My Profile
               </Link>
-              <Link className="btn btn-lg btn-primary m-2" to="/build-book-list">
+              <Link
+                className="btn btn-lg btn-primary m-2"
+                to="/build-book-list">
                 Add to Lending Library
               </Link>
               <button className="btn btn-lg btn-light m-2" onClick={logout}>
