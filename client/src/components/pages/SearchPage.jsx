@@ -9,22 +9,25 @@ import {
     Row
 } from 'react-bootstrap';
 
-import auth from '../../../../server/utils/auth';
+import auth from '../../utils/auth';
 import { searchGoogleBooks } from "../../utils/API";
+import { favoratedBookIds, getFavBookIds, removeFavBookId } from '../../utils/localStorage';
 import { QUERY_ME } from "../../utils/queries"
 import { FAV_BOOK } from '../../utils/mutations';
 
 const BuildBookList = () => {
-    const [favoriteBook, { error, data }] = useMutation(FAV_BOOK);
+    const [favoriteBook, { error }] = useMutation(FAV_BOOK);
 
     const [searchedBooks, setSearchedBooks] = useState([]);
     const [searchInput, setSearchInput] = useState('');
+
+    const { loading, data } = useQuery(QUERY_ME);
 
     const userData = data?.me
 
     const [favBookIds, setFavBookIds] = useState(
       userData
-        ? userData.savedBooks?.map((book) => {
+        ? userData.favdBooks?.map((book) => {
             return book.bookId;
           })
         : []
@@ -32,7 +35,7 @@ const BuildBookList = () => {
 
     useEffect(() => {
       console.log('favBookIds: ', favBookIds)
-      return () => saveBookIds(favBookIds);
+      return () => favoratedBookIds(favBookIds);
     });
 
     const handleFormSubmit = async (event) => {
@@ -73,11 +76,16 @@ const BuildBookList = () => {
         const { data } = await favoriteBook({
           variables: { bookToFavorite }
         })
+        console.log('data from FAV_BOOK mutation: ', data)
       } catch (e) {
         console.log(e)
       }
     };
 
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+    
     return (
       <>
       <div className="text-light bg-dark p-5">
@@ -125,12 +133,12 @@ const BuildBookList = () => {
                     <Card.Text>{book.description}</Card.Text>
                     {auth.loggedIn() && (
                       <Button
-                        disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
+                        disabled={favBookIds?.some((favoritedBookId) => favoritedBookId === book.bookId)}
                         className='btn-block btn-info'
                         onClick={() => handleFavBook(book.bookId)}>
-                        {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
-                          ? 'This book has already been saved!'
-                          : 'Save this Book!'}
+                        {favBookIds?.some((favoritedBookId) => favoritedBookId === book.bookId)
+                          ? 'Favorited'
+                          : 'Add to Favorites'}
                       </Button>
                     )}
                   </Card.Body>

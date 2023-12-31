@@ -19,7 +19,7 @@ export default function BookLendingListPage() {
   });
   return (
     <div>
-      Book Leding List Page
+      Book Lending List Page
       <div>{list}</div>
     </div>
   );
