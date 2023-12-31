@@ -43,18 +43,18 @@ const Signup = () => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
+    <main className="justify-center mb-4">
       <div className="col-12 col-lg-10">
-        <div className="card">
+        <div className="custom-card">
           <h4 className="card-header bg-dark text-light p-2">Sign Up</h4>
-          <div className="card-body">
+          <div className="custom-card-body">
             {data ? (
               <p>
                 Success! You may now head{" "}
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (
-              <form onSubmit={handleFormSubmit}>
+              <form className='custom-form' onSubmit={handleFormSubmit}>
                 <input
                   className="form-input"
                   placeholder="Your username"
@@ -85,8 +85,7 @@ const Signup = () => {
                   name="gender"
                   type="password"
                   value={formState.gender}
-                  onChange={handleChange}
-                >
+                  onChange={handleChange}>
                   <option value="">Select Gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -94,8 +93,7 @@ const Signup = () => {
                 <button
                   className="btn btn-block btn-info"
                   style={{ cursor: "pointer" }}
-                  type="submit"
-                >
+                  type="submit">
                   Submit
                 </button>
               </form>
