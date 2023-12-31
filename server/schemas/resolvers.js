@@ -81,19 +81,21 @@ const resolvers = {
       return { token, profile };
     },
     // add a favorite book
-    addFavBook: async (parent, { bookId }, context) => {
-      // try {
+
+    // try {
       //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
       //   context.user = data;
       //   console.log(data);
       // } catch {
       //   console.log("Invalid token");
       // }
+
+    favoriteBook: async (parent, { book }, context) => {
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $addToSet: { favoriteBooks: bookId },
+            $addToSet: { favoriteBooks: book },
           },
           {
             new: true,
@@ -103,6 +105,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+
     //  remove a favorite book
     removeFavBook: async (parent, { bookId }, context) => {
       // try {

@@ -11,9 +11,11 @@ import {
 
 import auth from '../../utils/auth';
 import { searchGoogleBooks } from "../../utils/API";
-import { favoratedBookIds, getFavBookIds, removeFavBookId } from '../../utils/localStorage';
+import { favoritedBookIds, getFavBookIds, removeFavBookId } from '../../utils/localStorage';
 import { QUERY_ME } from "../../utils/queries"
 import { FAV_BOOK } from '../../utils/mutations';
+
+
 
 const BuildBookList = () => {
     const [favoriteBook, { error }] = useMutation(FAV_BOOK);
@@ -27,15 +29,15 @@ const BuildBookList = () => {
 
     const [favBookIds, setFavBookIds] = useState(
       userData
-        ? userData.favdBooks?.map((book) => {
+        ? userData.favoriteBooks?.map((book) => {
             return book.bookId;
           })
         : []
     )
 
     useEffect(() => {
-      console.log('favBookIds: ', favBookIds)
-      return () => favoratedBookIds(favBookIds);
+      // console.log('favBookIds: ', favBookIds)
+      return () => favoritedBookIds(favBookIds);
     });
 
     const handleFormSubmit = async (event) => {
@@ -71,12 +73,15 @@ const BuildBookList = () => {
     const handleFavBook = async (bookId) => {
       console.log('Book Info: ', bookId)
       const bookToFavorite = searchedBooks.find((book) => book.bookId === bookId);
+      console.log('booktofavorite: ', bookToFavorite)
+
+      console.log("userdata: ", userData)
 
       try {
-        const { data } = await favoriteBook({
-          variables: { bookToFavorite }
+        const response = await favoriteBook({
+          variables: { book: bookToFavorite }
         })
-        console.log('data from FAV_BOOK mutation: ', data)
+        console.log('response from favoriteBook: ', response)
       } catch (e) {
         console.log(e)
       }

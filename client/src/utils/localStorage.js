@@ -6,7 +6,7 @@ export const getFavBookIds = () => {
     return favBookIds;
 };
   
-export const favoratedBookIds = (bookIdArr) => {
+export const favoritedBookIds = (bookIdArr) => {
     if (bookIdArr.length) {
       localStorage.setItem('favorited_books', JSON.stringify(bookIdArr));
     } else {

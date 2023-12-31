@@ -38,16 +38,14 @@ export const LOGIN_USER = gql`
 
 // add to favorites
 export const FAV_BOOK = gql`
-  mutation favoriteBook($book: BookInput!) {
-    favoriteBook(book: $book) {
+  mutation favoriteBook ($book: BookInput!) {
+    favoriteBook (book: $book) {
         _id
         name
         favoriteBooks {
             bookId
             title
             description
-            authors
-            image
         }
     }
   }
