@@ -43,10 +43,9 @@ const Signup = () => {
   };
 
   return (
-    <main className="justify-center mb-4">
-      <div className="col-12 col-lg-10">
+    <main className='container'>
         <div className="custom-card">
-          <h4 className="card-header bg-dark text-light p-2">Sign Up</h4>
+          <h4>Sign Up</h4>
           <div className="custom-card-body">
             {data ? (
               <p>
@@ -54,7 +53,7 @@ const Signup = () => {
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (
-              <form className='custom-form' onSubmit={handleFormSubmit}>
+              <form className="custom-form" onSubmit={handleFormSubmit}>
                 <input
                   className="form-input"
                   placeholder="Your username"
@@ -106,7 +105,6 @@ const Signup = () => {
             )}
           </div>
         </div>
-      </div>
     </main>
   );
 };

@@ -12,18 +12,6 @@
   /* padding: 2rem; */
   text-align: center;
 }
-/* 
-.logo {
-  height: 6em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-} */
 
 @keyframes logo-spin {
   from {
@@ -57,21 +45,3 @@
   height: 100vh;
 }
 
-.custom-card-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.custom-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 40%;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-  border: 1px solid #ccc;
-  padding: 40px;
-  background-color: var(--darkgreen);
-  border-radius: 25%;
-}
