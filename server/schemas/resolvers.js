@@ -4,7 +4,7 @@ const { signToken, AuthenticationError } = require("../utils/auth");
 // const secret = "mysecretssshhhhhhh";
 // const expiration = "2h";
 // const token =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiY2hnZGF2ZUBnbWFpbC5jb20iLCJuYW1lIjoiY2hnZGF2ZSIsIl9pZCI6IjY1OGY0Mjg0MDFjNjI5NWU4ZDZmNDgxZCJ9LCJpYXQiOjE3MDM5NzUyNTEsImV4cCI6MTcwNDA2MTY1MX0.8ZKij4fI5K5cqhb6GP66SkpU-Kfbui093xRSCGU8t-k";
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiY2hnZGF2ZUBnbWFpbC5jb20iLCJuYW1lIjoiY2hnZGF2ZSIsIl9pZCI6IjY1OGY0Mjg0MDFjNjI5NWU4ZDZmNDgxZCJ9LCJpYXQiOjE3MDM5ODA1MjAsImV4cCI6MTcwNDA2NjkyMH0.0gDhaCC3Qefe6v3GgXE62xP8CIYt-JoBY4E-06xKvk0";
 
 const resolvers = {
   Query: {
@@ -30,6 +30,22 @@ const resolvers = {
     // get one book per bookID
     book: async (parent, { bookId }) => {
       return Book.findOne({ _id: bookId });
+    },
+
+    // queryFavoriteBooks: async (parent, args, context) => {
+    //   console.log("finding favorite books");
+    //   const favoriteBookIds = parent.favoriteBooks;
+    //   const favoriteBooks = await context.db.Book.find({
+    //     _id: { $in: favoriteBookIds },
+    //   });
+    //   return favoriteBooks;
+    // },
+    queryFavoriteBooks: async (parent, { profileId }, context) => {
+      const user = await Profile.findOne({ _id: profileId }).populate(
+        "favoriteBooks"
+      );
+      const favoriteBooks = user.favoriteBooks;
+      return favoriteBooks;
     },
   },
 

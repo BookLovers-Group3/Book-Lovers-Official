@@ -39,3 +39,14 @@ export const QUERY_BOOKS_Lending = gql`
     }
   }
 `;
+
+export const QUERY_Favorite_Books = gql`
+  query QueryFavoriteBooks($profileId: ID!) {
+    queryFavoriteBooks(profileId: $profileId) {
+      _id
+      authors
+      title
+      description
+    }
+  }
+`;

@@ -8,7 +8,7 @@ export default function BookLendingListPage() {
     return <div>Loading...</div>;
   }
 
-  const list = data.booksLending.map((book) => {
+  const list = data?.booksLending.map((book) => {
     return (
       <div key={book._id}>
         <p>
