@@ -2,7 +2,7 @@ const Home = () => {
   return (
     <main>
       <div className="flex-row justify-center">
-        <div className="col-12 col-md-10">Test Page</div>
+        {/* <div className="col-12 col-md-10">Test</div> */}
       </div>
     </main>
   );
