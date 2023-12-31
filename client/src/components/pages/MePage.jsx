@@ -13,8 +13,8 @@ export default function MePage() {
       variables: { profileId: user?._id },
     }
   );
-  const favoriteBooks = favoriteBooksData.queryFavoriteBooks;
-  const favoriteBookList = favoriteBooks.map((book) => {
+  const favoriteBooks = favoriteBooksData?.queryFavoriteBooks;
+  const favoriteBookList = favoriteBooks?.map((book) => {
     return <div key={book._id}>{book.title}</div>;
   });
   // const favBooks = userData.;
