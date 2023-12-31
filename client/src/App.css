@@ -72,8 +72,6 @@
   align-content: center;
   border: 1px solid #ccc;
   padding: 40px;
-  background-color: var(--darkgreen); 
+  background-color: var(--darkgreen);
   border-radius: 25%;
-
-  
 }
