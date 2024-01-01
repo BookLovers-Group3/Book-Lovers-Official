@@ -1,9 +1,8 @@
 import { useQuery } from "@apollo/client";
-import { QUERY_BOOKS_Lending } from "../../utils/queries";
+import { QUERY_BOOKS_LENDING } from "../../utils/queries";
 
 export default function BookLendingListPage() {
-  const { loading, data } = useQuery(QUERY_BOOKS_Lending);
-  console.log(data);
+  const { loading, data } = useQuery(QUERY_BOOKS_LENDING);
   if (loading) {
     return <div>Loading...</div>;
   }
