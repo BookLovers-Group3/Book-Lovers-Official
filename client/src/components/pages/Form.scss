@@ -1,0 +1,26 @@
+.container {
+  width: 350px;
+  position: relative;
+  margin: 25px auto;
+  line-height: 1.5;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.185);
+}
+
+.custom-card-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 40%;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  border: 1px solid #ccc;
+  padding: 40px;
+  background-color: var(--darkgreen);
+  border-radius: 25%;
+}

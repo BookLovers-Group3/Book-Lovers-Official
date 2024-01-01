@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
+import LibraryCard from "../LibraryCard/LibraryCard";
 
 export default function MePage() {
   // query the user information from the token, QUERY_ME will query the user info, as well as user's favorite books, and user's lending books and the user's borrowed books
@@ -23,11 +24,14 @@ export default function MePage() {
     return <div>Loading...</div>;
   }
   return (
-    <div>
-      MePage
-      <div>Welcome back! {user.name}</div>
-      <div>Below are your favorite books </div>
-      <div>{favoriteBookList}</div>
-    </div>
+    <>
+      <div>
+        MePage
+        <div>Welcome back! {user.name}</div>
+        <div>Below are your favorite books </div>
+        <div>{favoriteBookList}</div>
+      </div>
+      <LibraryCard user={user}/>
+    </>
   );
 }
