@@ -7,14 +7,24 @@ const RandomBooks = ({ randomBook }) => {
         <section className="random-book-container">
           <div>
             <img
-              src={randomBook.volumeInfo.imageLinks.thumbnail}
+              src={
+                randomBook.volumeInfo.imageLinks.thumbnail ||
+                "No image available"
+              }
               alt={`book cover for ${randomBook.volumeInfo.title}`}
             />
             <h3> {randomBook.volumeInfo.title}</h3>
-            <p>{randomBook.volumeInfo.authors}</p>
+            <p>{randomBook.volumeInfo.authors || "author unknown"}</p>
           </div>
           <div>
-            <p>{randomBook.volumeInfo.description}</p>
+            <p>
+              {randomBook.volumeInfo.description || "No description available"}{" "}
+            </p>
+            {randomBook.saleInfo.isEbook ? (
+              <a href={randomBook.saleInfo.buyLink} target="_blank">
+                Buy it as an eBook!
+              </a>
+            ) : null}
           </div>
         </section>
       ) : (

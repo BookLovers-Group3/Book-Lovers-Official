@@ -18,6 +18,7 @@ const Home = () => {
     <main>
       <div>
         <div>
+          <h2>Featured Book</h2>
           {randomBook ? (
             <RandomBook randomBook={randomBook} />
           ) : (
