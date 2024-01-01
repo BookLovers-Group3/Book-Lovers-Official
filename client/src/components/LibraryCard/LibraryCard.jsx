@@ -9,8 +9,10 @@ const LibraryCard = ({ user }) => {
       </div>
       <div className="user-profile">
         <img src="#" alt="avatar" />
-        <div>Favorite Genres</div>
-        <div>I am looking for:</div>
+        <div>
+          <div>Favorite Genres</div>
+          <div>I am looking for:</div>
+        </div>
       </div>
       <div className="user-list">
         <a href="#">Fav List</a>

@@ -1,1 +1,38 @@
+.main-card {
+  background-color: rgb(148, 113, 119);
+  border: 5px solid wheat;
+  width: 70%;
+  margin: 50px auto;
+}
 
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 25px;
+  padding: 15px;
+  color: wheat;
+}
+
+.user-profile {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 25px;
+  padding: 15px;
+  color: wheat;
+}
+
+.user-list {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 15px;
+  padding: 20px;
+  color: white;
+
+  a {
+    text-decoration: none;
+    color: wheat;
+  }
+  a:hover {
+    color: black;
+  }
+}
