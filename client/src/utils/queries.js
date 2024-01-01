@@ -79,3 +79,12 @@ export const QUERY_MY_FAVORITE_BOOKS = gql`
     }
   }
 `;
+
+export const QUERY_SINGLE_BOOK = gql`
+  query singleBook($bookId: ID!) {
+    book(bookId: $bookId) {
+      _id
+      title
+    }
+  }
+`;
