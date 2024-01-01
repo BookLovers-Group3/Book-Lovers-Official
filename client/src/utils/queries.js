@@ -24,10 +24,28 @@ export const QUERY_ME = gql`
       _id
       name
     }
+    queryMyFavoriteBooks {
+      _id
+      authors
+      title
+      description
+    }
+    queryMyLendingBooks {
+      _id
+      authors
+      title
+      description
+    }
+    queryMyBorrowedBooks {
+      _id
+      authors
+      title
+      description
+    }
   }
 `;
 
-export const QUERY_BOOKS_Lending = gql`
+export const QUERY_BOOKS_LENDING = gql`
   query booksLending {
     booksLending {
       _id
@@ -40,9 +58,20 @@ export const QUERY_BOOKS_Lending = gql`
   }
 `;
 
-export const QUERY_Favorite_Books = gql`
+export const QUERY_FAVORITE_BOOKS = gql`
   query QueryFavoriteBooks($profileId: ID!) {
     queryFavoriteBooks(profileId: $profileId) {
+      _id
+      authors
+      title
+      description
+    }
+  }
+`;
+
+export const QUERY_MY_FAVORITE_BOOKS = gql`
+  query QueryMyFavoriteBooks {
+    queryMyFavoriteBooks {
       _id
       authors
       title
