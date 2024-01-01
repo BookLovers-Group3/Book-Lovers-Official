@@ -15,6 +15,12 @@ export const QUERY_SINGLE_PROFILE = gql`
       _id
       name
     }
+    queryFavoriteBooks(profileId: $profileId) {
+      _id
+      authors
+      title
+      description
+    }
   }
 `;
 
