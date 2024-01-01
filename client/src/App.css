@@ -45,3 +45,23 @@
   height: 100vh;
 }
 
+.random-book-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border: 1px solid green;
+  width: 80%;
+  margin: 30px auto;
+  
+}
+
+.random-book-container img {
+width: 200px;
+border-radius: 20%;
+  }
+
+.random-book-container :nth-child(2) {
+margin: 20px; 
+width: 70%;
+text-align: center;
+}
