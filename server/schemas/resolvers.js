@@ -47,6 +47,30 @@ const resolvers = {
       const favoriteBooks = user.favoriteBooks;
       return favoriteBooks;
     },
+
+    queryMyFavoriteBooks: async (parent, args, context) => {
+      const user = await Profile.findOne({ _id: context.user._id }).populate(
+        "favoriteBooks"
+      );
+      const favoriteBooks = user.favoriteBooks;
+      return favoriteBooks;
+    },
+
+    queryMyLendingBooks: async (parent, args, context) => {
+      const user = await Profile.findOne({ _id: context.user._id }).populate(
+        "booksToLend"
+      );
+      const lendingBooks = user.booksToLend;
+      return lendingBooks;
+    },
+
+    queryMyBorrowedBooks: async (parent, args, context) => {
+      const user = await Profile.findOne({ _id: context.user._id }).populate(
+        "booksBorrowed"
+      );
+      const borrowedBooks = user.booksBorrowed;
+      return borrowedBooks;
+    },
   },
 
   Mutation: {

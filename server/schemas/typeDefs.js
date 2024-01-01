@@ -59,6 +59,9 @@ const typeDefs = `
     book(bookId: ID!): Book
     me: Profile
     queryFavoriteBooks(profileId: ID!): [Book]
+    queryMyFavoriteBooks: [Book]
+    queryMyLendingBooks: [Book]
+    queryMyBorrowedBooks: [Book]
   }
 
   type Mutation {
