@@ -6,11 +6,12 @@ import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
 import ErrorPage from "./components/pages/ErrorPage";
-import BuildBookList from "./components/pages/SearchPage.jsx";
+// import BuildBookList from "./components/pages/SearchPage.jsx";
 import MePage from "./components/pages/MePage.jsx";
 import ProfilePage from "./components/pages/MePage.jsx";
 import BookPage from "./components/pages/BookPage.jsx";
 import BookLendingListPage from "./components/pages/BookLendingListPage.jsx";
+import AddBookRecord from "./components/pages/SearchPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/build-book-list",
-        element: <BuildBookList />,
+        element: <AddBookRecord />,
       },
       {
         path: "/me",

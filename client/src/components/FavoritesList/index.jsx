@@ -1,0 +1,1 @@
+//add component that displays favorites list for user. includes ability to remove from favorites.

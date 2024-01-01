@@ -56,3 +56,17 @@ export const FAV_BOOK = gql`
 // remove from favorites
 
 // remove from lending list
+
+// add book record
+export const ADD_BOOK = gql`
+  mutation AddBook($book: BookInput!) {
+    addBook(book: $book) {
+      bookId
+      authors
+      title
+      description
+      image
+      link
+    }
+  }
+`

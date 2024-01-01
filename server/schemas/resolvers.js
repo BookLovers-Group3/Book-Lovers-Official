@@ -357,15 +357,7 @@ const resolvers = {
     addBook: async (
       parent,
       {
-        title,
-        authors,
-        image,
-        description,
-        googleBookId,
-        link,
-        owner,
-        borrower,
-        isAvailable,
+        book
       },
       context
     ) => {
@@ -377,15 +369,7 @@ const resolvers = {
       // }
       if (context.user) {
         return Book.create({
-          title,
-          authors,
-          image,
-          description,
-          googleBookId,
-          link,
-          owner: context,
-          borrower,
-          isAvailable,
+          book
         });
       }
       throw AuthenticationError;

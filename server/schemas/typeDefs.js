@@ -17,7 +17,8 @@ const typeDefs = `
   }
 
   type Book {
-    bookId: ID!
+    _id: ID!
+    bookId: String
     title: String
     authors: [String]
     image: String
@@ -40,9 +41,9 @@ const typeDefs = `
 
   input BookInput {
     authors: [String]
-    description: String!
+    description: String
     title: String
-    bookId: ID!
+    bookId: String
     image: String
     link: String
   }
@@ -93,7 +94,7 @@ const typeDefs = `
 
     removeProfile: Profile
 
-    addBook(title: String!, authors: [String], image: String, description: String, googleBookId: String, link: String,owner: ID, borrower: ID, isAvailable: Boolean!): Book
+    addBook(book: BookInput!): Book
 
     updateBookBorrower(bookId: ID!, profileId: ID!): Book
 
