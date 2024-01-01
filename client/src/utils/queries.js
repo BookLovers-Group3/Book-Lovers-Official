@@ -14,6 +14,19 @@ export const QUERY_SINGLE_PROFILE = gql`
     profile(profileId: $profileId) {
       _id
       name
+      friends
+    }
+    queryFavoriteBooks(profileId: $profileId) {
+      _id
+      authors
+      title
+      description
+    }
+    queryProfileLendingBooks(profileId: $profileId) {
+      _id
+      authors
+      title
+      description
     }
   }
 `;
@@ -76,6 +89,15 @@ export const QUERY_MY_FAVORITE_BOOKS = gql`
       authors
       title
       description
+    }
+  }
+`;
+
+export const QUERY_SINGLE_BOOK = gql`
+  query singleBook($bookId: ID!) {
+    book(bookId: $bookId) {
+      _id
+      title
     }
   }
 `;

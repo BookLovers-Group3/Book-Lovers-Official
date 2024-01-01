@@ -8,7 +8,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { Outlet } from "react-router-dom";
 
-import Header from "./components/Header";
+import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 
 const httpLink = createHttpLink({
@@ -37,9 +37,9 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className="bg flex-column justify-flex-start min-100-vh">
-        <Header />
-        <div className="container">
+      <div className="flex-container">
+        <div className="bg">
+          <Nav />
           <Outlet />
         </div>
         <Footer />
@@ -47,5 +47,6 @@ function App() {
     </ApolloProvider>
   );
 }
+
 
 export default App;

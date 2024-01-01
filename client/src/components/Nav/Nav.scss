@@ -1,0 +1,65 @@
+body {
+  font-family: cursive, monospace, sans-serif;
+  margin: 0;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.185);
+  /* background-color:#f3f2da; */
+
+  .custom-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+      padding: 20px;
+    }
+
+    .logo-image {
+      width: 80px;
+      height: 60px;
+      margin-right: 10px;
+    }
+
+    .tagline {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-size: 2.5rem;
+      color: #4e8d7c;
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+        1px 1px 0 #000;
+      font-family: "Dancing Script", cursive;
+      margin: 0;
+      text-decoration: none;
+    }
+
+    .login-signup-container {
+      display: flex;
+      /* flex-direction: column; */
+      justify-content: space-evenly;
+      align-items: center;
+      /* margin-top: 20px; */
+
+      .btn {
+        margin: 0 10px;
+        text-decoration: none;
+        font-size: 1.25rem;
+        color: #a86c7c;
+      }
+    }
+  }
+}

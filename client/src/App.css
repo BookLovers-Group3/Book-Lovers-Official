@@ -12,18 +12,6 @@
   /* padding: 2rem; */
   text-align: center;
 }
-/* 
-.logo {
-  height: 6em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-} */
 
 @keyframes logo-spin {
   from {
@@ -48,6 +36,12 @@
   color: #888;
 }
 
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .bg {
   background-image: url(../public/images/BackgroundDesign.png);
   background-position: center;
@@ -55,23 +49,26 @@
   background-repeat: no-repeat;
   width: 100vw;
   height: 100vh;
+  flex: 1;
 }
 
-.custom-card-body {
+.random-book-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 20px;
+  border: 1px solid green;
+  width: 80%;
+  margin: 30px auto;
 }
 
-.custom-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 40%;
-  align-items: center;
-  justify-content: center;
+.random-book-container img {
+  width: 175px;
+  border-radius: 20%;
+}
+
+.random-book-container :nth-child(2) {
+  margin: 20px;
+  width: 70%;
+  text-align: center;
   align-content: center;
-  border: 1px solid #ccc;
-  padding: 40px;
-  background-color: var(--darkgreen);
-  border-radius: 25%;
 }
