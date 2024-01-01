@@ -15,6 +15,10 @@ export default function BookPage() {
     return <div>Loading...</div>;
   }
 
+  if (!book?._id) {
+    return <h4>No such book exist</h4>;
+  }
+
   return (
     <div>
       BookPage

@@ -46,6 +46,11 @@ export default function ProfilePage() {
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  if (!profile?._id) {
+    return <h4>No such profile exist</h4>;
+  }
+
   return (
     <div>
       ProfilePage
