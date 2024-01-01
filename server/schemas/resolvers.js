@@ -71,6 +71,14 @@ const resolvers = {
       const borrowedBooks = user.booksBorrowed;
       return borrowedBooks;
     },
+
+    queryProfileLendingBooks: async (parent, { profileId }, context) => {
+      const user = await Profile.findOne({ _id: profileId }).populate(
+        "booksToLend"
+      );
+      const lendingBooks = user.booksToLend;
+      return lendingBooks;
+    },
   },
 
   Mutation: {
