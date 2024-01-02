@@ -14,6 +14,7 @@ const typeDefs = `
     gender: String!
     status: String!
     relationshipStatus: [String!]
+    profileImage: String
   }
 
   type Book {
@@ -71,6 +72,7 @@ const typeDefs = `
     addBooksBorrowed(bookId: ID!): Profile
     removeBooksBorrowed(bookId: ID!): Profile
     updateProfileStatus(newStatus: String!): Profile
+    addProfileImage(image: String!): Profile
     removeProfile: Profile
     addBook(title: String!, authors: [String], image: String, description: String, googleBookId: String, link: String,owner: ID, borrower: ID, isAvailable: Boolean!): Book
     updateBookBorrower(bookId: ID!, profileId: ID!): Book

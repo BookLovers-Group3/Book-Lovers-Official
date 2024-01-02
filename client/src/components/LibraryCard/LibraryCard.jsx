@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useMutation } from "@apollo/client";
 import AvatarEditor from "react-avatar-editor";
 import "./LibraryCard.scss";
+import { UPDATE_PROFILE_IMAGE } from "../../utils/mutations";
 const avatar = "../../images/InitialAvatar.jpg";
 
 const LibraryCard = ({ user }) => {
-  const [uploadedImage, setUploadedImage] = useState(avatar);
+  const userImage = user.profileImage;
+  const [uploadedImage, setUploadedImage] = useState(
+    userImage ? userImage : avatar
+  );
+  const [addProfileImage, { error, data }] = useMutation(UPDATE_PROFILE_IMAGE, {
+    refetchQueries: ["me"],
+  });
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => {
+      reader.onload = async () => {
         setUploadedImage(reader.result);
+        addProfileImage({
+          variables: { image: reader.result },
+        });
       };
       reader.readAsDataURL(file);
     }
