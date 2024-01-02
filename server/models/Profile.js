@@ -63,6 +63,9 @@ const profileSchema = new Schema({
       type: String,
     },
   ],
+  profileImage: {
+    type: String,
+  },
 });
 
 // set up pre-save middleware to create password

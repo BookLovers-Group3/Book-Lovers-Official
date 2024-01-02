@@ -345,6 +345,22 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    // update profile image
+    addProfileImage: async (parent, { image }, context) => {
+      if (context.user) {
+        return Profile.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            profileImage: image,
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw AuthenticationError;
+    },
     // Set up mutation so a logged in user can only remove their profile and no one else's
     removeProfile: async (parent, args, context) => {
       // try {

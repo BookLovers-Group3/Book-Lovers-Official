@@ -36,6 +36,7 @@ export const QUERY_ME = gql`
     me {
       _id
       name
+      profileImage
     }
     queryMyFavoriteBooks {
       _id

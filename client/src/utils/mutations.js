@@ -35,3 +35,12 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const UPDATE_PROFILE_IMAGE = gql`
+  mutation updateProfileImage($image: String!) {
+    addProfileImage(image: $image) {
+      _id
+      name
+    }
+  }
+`;
