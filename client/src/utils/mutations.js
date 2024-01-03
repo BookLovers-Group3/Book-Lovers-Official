@@ -38,28 +38,7 @@ export const LOGIN_USER = gql`
 
 // add to favorites
 export const FAV_BOOK = gql`
-  mutation favoriteBook ($book: BookInput!) {
-    favoriteBook (book: $book) {
-        _id
-        name
-        favoriteBooks {
-            bookId
-            title
-            description
-        }
-    }
-  }
-`
-
-// add to lending list
-
-// remove from favorites
-
-// remove from lending list
-
-// add book record
-export const ADD_BOOK = gql`
-  mutation AddBook($book: BookInput!) {
+  mutation addBook($book: BookInput!) {
     addBook(book: $book) {
       bookId
       authors
@@ -68,5 +47,37 @@ export const ADD_BOOK = gql`
       image
       link
     }
+    
   }
+    
 `
+
+// favoriteBook (book: $book) {
+//   _id
+//   name
+//   favoriteBooks {
+//       bookId
+//       title
+//       description
+//   }
+// }
+
+// add to lending list
+
+// remove from favorites
+
+// remove from lending list
+
+// add book record
+// export const ADD_BOOK = gql`
+//   mutation AddBook($book: BookInput!) {
+//     addBook(book: $book) {
+//       bookId
+//       authors
+//       title
+//       description
+//       image
+//       link
+//     }
+//   }
+// `

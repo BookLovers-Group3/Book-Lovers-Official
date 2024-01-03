@@ -375,6 +375,7 @@ const resolvers = {
       // } catch {
       //   console.log("Invalid token");
       // }
+      console.log('book from front: ', book)
       if (context.user) {
         return Book.create({
           book

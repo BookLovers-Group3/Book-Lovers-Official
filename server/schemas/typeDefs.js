@@ -19,7 +19,7 @@ const typeDefs = `
   type Book {
     _id: ID!
     bookId: String
-    title: String
+    title: String!
     authors: [String]
     image: String
     description: String
@@ -40,9 +40,9 @@ const typeDefs = `
   }
 
   input BookInput {
+    title: String!
     authors: [String]
     description: String
-    title: String
     bookId: String
     image: String
     link: String
