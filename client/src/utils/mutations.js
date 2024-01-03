@@ -36,6 +36,15 @@ export const LOGIN_USER = gql`
   }
 `;
 
+export const UPDATE_PROFILE_IMAGE = gql`
+  mutation updateProfileImage($image: String!) {
+    addProfileImage(image: $image) {
+      _id
+      name
+    }
+  }
+`;
+
 // add to favorites
 export const FAV_BOOK = gql`
   mutation addBook($book: BookInput!) {

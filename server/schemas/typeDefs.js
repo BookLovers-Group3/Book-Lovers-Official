@@ -14,6 +14,7 @@ const typeDefs = `
     gender: String!
     status: String!
     relationshipStatus: [String!]
+    profileImage: String
   }
 
   type Book {
@@ -93,6 +94,8 @@ const typeDefs = `
 
     updateProfileStatus(newStatus: String!): Profile
 
+    addProfileImage(image: String!): Profile
+    
     removeProfile: Profile
 
     addBook(book: BookInput!): Book
