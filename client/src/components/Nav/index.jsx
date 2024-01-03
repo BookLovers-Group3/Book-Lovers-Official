@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Auth from "../../utils/auth";
-import "./nav.scss";
+import "./Nav.scss";
 
 const Header = () => {
   const logout = (event) => {
