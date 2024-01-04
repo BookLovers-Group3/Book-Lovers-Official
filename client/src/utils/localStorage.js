@@ -14,7 +14,7 @@ export const favoritedBookIds = (bookIdArr) => {
   }
 };
 
-export const removeFavBookId = (bookId) => {
+export const removeFavBookId = (googleBookId) => {
   const favoritedBookIds = localStorage.getItem("favorited_books")
     ? JSON.parse(localStorage.getItem("favorited_books"))
     : null;
@@ -24,7 +24,7 @@ export const removeFavBookId = (bookId) => {
   }
 
   const updatedFavoritedBookIds = favoritedBookIds?.filter(
-    (favoritedBookId) => favoritedBookId !== bookId
+    (favoritedBookId) => favoritedBookId !== googleBookId
   );
   localStorage.setItem(
     "favorited_books",
