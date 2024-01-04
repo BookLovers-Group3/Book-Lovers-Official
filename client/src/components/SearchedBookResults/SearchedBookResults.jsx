@@ -1,7 +1,9 @@
-import { Container, Col, Card, Row } from "react-bootstrap";
+import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import "./SearchedBookResults.scss";
+import auth from "../../utils/auth";
+import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
 
-function SearchedBookResults({ searchedBooks }) {
+function SearchedBookResults({ searchedBooks, favBookIds, handleFavBook }) {
   return (
     <Container>
       <h2 className="pt-5">
@@ -24,17 +26,22 @@ function SearchedBookResults({ searchedBooks }) {
                 <Card.Body>
                   <Card.Title>{book.title}</Card.Title>
                   <p className="small">Authors: {book.authors}</p>
-                  <Card.Text>{book.description}</Card.Text>
-                  {/* {Auth.loggedIn() && (
-                  <Button
-                    disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
-                    className='btn-block btn-info'
-                    onClick={() => handleSaveBook(book.bookId)}>
-                    {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
-                      ? 'This book has already been saved!'
-                      : 'Save this Book!'}
-                  </Button>
-                )} */}
+                  {/* <Card.Text>{book.description}</Card.Text> */}
+                  <ModalBookDescription description={book.description}/>
+                  {auth.loggedIn() && (
+                    <Button
+                      disabled={favBookIds?.some(
+                        (favoritedBookId) => favoritedBookId === book.bookId
+                      )}
+                      className="btn-block btn-info"
+                      onClick={() => handleFavBook(book.bookId)}>
+                      {favBookIds?.some(
+                        (favoritedBookId) => favoritedBookId === book.bookId
+                      )
+                        ? "Favorited"
+                        : "Add to Favorites"}
+                    </Button>
+                  )}
                 </Card.Body>
               </Card>
             </Col>
