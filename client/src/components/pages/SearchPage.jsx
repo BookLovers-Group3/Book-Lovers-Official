@@ -3,20 +3,26 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Container, Col, Form, Button, Card, Row } from "react-bootstrap";
 // import SearchedBookResults from "../SearchedBookResults/SearchedBookResults";
 import "../SearchedBookResults/SearchedBookResults.scss";
-import auth from '../../utils/auth';
+import auth from "../../utils/auth";
 import { searchGoogleBooks } from "../../utils/API";
-import { favoritedBookIds, getFavBookIds, removeFavBookId } from '../../utils/localStorage';
-import { QUERY_ME } from "../../utils/queries"
-import { FAV_BOOK } from '../../utils/mutations';
+import {
+  favoritedBookIds,
+  getFavBookIds,
+  removeFavBookId,
+} from "../../utils/localStorage";
+import { QUERY_ME } from "../../utils/queries";
+import { FAV_BOOK } from "../../utils/mutations";
 
 const BuildBookList = () => {
-  const [addBook, { error }] = useMutation(FAV_BOOK);
+  const [addBook, { error }] = useMutation(FAV_BOOK, {
+    refetchQueries: ["me"],
+  });
   const [searchedBooks, setSearchedBooks] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
   const { loading: profileLoading, data: profileData } = useQuery(QUERY_ME);
 
-  const userData = profileData?.me
+  const userData = profileData?.me;
 
   const [favBookIds, setFavBookIds] = useState(
     userData
@@ -24,64 +30,66 @@ const BuildBookList = () => {
           return book.googleBookId;
         })
       : []
-  )
+  );
 
   useEffect(() => {
     return () => favoritedBookIds(favBookIds);
   });
 
   const handleFormSubmit = async (event) => {
-      event.preventDefault();
+    event.preventDefault();
 
-      if (!searchInput) {
-        return false;
+    if (!searchInput) {
+      return false;
+    }
+
+    try {
+      const response = await searchGoogleBooks(searchInput);
+
+      if (!response.ok) {
+        throw new Error("something went wrong!");
       }
 
-      try {
-        const response = await searchGoogleBooks(searchInput);
+      const { items } = await response.json();
 
-        if (!response.ok) {
-          throw new Error("something went wrong!");
-        }
+      const bookData = items.map((book) => ({
+        googleBookId: book.id,
+        authors: book.volumeInfo.authors || ["No author to display"],
+        title: book.volumeInfo.title,
+        description: book.volumeInfo.description || "No description yet",
+        image: book.volumeInfo.imageLinks?.thumbnail || "",
+      }));
 
-        const { items } = await response.json();
-
-        const bookData = items.map((book) => ({
-          googleBookId: book.id,
-          authors: book.volumeInfo.authors || ["No author to display"],
-          title: book.volumeInfo.title,
-          description: book.volumeInfo.description || "No description yet",
-          image: book.volumeInfo.imageLinks?.thumbnail || "",
-        }));
-
-        setSearchedBooks(bookData);
-        setSearchInput("");
-      } catch (err) {
-        console.error(err);
+      setSearchedBooks(bookData);
+      setSearchInput("");
+    } catch (err) {
+      console.error(err);
     }
   };
 
-    const handleFavBook = async (googleBookId) => {
-      console.log('Book Info: ', googleBookId)
-      const bookToFavorite = searchedBooks.find((book) => book.googleBookId === googleBookId);
-      console.log('booktofavorite: ', bookToFavorite)
+  const handleFavBook = async (googleBookId) => {
+    console.log("Book Info: ", googleBookId);
+    const bookToFavorite = searchedBooks.find(
+      (book) => book.googleBookId === googleBookId
+    );
+    console.log("booktofavorite: ", bookToFavorite);
 
-      console.log("userdata: ", userData)
+    console.log("userdata: ", userData);
 
-      try {
-        const response = await addBook({
-          variables: { book: bookToFavorite }
-        })
-        console.log('response from addBook: ', response)
-      } catch (e) {
-        console.log(e)
-      }
-    };
-
-    if (profileLoading) {
-      return <div>Loading...</div>;
+    try {
+      const response = await addBook({
+        variables: { book: bookToFavorite },
+      });
+      console.log("response from addBook: ", response);
+    } catch (e) {
+      console.log(e);
     }
-    
+  };
+
+  if (profileLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <div className="search-container">
@@ -110,38 +118,53 @@ const BuildBookList = () => {
       </div>
 
       <Container>
-        <h2 className='pt-5'>
+        <h2 className="pt-5">
           {searchedBooks.length
             ? `Viewing ${searchedBooks.length} results:`
-            : 'Search for a book to add it to your personal library list'}
+            : "Search for a book to add it to your personal library list"}
         </h2>
         <Row>
           {searchedBooks.map((book) => {
             return (
               <Col md="4" key={book.googleBookId}>
-                <Card border='dark'>
+                <Card border="dark">
                   {book.image ? (
-                    <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
+                    <Card.Img
+                      src={book.image}
+                      alt={`The cover for ${book.title}`}
+                      variant="top"
+                    />
                   ) : null}
                   <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
-                    <p className='small'>Authors: {book.authors}</p>
+                    <p className="small">Authors: {book.authors}</p>
                     <Card.Text>{book.description}</Card.Text>
                     {auth.loggedIn() && (
                       <Button
-                        disabled={favBookIds?.some((favoritedBookId) => favoritedBookId === book.googleBookId)}
-                        className='btn-block btn-info'
-                        onClick={() => handleFavBook(book.googleBookId)}>
-                        {favBookIds?.some((favoritedBookId) => favoritedBookId === book.googleBookId)
-                          ? 'Favorited'
-                          : 'Add to Favorites'}
+                        disabled={favBookIds?.some(
+                          (favoritedBookId) =>
+                            favoritedBookId === book.googleBookId
+                        )}
+                        className="btn-block btn-info"
+                        onClick={() => handleFavBook(book.googleBookId)}
+                      >
+                        {favBookIds?.some(
+                          (favoritedBookId) =>
+                            favoritedBookId === book.googleBookId
+                        )
+                          ? "Favorited"
+                          : "Add to Favorites"}
                       </Button>
                     )}
                     {auth.loggedIn() && (
                       <Button
-                        disabled={favBookIds?.some((favoritedBookId) => favoritedBookId === book.googleBookId)}
-                        className='btn-block btn-info'
-                        onClick={() => handleFavBook(book.googleBookId)}>
+                        disabled={favBookIds?.some(
+                          (favoritedBookId) =>
+                            favoritedBookId === book.googleBookId
+                        )}
+                        className="btn-block btn-info"
+                        onClick={() => handleFavBook(book.googleBookId)}
+                      >
                         {/* {favBookIds?.some((favoritedBookId) => favoritedBookId === book.bookId)
                           ? 'On My List'
                           : 'Add to Lending List'} */}
@@ -159,4 +182,4 @@ const BuildBookList = () => {
   );
 };
 
-export default BuildBookList
+export default BuildBookList;
