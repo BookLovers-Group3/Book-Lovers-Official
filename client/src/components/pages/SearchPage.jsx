@@ -14,9 +14,9 @@ const BuildBookList = () => {
   const [searchedBooks, setSearchedBooks] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
-    const { loading, data } = useQuery(QUERY_ME);
+    const { loading: profileLoading, data: profileData } = useQuery(QUERY_ME);
 
-    const userData = data?.me
+    const userData = profileData?.me
 
     const [favBookIds, setFavBookIds] = useState(
       userData
@@ -78,7 +78,7 @@ const BuildBookList = () => {
       }
     };
 
-    if (loading) {
+    if (profileLoading) {
       return <div>Loading...</div>;
     }
     
