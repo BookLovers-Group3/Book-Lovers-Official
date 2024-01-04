@@ -299,13 +299,19 @@ const resolvers = {
     ) => {
       console.log('book from front: ', book)
       if (context.user) {
-        return Book.create({
+        Book.create({
           ...book
-          // then grab book _id and use profile.findOneAndUpdate to add to favorites list
-        });
+        })
+        // then grab book _id and use profile.findOneAndUpdate to add to favorites list
+        console.log("book? ", book)
+        return Profile.findOneAndUpdate({
+           _id: context.user._id,
+           favoriteBooks: book._id 
+        })
       }
       throw AuthenticationError;
     },
+
     // update book borrower
     updateBookBorrower: async (parent, { bookId, profileId }, context) => {
       if (context.user) {
