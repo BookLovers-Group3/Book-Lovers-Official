@@ -22,7 +22,7 @@ export default function BookPage() {
   return (
     <div>
       BookPage
-      <div>{book.title}</div>
+      <div>Title: {book.title}</div>
     </div>
   );
 }
