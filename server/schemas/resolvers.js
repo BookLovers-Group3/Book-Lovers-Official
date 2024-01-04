@@ -52,46 +52,6 @@ const resolvers = {
     books: async (parent, args) => {
       return Book.find();
     },
-
-    // queryFavoriteBooks: async (parent, { profileId }, context) => {
-    //   const user = await Profile.findOne({ _id: profileId }).populate(
-    //     "favoriteBooks"
-    //   );
-    //   const favoriteBooks = user.favoriteBooks;
-    //   return favoriteBooks;
-    // },
-
-    // queryMyFavoriteBooks: async (parent, args, context) => {
-    //   const user = await Profile.findOne({ _id: context.user._id }).populate(
-    //     "favoriteBooks"
-    //   );
-    //   const favoriteBooks = user.favoriteBooks;
-    //   return favoriteBooks;
-    // },
-
-    // queryMyLendingBooks: async (parent, args, context) => {
-    //   const user = await Profile.findOne({ _id: context.user._id }).populate(
-    //     "booksToLend"
-    //   );
-    //   const lendingBooks = user.booksToLend;
-    //   return lendingBooks;
-    // },
-
-    // queryMyBorrowedBooks: async (parent, args, context) => {
-    //   const user = await Profile.findOne({ _id: context.user._id }).populate(
-    //     "booksBorrowed"
-    //   );
-    //   const borrowedBooks = user.booksBorrowed;
-    //   return borrowedBooks;
-    // },
-
-    queryProfileLendingBooks: async (parent, { profileId }, context) => {
-      const user = await Profile.findOne({ _id: profileId }).populate(
-        "booksToLend"
-      );
-      const lendingBooks = user.booksToLend;
-      return lendingBooks;
-    },
   },
 
   Mutation: {
