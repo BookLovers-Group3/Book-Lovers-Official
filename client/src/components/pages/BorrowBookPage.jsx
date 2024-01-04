@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { Link } from "react-router-dom";
 import { QUERY_BOOKS_LENDING } from "../../utils/queries";
 
 export default function BookLendingListPage() {
@@ -13,7 +14,16 @@ export default function BookLendingListPage() {
     return (
       <div key={book._id}>
         <p>
-          {book.title}, {book.authors} {book.owner.name}
+          <Link className="btn btn-lg btn-primary" to={`/book/${book._id}`}>
+            {book.title}
+          </Link>
+          {book.authors}
+          <Link
+            className="btn btn-lg btn-primary"
+            to={`/profile/${book.owner._id}`}
+          >
+            {book.owner.name}
+          </Link>
         </p>
       </div>
     );

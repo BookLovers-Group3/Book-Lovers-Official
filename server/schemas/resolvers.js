@@ -14,7 +14,12 @@ const resolvers = {
     },
     // get one profile per profileID
     profile: async (parent, { profileId }) => {
-      return Profile.findOne({ _id: profileId });
+      return Profile.findOne({ _id: profileId }).populate([
+        "favoriteBooks",
+        "booksToLend",
+        "booksLent",
+        "booksBorrowed",
+      ]);
     },
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (parent, args, context) => {
