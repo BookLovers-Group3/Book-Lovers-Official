@@ -7,12 +7,13 @@ export default function BookLendingListPage() {
   if (loading) {
     return <div>Loading...</div>;
   }
+  console.log(data);
 
   const list = data?.booksLending.map((book) => {
     return (
       <div key={book._id}>
         <p>
-          {book.title}, {book.authors}
+          {book.title}, {book.authors} {book.owner}
         </p>
       </div>
     );
