@@ -6,11 +6,11 @@ import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
 import ErrorPage from "./components/pages/ErrorPage";
-import BuildBookList from "./components/pages/SearchPage.jsx";
 import MePage from "./components/pages/MePage.jsx";
 import ProfilePage from "./components/pages/ProfilePage.jsx";
 import BookPage from "./components/pages/BookPage.jsx";
 import BookLendingListPage from "./components/pages/BookLendingListPage.jsx";
+import BuildBookList from "./components/pages/SearchPage.jsx";
 
 const router = createBrowserRouter([
   {

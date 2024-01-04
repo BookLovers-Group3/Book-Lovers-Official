@@ -7,10 +7,10 @@ const typeDefs = `
     email: String
     password: String
     friends: [ID!]
-    favoriteBooks: [ID!]
-    booksToLend: [ID!]
-    booksLent: [ID!]
-    booksBorrowed: [ID!]
+    favoriteBooks: [Book]
+    booksToLend: [Book]
+    booksLent: [Book]
+    booksBorrowed: [Book]
     gender: String!
     status: String!
     relationshipStatus: [String!]
@@ -18,12 +18,12 @@ const typeDefs = `
   }
 
   type Book {
-    _id: ID
+    _id: ID!
+    bookId: String
     title: String!
     authors: [String]
     image: String
     description: String
-    googleBookId: String
     link: String
     owner: ID
     borrower: ID
@@ -38,6 +38,15 @@ const typeDefs = `
     lendDate: Date
     returnDate: Date
     status: Boolean
+  }
+
+  input BookInput {
+    title: String!
+    authors: [String]
+    description: String
+    bookId: String
+    image: String
+    link: String
   }
 
   type Auth {
@@ -60,24 +69,43 @@ const typeDefs = `
 
   type Mutation {
     addProfile(name: String!, email: String!, password: String!, gender: String!, status: String!): Auth
+
     login(email: String!, password: String!): Auth
-    addFavBook(bookId: ID!): Profile
+
+    favoriteBook(book: BookInput!): Profile
+
     removeFavBook(bookId: ID!): Profile
+
     addFriend(profileId: ID!): Profile
+
     removeFriend(profileId: ID!): Profile
-    addBooksToLend(bookId: ID!): Profile
+
+    addBooksToLend(bookId: BookInput!): Profile
+
     removeBooksToLend(bookId: ID!): Profile
+
     addBooksLent(bookId: ID!): Profile
+
     removeBooksLent(bookId: ID!): Profile
+
     addBooksBorrowed(bookId: ID!): Profile
+
     removeBooksBorrowed(bookId: ID!): Profile
+
     updateProfileStatus(newStatus: String!): Profile
+
     addProfileImage(image: String!): Profile
+    
     removeProfile: Profile
-    addBook(title: String!, authors: [String], image: String, description: String, googleBookId: String, link: String,owner: ID, borrower: ID, isAvailable: Boolean!): Book
+
+    addBook(book: BookInput!): Book
+
     updateBookBorrower(bookId: ID!, profileId: ID!): Book
+
     updateBookAvailability(bookId: ID!): Book
+
     openLedger(bookId: ID!, lender: ID!, borrower: ID!, status: Boolean!): Ledger
+
     closeLedger(ledgerId: ID!): Ledger
   }
 `;

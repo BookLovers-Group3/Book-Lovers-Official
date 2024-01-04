@@ -44,3 +44,42 @@ export const UPDATE_PROFILE_IMAGE = gql`
     }
   }
 `;
+
+// add to favorites
+export const FAV_BOOK = gql`
+  mutation addBook($book: BookInput!) {
+    addBook(book: $book) {
+      _id
+    }
+    
+  }
+    
+`
+
+// favoriteBook (book: $book) {
+//   _id
+//   name
+//   favoriteBooks {
+//       _id
+//   }
+// }
+
+// add to lending list
+
+// remove from favorites
+
+// remove from lending list
+
+// add book record
+// export const ADD_BOOK = gql`
+//   mutation AddBook($book: BookInput!) {
+//     addBook(book: $book) {
+//       bookId
+//       authors
+//       title
+//       description
+//       image
+//       link
+//     }
+//   }
+// `
