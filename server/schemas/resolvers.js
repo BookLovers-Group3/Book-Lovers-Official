@@ -299,13 +299,22 @@ const resolvers = {
     addBook: async (parent, { book }, context) => {
       console.log("book from front: ", book);
       if (context.user) {
-        return Book.create({
-          ...book,
-          // then grab book _id and use profile.findOneAndUpdate to add to favorites list
-        });
+        const response = await Book.create({
+          ...book
+        })
+        // then grab book _id and use profile.findOneAndUpdate to add to favorites list
+        console.log("book? ", book)
+        console.log('response: ', response)
+        const profile = await Profile.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { favoriteBooks: response._id } },
+          { new: true, runValidators: true })
+
+        return profile
       }
       throw AuthenticationError;
     },
+
     // update book borrower
     updateBookBorrower: async (parent, { bookId, profileId }, context) => {
       if (context.user) {

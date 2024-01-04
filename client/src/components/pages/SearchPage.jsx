@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { Container, Col, Form, Button, Card, Row } from "react-bootstrap";
-import SearchedBookResults from "../SearchedBookResults/SearchedBookResults";
+// import SearchedBookResults from "../SearchedBookResults/SearchedBookResults";
 import "../SearchedBookResults/SearchedBookResults.scss";
 import auth from '../../utils/auth';
 import { searchGoogleBooks } from "../../utils/API";
@@ -10,25 +10,25 @@ import { QUERY_ME } from "../../utils/queries"
 import { FAV_BOOK } from '../../utils/mutations';
 
 const BuildBookList = () => {
-    const [addBook, { error }] = useMutation(FAV_BOOK);
+  const [addBook, { error }] = useMutation(FAV_BOOK);
   const [searchedBooks, setSearchedBooks] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
-    const { loading: profileLoading, data: profileData } = useQuery(QUERY_ME);
+  const { loading: profileLoading, data: profileData } = useQuery(QUERY_ME);
 
-    const userData = profileData?.me
+  const userData = profileData?.me
 
-    const [favBookIds, setFavBookIds] = useState(
-      userData
-        ? userData.favoriteBooks?.map((book) => {
-            return book.bookId;
-          })
-        : []
-    )
+  const [favBookIds, setFavBookIds] = useState(
+    userData
+      ? userData.favoriteBooks?.map((book) => {
+          return book.googleBookId;
+        })
+      : []
+  )
 
-    useEffect(() => {
-      return () => favoritedBookIds(favBookIds);
-    });
+  useEffect(() => {
+    return () => favoritedBookIds(favBookIds);
+  });
 
   const handleFormSubmit = async (event) => {
       event.preventDefault();
@@ -47,10 +47,10 @@ const BuildBookList = () => {
         const { items } = await response.json();
 
         const bookData = items.map((book) => ({
-          bookId: book.id,
+          googleBookId: book.id,
           authors: book.volumeInfo.authors || ["No author to display"],
           title: book.volumeInfo.title,
-          description: book.volumeInfo.description || ["No description yet"],
+          description: book.volumeInfo.description || "No description yet",
           image: book.volumeInfo.imageLinks?.thumbnail || "",
         }));
 
@@ -61,9 +61,9 @@ const BuildBookList = () => {
     }
   };
 
-    const handleFavBook = async (bookId) => {
-      console.log('Book Info: ', bookId)
-      const bookToFavorite = searchedBooks.find((book) => book.bookId === bookId);
+    const handleFavBook = async (googleBookId) => {
+      console.log('Book Info: ', googleBookId)
+      const bookToFavorite = searchedBooks.find((book) => book.googleBookId === googleBookId);
       console.log('booktofavorite: ', bookToFavorite)
 
       console.log("userdata: ", userData)
@@ -118,7 +118,7 @@ const BuildBookList = () => {
         <Row>
           {searchedBooks.map((book) => {
             return (
-              <Col md="4" key={book.bookId}>
+              <Col md="4" key={book.googleBookId}>
                 <Card border='dark'>
                   {book.image ? (
                     <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
@@ -129,12 +129,22 @@ const BuildBookList = () => {
                     <Card.Text>{book.description}</Card.Text>
                     {auth.loggedIn() && (
                       <Button
-                        disabled={favBookIds?.some((favoritedBookId) => favoritedBookId === book.bookId)}
+                        disabled={favBookIds?.some((favoritedBookId) => favoritedBookId === book.googleBookId)}
                         className='btn-block btn-info'
-                        onClick={() => handleFavBook(book.bookId)}>
-                        {favBookIds?.some((favoritedBookId) => favoritedBookId === book.bookId)
+                        onClick={() => handleFavBook(book.googleBookId)}>
+                        {favBookIds?.some((favoritedBookId) => favoritedBookId === book.googleBookId)
                           ? 'Favorited'
                           : 'Add to Favorites'}
+                      </Button>
+                    )}
+                    {auth.loggedIn() && (
+                      <Button
+                        disabled={favBookIds?.some((favoritedBookId) => favoritedBookId === book.googleBookId)}
+                        className='btn-block btn-info'
+                        onClick={() => handleFavBook(book.googleBookId)}>
+                        {/* {favBookIds?.some((favoritedBookId) => favoritedBookId === book.bookId)
+                          ? 'On My List'
+                          : 'Add to Lending List'} */}
                       </Button>
                     )}
                   </Card.Body>
@@ -144,7 +154,7 @@ const BuildBookList = () => {
           })}
         </Row>
       </Container>
-      <SearchedBookResults searchedBooks={searchedBooks}></SearchedBookResults>
+      {/* <SearchedBookResults searchedBooks={searchedBooks}></SearchedBookResults> */}
     </>
   );
 };
