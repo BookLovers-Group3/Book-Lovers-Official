@@ -394,7 +394,7 @@ const resolvers = {
       console.log('book from front: ', book)
       if (context.user) {
         return Book.create({
-          book
+          ...book
         });
       }
       throw AuthenticationError;

@@ -49,12 +49,7 @@ export const UPDATE_PROFILE_IMAGE = gql`
 export const FAV_BOOK = gql`
   mutation addBook($book: BookInput!) {
     addBook(book: $book) {
-      bookId
-      authors
-      title
-      description
-      image
-      link
+      _id
     }
     
   }
@@ -65,9 +60,7 @@ export const FAV_BOOK = gql`
 //   _id
 //   name
 //   favoriteBooks {
-//       bookId
-//       title
-//       description
+//       _id
 //   }
 // }
 
