@@ -7,10 +7,10 @@ const typeDefs = `
     email: String
     password: String
     friends: [ID!]
-    favoriteBooks: [ID]
-    booksToLend: [ID]
-    booksLent: [ID]
-    booksBorrowed: [ID]
+    favoriteBooks: [ID!]
+    booksToLend: [ID!]
+    booksLent: [ID!]
+    booksBorrowed: [ID!]
     gender: String!
     status: String!
     relationshipStatus: [String!]
@@ -55,6 +55,7 @@ const typeDefs = `
   }
 
   type Query {
+    books: [Book]
     profiles: [Profile]!
     profile(profileId: ID!): Profile
     booksLending:[Book]!
@@ -80,7 +81,7 @@ const typeDefs = `
 
     removeFriend(profileId: ID!): Profile
 
-    addBooksToLend(bookId: BookInput!): Profile
+    addBooksToLend(bookId: ID!): Profile
 
     removeBooksToLend(bookId: ID!): Profile
 

@@ -9,7 +9,7 @@ import ErrorPage from "./components/pages/ErrorPage";
 import MePage from "./components/pages/MePage.jsx";
 import ProfilePage from "./components/pages/ProfilePage.jsx";
 import BookPage from "./components/pages/BookPage.jsx";
-import BookLendingListPage from "./components/pages/BookLendingListPage.jsx";
+import BorrowBookPage from "./components/pages/BorrowBookPage.jsx";
 import BuildBookList from "./components/pages/SearchPage.jsx";
 
 const router = createBrowserRouter([
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
       },
       {
         path: "book-lending-list",
-        element: <BookLendingListPage />,
+        element: <BorrowBookPage />,
       },
     ],
   },

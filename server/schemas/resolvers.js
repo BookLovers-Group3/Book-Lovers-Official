@@ -1,5 +1,10 @@
 const { Profile, Book, Ledger } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
+const jwt = require("jsonwebtoken");
+const secret = "mysecretssshhhhhhh";
+const expiration = "2h";
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiY2hnZGF2ZUBnbWFpbC5jb20iLCJuYW1lIjoiY2hnZGF2ZSIsIl9pZCI6IjY1OTVmZThkMjQ5MjhlYzZlN2UwNTE3OSJ9LCJpYXQiOjE3MDQzMzI3NDksImV4cCI6MTcwNDQxOTE0OX0.UhHGCUPpUxX5T46Fz5WbjKLmJa7uWsj78pKj1w4aNpk";
 
 const resolvers = {
   Query: {
@@ -20,6 +25,13 @@ const resolvers = {
     },
     // get all books that are avaiable to borrow
     booksLending: async (parent, args, context) => {
+      try {
+        const { data } = jwt.verify(token, secret, { maxAge: expiration });
+        context.user = data;
+        console.log(data._id);
+      } catch {
+        console.log("Invalid token");
+      }
       if (context.user) {
         return Book.find({
           isAvailable: true,
@@ -31,6 +43,10 @@ const resolvers = {
     // get one book per bookID
     book: async (parent, { bookId }) => {
       return Book.findOne({ _id: bookId });
+    },
+    //all books
+    books: async (parent, args) => {
+      return Book.find();
     },
 
     queryFavoriteBooks: async (parent, { profileId }, context) => {
@@ -168,6 +184,12 @@ const resolvers = {
     },
     // add a book to books to lend
     addBooksToLend: async (parent, { bookId }, context) => {
+      try {
+        const { data } = jwt.verify(token, secret, { maxAge: expiration });
+        context.user = data;
+      } catch {
+        console.log("Invalid token");
+      }
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -184,6 +206,12 @@ const resolvers = {
     },
     // remove a book from books to lend
     removeBooksToLend: async (parent, { bookId }, context) => {
+      try {
+        const { data } = jwt.verify(token, secret, { maxAge: expiration });
+        context.user = data;
+      } catch {
+        console.log("Invalid token");
+      }
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
