@@ -1,10 +1,10 @@
 const { Profile, Book, Ledger } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
-const jwt = require("jsonwebtoken");
-const secret = "mysecretssshhhhhhh";
-const expiration = "2h";
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiZG9taUBnbWFpbC5jb20iLCJuYW1lIjoiRG9taSIsIl9pZCI6IjY1OTMyMGYxNWNhNWMxM2YxNDc1ZDZmMyJ9LCJpYXQiOjE3MDQzNDAxNTgsImV4cCI6MTcwNDQyNjU1OH0.GKBgN2hffzr1B4kJcZCxCIL8kC_hL1NmYDbvyn6EAP0";
+// const jwt = require("jsonwebtoken");
+// const secret = "mysecretssshhhhhhh";
+// const expiration = "2h";
+// const token =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiZG9taUBnbWFpbC5jb20iLCJuYW1lIjoiRG9taSIsIl9pZCI6IjY1OTMyMGYxNWNhNWMxM2YxNDc1ZDZmMyJ9LCJpYXQiOjE3MDQzNDAxNTgsImV4cCI6MTcwNDQyNjU1OH0.GKBgN2hffzr1B4kJcZCxCIL8kC_hL1NmYDbvyn6EAP0";
 
 const resolvers = {
   Query: {
