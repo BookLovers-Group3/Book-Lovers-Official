@@ -7,10 +7,10 @@ const typeDefs = `
     email: String
     password: String
     friends: [ID!]
-    favoriteBooks: [Book]
-    booksToLend: [Book]
-    booksLent: [Book]
-    booksBorrowed: [Book]
+    favoriteBooks: [ID]
+    booksToLend: [ID]
+    booksLent: [ID]
+    booksBorrowed: [ID]
     gender: String!
     status: String!
     relationshipStatus: [String!]
@@ -19,7 +19,7 @@ const typeDefs = `
 
   type Book {
     _id: ID!
-    bookId: String
+    googleBookId: String
     title: String!
     authors: [String]
     image: String
@@ -44,7 +44,7 @@ const typeDefs = `
     title: String!
     authors: [String]
     description: String
-    bookId: String
+    googleBookId: String
     image: String
     link: String
   }
@@ -98,7 +98,7 @@ const typeDefs = `
     
     removeProfile: Profile
 
-    addBook(book: BookInput!): Book
+    addBook(book: BookInput!): Profile
 
     updateBookBorrower(bookId: ID!, profileId: ID!): Book
 
