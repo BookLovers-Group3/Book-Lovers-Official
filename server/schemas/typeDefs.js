@@ -61,11 +61,6 @@ const typeDefs = `
     booksLending:[Book]!
     book(bookId: ID!): Book
     me: Profile
-    queryFavoriteBooks(profileId: ID!): [Book]
-    queryMyFavoriteBooks: [Book]
-    queryMyLendingBooks: [Book]
-    queryMyBorrowedBooks: [Book]
-    queryProfileLendingBooks(profileId: ID!): [Book]
   }
 
   type Mutation {
@@ -106,7 +101,7 @@ const typeDefs = `
     updateBookAvailability(bookId: ID!): Book
 
     openLedger(bookId: ID!, lender: ID!, borrower: ID!, status: Boolean!): Ledger
-    
+
     closeLedger(ledgerId: ID!): Ledger
   }
 `;
