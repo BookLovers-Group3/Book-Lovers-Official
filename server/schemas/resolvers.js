@@ -19,8 +19,14 @@ const resolvers = {
       throw AuthenticationError;
     },
     // get all books that are avaiable to borrow
-    booksLending: async () => {
-      return Book.find({ isAvailable: true });
+    booksLending: async (parent, args, context) => {
+      if (context.user) {
+        return Book.find({
+          isAvailable: true,
+          owner: { $ne: context.user._id },
+        });
+      }
+      throw AuthenticationError;
     },
     // get one book per bookID
     book: async (parent, { bookId }) => {
@@ -290,17 +296,11 @@ const resolvers = {
       throw AuthenticationError;
     },
     // create a book
-    addBook: async (
-      parent,
-      {
-        book
-      },
-      context
-    ) => {
-      console.log('book from front: ', book)
+    addBook: async (parent, { book }, context) => {
+      console.log("book from front: ", book);
       if (context.user) {
         return Book.create({
-          ...book
+          ...book,
           // then grab book _id and use profile.findOneAndUpdate to add to favorites list
         });
       }
