@@ -15,11 +15,11 @@ export default function MePage() {
   // user info
   const user = profileData?.me;
   // user's favorite books, an array
-  const favoriteBooks = profileData?.queryMyFavoriteBooks;
+  const favoriteBooks = user?.favoriteBooks;
   // user's lending books, an array
-  const lendingBooks = profileData?.queryMyLendingBooks;
+  const booksToLend = user?.booksToLend;
   // user's borrowed books, an array
-  const borrowedBooks = profileData?.queryMyBorrowedBooks;
+  const booksBorrowed = user?.booksBorrowed;
 
   const favoriteBookList = favoriteBooks?.map((book) => {
     return <div key={book._id}>{book.title}</div>;

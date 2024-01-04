@@ -13,7 +13,7 @@ export default function BookLendingListPage() {
     return (
       <div key={book._id}>
         <p>
-          {book.title}, {book.authors} {book.owner}
+          {book.title}, {book.authors} {book.owner.name}
         </p>
       </div>
     );
