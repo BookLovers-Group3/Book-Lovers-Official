@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const secret = "mysecretssshhhhhhh";
 const expiration = "2h";
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiY2hnZGF2ZUBnbWFpbC5jb20iLCJuYW1lIjoiY2hnZGF2ZSIsIl9pZCI6IjY1OTVmZThkMjQ5MjhlYzZlN2UwNTE3OSJ9LCJpYXQiOjE3MDQzMzI3NDksImV4cCI6MTcwNDQxOTE0OX0.UhHGCUPpUxX5T46Fz5WbjKLmJa7uWsj78pKj1w4aNpk";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiZG9taUBnbWFpbC5jb20iLCJuYW1lIjoiRG9taSIsIl9pZCI6IjY1OTMyMGYxNWNhNWMxM2YxNDc1ZDZmMyJ9LCJpYXQiOjE3MDQzNDAxNTgsImV4cCI6MTcwNDQyNjU1OH0.GKBgN2hffzr1B4kJcZCxCIL8kC_hL1NmYDbvyn6EAP0";
 
 const resolvers = {
   Query: {
@@ -19,24 +19,28 @@ const resolvers = {
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (parent, args, context) => {
       if (context.user) {
-        return Profile.findOne({ _id: context.user._id });
+        return Profile.findOne({ _id: context.user._id }).populate([
+          "favoriteBooks",
+          "booksToLend",
+          "booksLent",
+          "booksBorrowed",
+        ]);
       }
       throw AuthenticationError;
     },
     // get all books that are avaiable to borrow
     booksLending: async (parent, args, context) => {
-      try {
-        const { data } = jwt.verify(token, secret, { maxAge: expiration });
-        context.user = data;
-        console.log(data._id);
-      } catch {
-        console.log("Invalid token");
-      }
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Book.find({
           isAvailable: true,
           owner: { $ne: context.user._id },
-        });
+        }).populate("owner");
       }
       throw AuthenticationError;
     },
@@ -49,37 +53,37 @@ const resolvers = {
       return Book.find();
     },
 
-    queryFavoriteBooks: async (parent, { profileId }, context) => {
-      const user = await Profile.findOne({ _id: profileId }).populate(
-        "favoriteBooks"
-      );
-      const favoriteBooks = user.favoriteBooks;
-      return favoriteBooks;
-    },
+    // queryFavoriteBooks: async (parent, { profileId }, context) => {
+    //   const user = await Profile.findOne({ _id: profileId }).populate(
+    //     "favoriteBooks"
+    //   );
+    //   const favoriteBooks = user.favoriteBooks;
+    //   return favoriteBooks;
+    // },
 
-    queryMyFavoriteBooks: async (parent, args, context) => {
-      const user = await Profile.findOne({ _id: context.user._id }).populate(
-        "favoriteBooks"
-      );
-      const favoriteBooks = user.favoriteBooks;
-      return favoriteBooks;
-    },
+    // queryMyFavoriteBooks: async (parent, args, context) => {
+    //   const user = await Profile.findOne({ _id: context.user._id }).populate(
+    //     "favoriteBooks"
+    //   );
+    //   const favoriteBooks = user.favoriteBooks;
+    //   return favoriteBooks;
+    // },
 
-    queryMyLendingBooks: async (parent, args, context) => {
-      const user = await Profile.findOne({ _id: context.user._id }).populate(
-        "booksToLend"
-      );
-      const lendingBooks = user.booksToLend;
-      return lendingBooks;
-    },
+    // queryMyLendingBooks: async (parent, args, context) => {
+    //   const user = await Profile.findOne({ _id: context.user._id }).populate(
+    //     "booksToLend"
+    //   );
+    //   const lendingBooks = user.booksToLend;
+    //   return lendingBooks;
+    // },
 
-    queryMyBorrowedBooks: async (parent, args, context) => {
-      const user = await Profile.findOne({ _id: context.user._id }).populate(
-        "booksBorrowed"
-      );
-      const borrowedBooks = user.booksBorrowed;
-      return borrowedBooks;
-    },
+    // queryMyBorrowedBooks: async (parent, args, context) => {
+    //   const user = await Profile.findOne({ _id: context.user._id }).populate(
+    //     "booksBorrowed"
+    //   );
+    //   const borrowedBooks = user.booksBorrowed;
+    //   return borrowedBooks;
+    // },
 
     queryProfileLendingBooks: async (parent, { profileId }, context) => {
       const user = await Profile.findOne({ _id: profileId }).populate(
@@ -184,12 +188,12 @@ const resolvers = {
     },
     // add a book to books to lend
     addBooksToLend: async (parent, { bookId }, context) => {
-      try {
-        const { data } = jwt.verify(token, secret, { maxAge: expiration });
-        context.user = data;
-      } catch {
-        console.log("Invalid token");
-      }
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -206,12 +210,12 @@ const resolvers = {
     },
     // remove a book from books to lend
     removeBooksToLend: async (parent, { bookId }, context) => {
-      try {
-        const { data } = jwt.verify(token, secret, { maxAge: expiration });
-        context.user = data;
-      } catch {
-        console.log("Invalid token");
-      }
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -328,17 +332,18 @@ const resolvers = {
       console.log("book from front: ", book);
       if (context.user) {
         const response = await Book.create({
-          ...book
-        })
+          ...book,
+        });
         // then grab book _id and use profile.findOneAndUpdate to add to favorites list
-        console.log("book? ", book)
-        console.log('response: ', response)
+        console.log("book? ", book);
+        console.log("response: ", response);
         const profile = await Profile.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { favoriteBooks: response._id } },
-          { new: true, runValidators: true })
+          { new: true, runValidators: true }
+        );
 
-        return profile
+        return profile;
       }
       throw AuthenticationError;
     },

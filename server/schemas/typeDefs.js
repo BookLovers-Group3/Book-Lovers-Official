@@ -6,11 +6,11 @@ const typeDefs = `
     name: String
     email: String
     password: String
-    friends: [ID!]
-    favoriteBooks: [ID!]
-    booksToLend: [ID!]
-    booksLent: [ID!]
-    booksBorrowed: [ID!]
+    friends: [Profile!]
+    favoriteBooks: [Book!]
+    booksToLend: [Book!]
+    booksLent: [Book!]
+    booksBorrowed: [Book!]
     gender: String!
     status: String!
     relationshipStatus: [String!]
@@ -25,8 +25,8 @@ const typeDefs = `
     image: String
     description: String
     link: String
-    owner: ID
-    borrower: ID
+    owner: Profile
+    borrower: Profile
     isAvailable: Boolean!
   }
 
@@ -106,7 +106,7 @@ const typeDefs = `
     updateBookAvailability(bookId: ID!): Book
 
     openLedger(bookId: ID!, lender: ID!, borrower: ID!, status: Boolean!): Ledger
-
+    
     closeLedger(ledgerId: ID!): Ledger
   }
 `;
