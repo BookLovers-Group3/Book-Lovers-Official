@@ -70,7 +70,8 @@ const LibraryCard = ({ user }) => {
       <div className="main-card">
         <div className="top-row">
           <h1>Book Lovers Library</h1>
-          <h1>{user.name}</h1>
+          <h1 className="user-name">{user.name}</h1>
+          <p className="status-icon">Status will go here</p>
         </div>
         <div className="user-profile">
           <div className="image-upload-container">
@@ -107,14 +108,12 @@ const LibraryCard = ({ user }) => {
           </Button>
           <Button
             className="btn-block btn-info"
-            onClick={() => showLendingBooks()}
-          >
+            onClick={() => showLendingBooks()}>
             Checkout My Books
           </Button>
           <Button
             className="btn-block btn-info"
-            onClick={() => showBorrowedBooks()}
-          >
+            onClick={() => showBorrowedBooks()}>
             Borrowed Books
           </Button>
         </div>
