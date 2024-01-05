@@ -153,21 +153,22 @@ const resolvers = {
     },
     // add a book to books to lend
     addBooksToLend: async (parent, { book }, context) => {
-      console.log('user context: ', context.user)
       if (context.user) {
         // first create book record based on google API data
         const newBook = await Book.create({
-          ...book
-        })
+          ...book,
+          isAvailable: true,
+          owner: context.user._id,
+        });
         // then add book to user's lending list
         const profile = await Profile.findOneAndUpdate(
           { _id: context.user._id },
           {
             $addToSet: { booksToLend: newBook._id },
           },
-          { new: true, runValidators: true, }
+          { new: true, runValidators: true }
         );
-        return profile
+        return profile;
       }
       throw AuthenticationError;
     },
@@ -297,8 +298,8 @@ const resolvers = {
           { $addToSet: { favoriteBooks: newBook._id } },
           { new: true, runValidators: true }
         );
-        console.log('PROFILE?? ', profile)
-        return profile
+        console.log("PROFILE?? ", profile);
+        return profile;
       }
       throw AuthenticationError;
     },
