@@ -4,16 +4,23 @@ import AvatarEditor from "react-avatar-editor";
 import "./LibraryCard.scss";
 import { UPDATE_PROFILE_IMAGE } from "../../utils/mutations";
 const avatar = "../../images/InitialAvatar.jpg";
+import BookList from "../BookList/BookList";
+import { Container, Col, Card, Row, Button } from "react-bootstrap";
 
 const LibraryCard = ({ user }) => {
-  const userImage = user.profileImage;
+  // get the user profile image
+  const userImage = user?.profileImage;
+  // if set uploaded image by default to the user profile image, if there is no user profile image, set it to avatar
   const [uploadedImage, setUploadedImage] = useState(
     userImage ? userImage : avatar
   );
+  // mutation to updated the user profile image to the uploaded image
   const [addProfileImage, { error, data }] = useMutation(UPDATE_PROFILE_IMAGE, {
     refetchQueries: ["me"],
   });
+  // get the favorite book list container, the lending book list container and the borrowed books container
 
+  // define function to upload the image
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -28,47 +35,70 @@ const LibraryCard = ({ user }) => {
     }
   };
 
+  // define function to show favorite book list
+  const showFavBooks = () => {
+    const favBookEl = document.querySelector(".favBookList");
+    const lendingBookEl = document.querySelector(".lendingBookList");
+    const borrowedBookEl = document.querySelector(".borrowedBookList");
+    lendingBookEl.classList.add("hidden");
+    borrowedBookEl.classList.add("hidden");
+    favBookEl.classList.remove("hidden");
+  };
+
   return (
-    <div className="main-card">
-      <div className="top-row">
-        <h1>Book Lovers Library</h1>
-        <h1>{user.name}</h1>
-      </div>
-      <div className="user-profile">
-        <div className="image-upload-container">
-          <AvatarEditor
-            image={uploadedImage}
-            width={200}
-            height={200}
-            border={15}
-            color={[255, 255, 255, 0.6]}
-            scale={1.2}
-            rotate={0}
-          />
-          <div className="file-input-container">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              style={{ display: "none" }}
-              id="image-upload"
+    <>
+      <div className="main-card">
+        <div className="top-row">
+          <h1>Book Lovers Library</h1>
+          <h1>{user.name}</h1>
+        </div>
+        <div className="user-profile">
+          <div className="image-upload-container">
+            <AvatarEditor
+              image={uploadedImage}
+              width={200}
+              height={200}
+              border={15}
+              color={[255, 255, 255, 0.6]}
+              scale={1.2}
+              rotate={0}
             />
-            <label htmlFor="image-upload" className="upload-label">
-              Click here to upload your picture!
-            </label>
+            <div className="file-input-container">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                style={{ display: "none" }}
+                id="image-upload"
+              />
+              <label htmlFor="image-upload" className="upload-label">
+                Click here to upload your picture!
+              </label>
+            </div>
+          </div>
+          <div>
+            <div>Favorite Genres</div>
+            <div>I am looking for:</div>
           </div>
         </div>
-        <div>
-          <div>Favorite Genres</div>
-          <div>I am looking for:</div>
+        <div className="user-list">
+          <Button className="btn-block btn-info" onClick={() => showFavBooks()}>
+            Favorite Books
+          </Button>
+          <a href="#">Checkout my books!</a>
+          <a href="#">Borrowed Books</a>
         </div>
       </div>
-      <div className="user-list">
-        <a href="#">Fav List</a>
-        <a href="#">Checkout my books!</a>
-        <a href="#">Borrowed Books</a>
+      <div className="hidden favBookList">
+        <BookList user={user} />
       </div>
-    </div>
+      <div className="hidden lendingBookList">
+        <BookList user={user} />
+      </div>
+      <div className="hidden borrowedBookList">
+        <BookList user={user} />
+      </div>
+    </>
   );
 };
 
