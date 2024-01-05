@@ -93,6 +93,9 @@ export const QUERY_SINGLE_BOOK = gql`
     book(bookId: $bookId) {
       _id
       title
+      authors
+      image
+      description
     }
   }
 `;

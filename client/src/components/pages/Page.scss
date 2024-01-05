@@ -24,3 +24,16 @@
   background-color: var(--darkgreen);
   border-radius: 25%;
 }
+
+.single-book-container {
+  display: flex;
+  padding: 30px;
+  margin: 30px;
+  align-items: center;
+  width: 50%;
+  margin: 20px auto;
+
+  img {
+    margin-bottom: 15px;
+  }
+}
