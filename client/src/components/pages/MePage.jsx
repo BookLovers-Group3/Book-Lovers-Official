@@ -20,6 +20,11 @@ export default function MePage() {
   const favoriteBookList = favoriteBooks?.map((book) => {
     return <div key={book._id}>{book.title}</div>;
   });
+
+  const lendingBookList = booksToLend?.map((book) => {
+    return <div key={book._id}>{book.title}</div>;
+  });
+
   // if not logged in, go to the homepage
   if (!Auth.loggedIn()) {
     return <Navigate to="/" />;
@@ -38,6 +43,8 @@ export default function MePage() {
         <div>Welcome back! {user.name}</div>
         <div>Below are your favorite books </div>
         <div>{favoriteBookList}</div>
+        <div>Below are your books to lend:</div>
+        <div>{lendingBookList}</div>
       </div>
       <LibraryCard user={user} />
     </>

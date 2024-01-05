@@ -76,7 +76,7 @@ const typeDefs = `
 
     removeFriend(profileId: ID!): Profile
 
-    addBooksToLend(bookId: ID!): Profile
+    addBooksToLend(book: BookInput!): Profile
 
     removeBooksToLend(bookId: ID!): Profile
 
