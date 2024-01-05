@@ -45,24 +45,28 @@ export const QUERY_ME = gql`
         authors
         title
         description
+        image
       }
       booksToLend {
         _id
         authors
         title
         description
+        image
       }
       booksLent {
         _id
         authors
         title
         description
+        image
       }
       booksBorrowed {
         _id
         authors
         title
         description
+        image
       }
     }
   }
