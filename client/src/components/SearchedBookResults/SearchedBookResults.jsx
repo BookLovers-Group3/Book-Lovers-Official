@@ -15,19 +15,30 @@ function SearchedBookResults({ searchedBooks, favBookIds, handleFavBook }) {
         {searchedBooks.map((book) => {
           return (
             <Col md="4" key={book.bookId}>
-              <Card border="dark">
+              <Card className="custom-card" border="dark">
+                <Card.Title>{book.title}</Card.Title>
+                <ModalBookDescription
+                  title={book.title}
+                  description={book.description}
+                />
                 {book.image ? (
                   <Card.Img
-                    src={book.image}
+                    src={book.image || "No image available"}
                     alt={`The cover for ${book.title}`}
                     variant="top"
+                    style={{
+                      maxWidth: "150px",
+                      objectFit: "cover",
+                      margin: "auto",
+                    }}
                   />
                 ) : null}
+
                 <Card.Body>
-                  <Card.Title>{book.title}</Card.Title>
-                  <p className="small">Authors: {book.authors}</p>
-                  {/* <Card.Text>{book.description}</Card.Text> */}
-                  <ModalBookDescription description={book.description}/>
+                  <p className="small">
+                    Authors: {book.authors || "No authors listed"}
+                  </p>
+
                   {auth.loggedIn() && (
                     <Button
                       disabled={favBookIds?.some(

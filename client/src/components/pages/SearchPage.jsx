@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { Container, Col, Form, Button, Card, Row } from "react-bootstrap";
+import { Container, Col, Form, Button, Row } from "react-bootstrap";
 import SearchedBookResults from "../SearchedBookResults/SearchedBookResults";
 import "../SearchedBookResults/SearchedBookResults.scss";
-import auth from "../../utils/auth";
+// import auth from "../../utils/auth";
 import { searchGoogleBooks } from "../../utils/API";
 import {
   favoritedBookIds,
-  getFavBookIds,
-  removeFavBookId,
+  // getFavBookIds,
+  // removeFavBookId,
 } from "../../utils/localStorage";
 import { QUERY_ME } from "../../utils/queries";
 import { FAV_BOOK } from "../../utils/mutations";
