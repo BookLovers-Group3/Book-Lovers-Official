@@ -38,14 +38,6 @@ export default function MePage() {
 
   return (
     <>
-      <div>
-        MePage
-        <div>Welcome back! {user.name}</div>
-        <div>Below are your favorite books </div>
-        <div>{favoriteBookList}</div>
-        <div>Below are your books to lend:</div>
-        <div>{lendingBookList}</div>
-      </div>
       <LibraryCard user={user} />
     </>
   );
