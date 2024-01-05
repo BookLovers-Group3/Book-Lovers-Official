@@ -15,17 +15,17 @@ function ModalConfirmation({ handleShow, handleClose, show }) {
         backdrop="static"
         keyboard={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>Request Confirmation</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          I will not close if you click outside me. Do not even try to press the
-          escape key.
+          Are you sure you want to request this book? Confirming will send an
+          email to the owner
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">Understood</Button>
+          <Button variant="primary"> Request Book</Button>
         </Modal.Footer>
       </Modal>
     </>
