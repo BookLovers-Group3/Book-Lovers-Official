@@ -14,7 +14,9 @@ const RandomBooks = ({ randomBook }) => {
               alt={`book cover for ${randomBook.volumeInfo.title}`}
             />
             <h3> {randomBook.volumeInfo.title}</h3>
-            <p>{randomBook.volumeInfo.authors || "author unknown"}</p>
+            <p>
+              {randomBook.volumeInfo.authors.join(", ") || "author unknown"}
+            </p>
           </div>
           <div>
             <p>

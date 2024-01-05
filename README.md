@@ -1,6 +1,8 @@
 # Book-Lovers
 
 
+Book Lovers Dating App
+
 Libraries: 
 1. React-Avatar-Editor
 
