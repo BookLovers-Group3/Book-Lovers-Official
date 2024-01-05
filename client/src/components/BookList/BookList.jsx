@@ -3,8 +3,7 @@ import auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
 import { REMOVE_FAVBOOK } from "../../utils/mutations";
 
-export default function BookList({ user }) {
-  const favoriteBooks = user.favoriteBooks;
+export default function BookList({ books }) {
 
   const [removeFavBook, { loading, data, error }] = useMutation(REMOVE_FAVBOOK, {
     refetchQueries: ["me"]
@@ -31,12 +30,12 @@ export default function BookList({ user }) {
   return (
     <Container>
       <h2 className="pt-5">
-        {favoriteBooks.length
-          ? `Viewing ${favoriteBooks.length} results:`
+        {books?.length
+          ? `Viewing ${books?.length} results:`
           : "There is no favorite books yet!"}
       </h2>
       <Row>
-        {favoriteBooks?.map((book) => {
+        {books?.map((book) => {
           return (
             <Col md="4" key={book._id}>
               <Card key={book._id} className="custom-card" border="dark">

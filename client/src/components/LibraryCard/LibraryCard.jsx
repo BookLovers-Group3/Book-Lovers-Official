@@ -45,6 +45,26 @@ const LibraryCard = ({ user }) => {
     favBookEl.classList.remove("hidden");
   };
 
+  // define function to show lending book list
+  const showLendingBooks = () => {
+    const favBookEl = document.querySelector(".favBookList");
+    const lendingBookEl = document.querySelector(".lendingBookList");
+    const borrowedBookEl = document.querySelector(".borrowedBookList");
+    borrowedBookEl.classList.add("hidden");
+    favBookEl.classList.add("hidden");
+    lendingBookEl.classList.remove("hidden");
+  };
+
+  // define function to show borrowed book list
+  const showBorrowedBooks = () => {
+    const favBookEl = document.querySelector(".favBookList");
+    const lendingBookEl = document.querySelector(".lendingBookList");
+    const borrowedBookEl = document.querySelector(".borrowedBookList");
+    lendingBookEl.classList.add("hidden");
+    favBookEl.classList.add("hidden");
+    borrowedBookEl.classList.remove("hidden");
+  };
+
   return (
     <>
       <div className="main-card">
@@ -85,18 +105,28 @@ const LibraryCard = ({ user }) => {
           <Button className="btn-block btn-info" onClick={() => showFavBooks()}>
             Favorite Books
           </Button>
-          <a href="#">Checkout my books!</a>
-          <a href="#">Borrowed Books</a>
+          <Button
+            className="btn-block btn-info"
+            onClick={() => showLendingBooks()}
+          >
+            Checkout My Books
+          </Button>
+          <Button
+            className="btn-block btn-info"
+            onClick={() => showBorrowedBooks()}
+          >
+            Borrowed Books
+          </Button>
         </div>
       </div>
       <div className="hidden favBookList">
-        <BookList user={user} />
+        <BookList books={user.favoriteBooks} />
       </div>
       <div className="hidden lendingBookList">
-        <BookList user={user} />
+        <BookList books={user.booksToLend} />
       </div>
       <div className="hidden borrowedBookList">
-        <BookList user={user} />
+        <BookList books={user.booksBorrowed} />
       </div>
     </>
   );

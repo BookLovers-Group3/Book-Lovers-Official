@@ -7,7 +7,6 @@ import Auth from "../../utils/auth";
 export default function MePage() {
   // query the user information from the token, QUERY_ME will query the user info, as well as user's favorite books, and user's lending books and the user's borrowed books
   const { loading: profileLoading, data: profileData } = useQuery(QUERY_ME);
-  console.log(profileData);
   // user info
   const user = profileData?.me;
   // user's favorite books, an array
@@ -38,14 +37,6 @@ export default function MePage() {
 
   return (
     <>
-      <div>
-        MePage
-        <div>Welcome back! {user.name}</div>
-        <div>Below are your favorite books </div>
-        <div>{favoriteBookList}</div>
-        <div>Below are your books to lend:</div>
-        <div>{lendingBookList}</div>
-      </div>
       <LibraryCard user={user} />
     </>
   );
