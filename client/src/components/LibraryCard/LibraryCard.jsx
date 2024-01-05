@@ -6,6 +6,7 @@ import { UPDATE_PROFILE_IMAGE } from "../../utils/mutations";
 const avatar = "../../images/InitialAvatar.jpg";
 import BookList from "../BookList/BookList";
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
+import calculateStatus from "../../utils/helpers";
 
 const LibraryCard = ({ user }) => {
   // get the user profile image
@@ -70,7 +71,14 @@ const LibraryCard = ({ user }) => {
       <div className="main-card">
         <div className="top-row">
           <h1>Book Lovers Library</h1>
-          <h1>{user.name}</h1>
+          <h1 className="user-name">{user.name}</h1>
+          <p className="status-icon">
+            {calculateStatus(
+              user.favoriteBooks,
+              user.booksLent,
+              user.booksBorrowed
+            )}
+          </p>
         </div>
         <div className="user-profile">
           <div className="image-upload-container">
@@ -107,14 +115,12 @@ const LibraryCard = ({ user }) => {
           </Button>
           <Button
             className="btn-block btn-info"
-            onClick={() => showLendingBooks()}
-          >
+            onClick={() => showLendingBooks()}>
             Checkout My Books
           </Button>
           <Button
             className="btn-block btn-info"
-            onClick={() => showBorrowedBooks()}
-          >
+            onClick={() => showBorrowedBooks()}>
             Borrowed Books
           </Button>
         </div>

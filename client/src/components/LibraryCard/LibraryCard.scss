@@ -7,10 +7,14 @@
 
 .top-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 0 25px;
   padding: 15px;
   color: wheat;
+  align-items: center;
+  align-items: center;
+  position: relative;
+
 }
 
 .user-profile {
@@ -41,4 +45,14 @@
 
 .hidden {
   display: none;
+}
+
+.status-icon {
+  background-color: pink;
+  position: absolute;
+  right: -60px;
+  top: -20px;
+  color: black;
+  padding: 15px; 
+  border-radius: 30%;
 }
