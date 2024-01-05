@@ -1,17 +1,16 @@
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import auth from "../../utils/auth";
 
-export default function BookList({ user }) {
-  const favoriteBooks = user.favoriteBooks;
+export default function BookList({ books }) {
   return (
     <Container>
       <h2 className="pt-5">
-        {favoriteBooks.length
-          ? `Viewing ${favoriteBooks.length} results:`
+        {books?.length
+          ? `Viewing ${books?.length} results:`
           : "There is no favorite books yet!"}
       </h2>
       <Row>
-        {favoriteBooks?.map((book) => {
+        {books?.map((book) => {
           return (
             <Col md="4" key={book._id}>
               <Card key={book._id} className="custom-card" border="dark">
