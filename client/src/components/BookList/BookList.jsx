@@ -1,30 +1,61 @@
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
-import { REMOVE_FAVBOOK } from "../../utils/mutations";
+import { REMOVE_FAVBOOK, REMOVE_LENDING_BOOK } from "../../utils/mutations";
 
-export default function BookList({ books }) {
+export default function BookList({ books, type }) {
+  // get mutation for remove favorite book
+  const [
+    removeFavBook,
+    { loading: favLoading, data: favData, error: favError },
+  ] = useMutation(REMOVE_FAVBOOK, {
+    refetchQueries: ["me"],
+  });
+  // get mutation for remove lending book
+  const [
+    removeLendingBook,
+    { loading: lendingLoading, data: lendingData, error: lendingError },
+  ] = useMutation(REMOVE_LENDING_BOOK, {
+    refetchQueries: ["me"],
+  });
 
-  const [removeFavBook, { loading, data, error }] = useMutation(REMOVE_FAVBOOK, {
-    refetchQueries: ["me"]
-  })
-
+  // define function for remove favorite book
   const handleRemoveFavBook = async (book) => {
-    console.log("book info: ", book)
+    console.log("book info: ", book);
 
     try {
       const response = await removeFavBook({
-        variables: { bookId: book._id }
-      })
-      console.log('response: ', response)
+        variables: { bookId: book._id },
+      });
+      console.log("response: ", response);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
 
-  if (loading) {
-    return <div>Loading...</div>
-  }
+  // define function for remove lending book
+  const handleRemoveLendingBook = async (book) => {
+    console.log("book info: ", book);
+
+    try {
+      const response = await removeLendingBook({
+        variables: { bookId: book._id },
+      });
+      console.log("response: ", response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  // define function for choose which type of book to remove
+  const handleRemoveBook = (book) => {
+    if (type === "favorite") {
+      return handleRemoveFavBook(book);
+    }
+    if (type === "lending") {
+      return handleRemoveLendingBook(book);
+    }
+  };
 
   return (
     <Container>
@@ -57,7 +88,7 @@ export default function BookList({ books }) {
                     Authors: {book.authors || "No authors listed"}
                   </p>
                 </Card.Body>
-                <Button onClick={() => handleRemoveFavBook(book)}>Remove</Button>
+                <Button onClick={() => handleRemoveBook(book)}>Remove</Button>
               </Card>
             </Col>
           );

@@ -52,8 +52,7 @@ export const FAV_BOOK = gql`
       _id
     }
   }
-    
-`
+`;
 
 // add to lending list
 export const LEND_BOOK = gql`
@@ -62,7 +61,7 @@ export const LEND_BOOK = gql`
       _id
     }
   }
-`
+`;
 
 // remove from favorites
 export const REMOVE_FAVBOOK = gql`
@@ -71,7 +70,15 @@ export const REMOVE_FAVBOOK = gql`
       _id
     }
   }
-`
+`;
+// remove from lending list
+export const REMOVE_LENDING_BOOK = gql`
+  mutation removeLendingBook($bookId: ID!) {
+    removeBooksToLend(bookId: $bookId) {
+      _id
+    }
+  }
+`;
 
 // remove from lending list
 
