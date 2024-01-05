@@ -3,8 +3,15 @@ import { QUERY_SINGLE_BOOK } from "../../utils/queries";
 import { useParams } from "react-router-dom";
 import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
 import "./Page.scss";
+import { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
 
 export default function BookPage() {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   // get the bookId from the params
   const { bookId } = useParams();
   // manually setup the bookId here for test purpose
@@ -25,7 +32,7 @@ export default function BookPage() {
   return (
     <>
       <h2>Your selected book is {book.title}</h2>
-      <div class="single-book-container">
+      <div className="single-book-container">
         <div className="single-book-details">
           <img src={book.image} alt="" />
           <div>{book.title}</div>
@@ -37,7 +44,11 @@ export default function BookPage() {
         </div>
       </div>
       <div className="request-book-button">
-        <button>Request to Borrow</button>
+        <ModalConfirmation
+          show={show}
+          handleClose={handleClose}
+          handleShow={handleShow}
+        />
       </div>
     </>
   );
