@@ -66,8 +66,8 @@ export const LEND_BOOK = gql`
 
 // remove from favorites
 export const REMOVE_FAVBOOK = gql`
-  mutation removeFavBook($bookId: bookId) {
-    removeFavBook(bookId: ID!) {
+  mutation removeFavBook($bookId: ID!) {
+    removeFavBook(bookId: $bookId) {
       _id
     }
   }

@@ -11,11 +11,10 @@ export default function BookList({ books }) {
 
   const handleRemoveFavBook = async (book) => {
     console.log("book info: ", book)
-    const bookId = book._id
 
     try {
       const response = await removeFavBook({
-        variables: { bookId: bookId }
+        variables: { bookId: book._id }
       })
       console.log('response: ', response)
     } catch (e) {
