@@ -2,14 +2,21 @@ import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import "./SearchedBookResults.scss";
 import auth from "../../utils/auth";
 import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
-import { FAV_BOOK } from "../../utils/mutations";
+import { FAV_BOOK, LEND_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 
 function SearchedBookResults({ searchedBooks, favBookIds }) {
-  const [addBook, { error }] = useMutation(FAV_BOOK, {
+  // sets up mutation to add book to favorites list
+  const [addBook, { loading: favBookLoading, data: favBookData, error: favBookError }] = useMutation(FAV_BOOK, {
     refetchQueries: ["me"],
   });
 
+  // sets up mutation to add book to lending list
+  const [addBooksToLend, { loading: lendBookLoading, data: lendBookData, error: lendBookError }] = useMutation(LEND_BOOK, {
+    refetchQueries: ["me"]
+  })
+
+  // on button press, takes in book data and creates book in database then adds to user's favorite list
   const handleFavBook = async (googleBookId) => {
     console.log("Book Info: ", googleBookId);
     const bookToFavorite = searchedBooks.find(
@@ -17,17 +24,38 @@ function SearchedBookResults({ searchedBooks, favBookIds }) {
     );
     console.log("booktofavorite: ", bookToFavorite);
 
-    // console.log("userdata: ", userData);
-
     try {
       const response = await addBook({
         variables: { book: bookToFavorite },
       });
-      console.log("response from addBook: ", response);
+
     } catch (e) {
       console.log(e);
     }
   };
+
+  // on button press, takes in book data and creates book in database then adds to user's lending list
+  const handleLendBook = async (googleBookId) => {
+    console.log("Book Info: ", googleBookId);
+    const bookToLend = searchedBooks.find(
+      (book) => book.googleBookId === googleBookId
+    );
+    console.log("booktolend: ", bookToLend);
+
+    try {
+      const response = await addBooksToLend({
+        variables: { book: bookToLend },
+      });
+
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  if (favBookLoading || lendBookLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Container>
       <h2 className="pt-5">
@@ -64,21 +92,39 @@ function SearchedBookResults({ searchedBooks, favBookIds }) {
                   </p>
 
                   {auth.loggedIn() && (
-                    <Button
-                      disabled={favBookIds?.some(
-                        (favoritedBookId) =>
-                          favoritedBookId === book.googleBookId
-                      )}
-                      className="btn-block btn-info"
-                      onClick={() => handleFavBook(book.googleBookId)}
-                    >
-                      {favBookIds?.some(
-                        (favoritedBookId) =>
-                          favoritedBookId === book.googleBookId
-                      )
-                        ? "Favorited"
-                        : "Add to Favorites"}
-                    </Button>
+                    <div>
+                      <Button
+                        disabled={favBookIds?.some(
+                          (favoritedBookId) =>
+                            favoritedBookId === book.googleBookId
+                        )}
+                        className="btn-block btn-info"
+                        onClick={() => handleFavBook(book.googleBookId)}
+                      >
+                        {favBookIds?.some(
+                          (favoritedBookId) =>
+                            favoritedBookId === book.googleBookId
+                        )
+                          ? "Favorited"
+                          : "Add to Favorites"}
+                      </Button>
+                      <Button
+                        // disabled={favBookIds?.some(
+                        //   (favoritedBookId) =>
+                        //     favoritedBookId === book.googleBookId
+                        // )}
+                        className="btn-block btn-info"
+                        onClick={() => handleLendBook(book.googleBookId)}
+                      >
+                        Add to Lending List
+                        {/* {favBookIds?.some(
+                          (favoritedBookId) =>
+                            favoritedBookId === book.googleBookId
+                        )
+                          ? "Favorited"
+                          : "Add to Favorites"} */}
+                      </Button>
+                    </div>
                   )}
                 </Card.Body>
               </Card>

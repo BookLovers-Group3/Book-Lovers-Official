@@ -152,35 +152,27 @@ const resolvers = {
       throw AuthenticationError;
     },
     // add a book to books to lend
-    addBooksToLend: async (parent, { bookId }, context) => {
-      // try {
-      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      //   context.user = data;
-      // } catch {
-      //   console.log("Invalid token");
-      // }
+    addBooksToLend: async (parent, { book }, context) => {
+      console.log('user context: ', context.user)
       if (context.user) {
-        return Profile.findOneAndUpdate(
+        // first create book record based on google API data
+        const newBook = await Book.create({
+          ...book
+        })
+        // then add book to user's lending list
+        const profile = await Profile.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $addToSet: { booksToLend: bookId },
+            $addToSet: { booksToLend: newBook._id },
           },
-          {
-            new: true,
-            runValidators: true,
-          }
+          { new: true, runValidators: true, }
         );
+        return profile
       }
       throw AuthenticationError;
     },
     // remove a book from books to lend
     removeBooksToLend: async (parent, { bookId }, context) => {
-      // try {
-      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      //   context.user = data;
-      // } catch {
-      //   console.log("Invalid token");
-      // }
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -294,21 +286,19 @@ const resolvers = {
     },
     // create a book
     addBook: async (parent, { book }, context) => {
-      console.log("book from front: ", book);
       if (context.user) {
-        const response = await Book.create({
+        const newBook = await Book.create({
           ...book,
         });
         // then grab book _id and use profile.findOneAndUpdate to add to favorites list
-        console.log("book? ", book);
-        console.log("response: ", response);
+        console.log("newBook: ", newBook);
         const profile = await Profile.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { favoriteBooks: response._id } },
+          { $addToSet: { favoriteBooks: newBook._id } },
           { new: true, runValidators: true }
         );
-
-        return profile;
+        console.log('PROFILE?? ', profile)
+        return profile
       }
       throw AuthenticationError;
     },

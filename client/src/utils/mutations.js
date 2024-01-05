@@ -64,6 +64,13 @@ export const FAV_BOOK = gql`
 // }
 
 // add to lending list
+export const LEND_BOOK = gql`
+  mutation addBooksToLend($book: BookInput!) {
+    addBooksToLend(book: $book) {
+      _id
+    }
+  }
+`
 
 // remove from favorites
 
