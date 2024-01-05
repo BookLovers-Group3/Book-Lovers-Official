@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { Container, Col, Form, Button, Card, Row } from "react-bootstrap";
-// import SearchedBookResults from "../SearchedBookResults/SearchedBookResults";
+import { Container, Col, Form, Button, Row } from "react-bootstrap";
+import SearchedBookResults from "../SearchedBookResults/SearchedBookResults";
 import "../SearchedBookResults/SearchedBookResults.scss";
 import auth from "../../utils/auth";
 import { searchGoogleBooks } from "../../utils/API";
@@ -14,9 +14,7 @@ import { QUERY_ME } from "../../utils/queries";
 import { FAV_BOOK } from "../../utils/mutations";
 
 const BuildBookList = () => {
-  const [addBook, { error }] = useMutation(FAV_BOOK, {
-    refetchQueries: ["me"],
-  });
+
   const [searchedBooks, setSearchedBooks] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
@@ -67,24 +65,7 @@ const BuildBookList = () => {
     }
   };
 
-  const handleFavBook = async (googleBookId) => {
-    console.log("Book Info: ", googleBookId);
-    const bookToFavorite = searchedBooks.find(
-      (book) => book.googleBookId === googleBookId
-    );
-    console.log("booktofavorite: ", bookToFavorite);
 
-    console.log("userdata: ", userData);
-
-    try {
-      const response = await addBook({
-        variables: { book: bookToFavorite },
-      });
-      console.log("response from addBook: ", response);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   if (profileLoading) {
     return <div>Loading...</div>;
@@ -117,67 +98,8 @@ const BuildBookList = () => {
         </Container>
       </div>
 
-      <Container>
-        <h2 className="pt-5">
-          {searchedBooks.length
-            ? `Viewing ${searchedBooks.length} results:`
-            : "Search for a book to add it to your personal library list"}
-        </h2>
-        <Row>
-          {searchedBooks.map((book) => {
-            return (
-              <Col md="4" key={book.googleBookId}>
-                <Card border="dark">
-                  {book.image ? (
-                    <Card.Img
-                      src={book.image}
-                      alt={`The cover for ${book.title}`}
-                      variant="top"
-                    />
-                  ) : null}
-                  <Card.Body>
-                    <Card.Title>{book.title}</Card.Title>
-                    <p className="small">Authors: {book.authors}</p>
-                    <Card.Text>{book.description}</Card.Text>
-                    {auth.loggedIn() && (
-                      <Button
-                        disabled={favBookIds?.some(
-                          (favoritedBookId) =>
-                            favoritedBookId === book.googleBookId
-                        )}
-                        className="btn-block btn-info"
-                        onClick={() => handleFavBook(book.googleBookId)}
-                      >
-                        {favBookIds?.some(
-                          (favoritedBookId) =>
-                            favoritedBookId === book.googleBookId
-                        )
-                          ? "Favorited"
-                          : "Add to Favorites"}
-                      </Button>
-                    )}
-                    {auth.loggedIn() && (
-                      <Button
-                        disabled={favBookIds?.some(
-                          (favoritedBookId) =>
-                            favoritedBookId === book.googleBookId
-                        )}
-                        className="btn-block btn-info"
-                        onClick={() => handleFavBook(book.googleBookId)}
-                      >
-                        {/* {favBookIds?.some((favoritedBookId) => favoritedBookId === book.bookId)
-                          ? 'On My List'
-                          : 'Add to Lending List'} */}
-                      </Button>
-                    )}
-                  </Card.Body>
-                </Card>
-              </Col>
-            );
-          })}
-        </Row>
-      </Container>
-      {/* <SearchedBookResults searchedBooks={searchedBooks}></SearchedBookResults> */}
+
+      <SearchedBookResults searchedBooks={searchedBooks} favBookIds={favBookIds}  ></SearchedBookResults>
     </>
   );
 };
