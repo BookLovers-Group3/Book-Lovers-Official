@@ -6,7 +6,6 @@ import { FAV_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 
 function SearchedBookResults({ searchedBooks, favBookIds }) {
-
   const [addBook, { error }] = useMutation(FAV_BOOK, {
     refetchQueries: ["me"],
   });
@@ -67,12 +66,15 @@ function SearchedBookResults({ searchedBooks, favBookIds }) {
                   {auth.loggedIn() && (
                     <Button
                       disabled={favBookIds?.some(
-                        (favoritedBookId) => favoritedBookId === book.googleBookId
+                        (favoritedBookId) =>
+                          favoritedBookId === book.googleBookId
                       )}
                       className="btn-block btn-info"
-                      onClick={() => handleFavBook(book.bookId)}>
+                      onClick={() => handleFavBook(book.googleBookId)}
+                    >
                       {favBookIds?.some(
-                        (favoritedBookId) => favoritedBookId === book.googleBookId
+                        (favoritedBookId) =>
+                          favoritedBookId === book.googleBookId
                       )
                         ? "Favorited"
                         : "Add to Favorites"}
