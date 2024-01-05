@@ -3,18 +3,20 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Container, Col, Form, Button, Row } from "react-bootstrap";
 import SearchedBookResults from "../SearchedBookResults/SearchedBookResults";
 import "../SearchedBookResults/SearchedBookResults.scss";
-// import auth from "../../utils/auth";
+import auth from "../../utils/auth";
 import { searchGoogleBooks } from "../../utils/API";
 import {
   favoritedBookIds,
-  // getFavBookIds,
-  // removeFavBookId,
+  getFavBookIds,
+  removeFavBookId,
 } from "../../utils/localStorage";
 import { QUERY_ME } from "../../utils/queries";
 import { FAV_BOOK } from "../../utils/mutations";
 
 const BuildBookList = () => {
-  const [addBook, { error }] = useMutation(FAV_BOOK);
+  const [addBook, { error }] = useMutation(FAV_BOOK, {
+    refetchQueries: ["me"],
+  });
   const [searchedBooks, setSearchedBooks] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
@@ -25,7 +27,7 @@ const BuildBookList = () => {
   const [favBookIds, setFavBookIds] = useState(
     userData
       ? userData.favoriteBooks?.map((book) => {
-          return book.bookId;
+          return book.googleBookId;
         })
       : []
   );
@@ -51,10 +53,10 @@ const BuildBookList = () => {
       const { items } = await response.json();
 
       const bookData = items.map((book) => ({
-        bookId: book.id,
+        googleBookId: book.id,
         authors: book.volumeInfo.authors || ["No author to display"],
         title: book.volumeInfo.title,
-        description: book.volumeInfo.description || ["No description yet"],
+        description: book.volumeInfo.description || "No description yet",
         image: book.volumeInfo.imageLinks?.thumbnail || "",
       }));
 
@@ -65,9 +67,11 @@ const BuildBookList = () => {
     }
   };
 
-  const handleFavBook = async (bookId) => {
-    console.log("Book Info: ", bookId);
-    const bookToFavorite = searchedBooks.find((book) => book.bookId === bookId);
+  const handleFavBook = async (googleBookId) => {
+    console.log("Book Info: ", googleBookId);
+    const bookToFavorite = searchedBooks.find(
+      (book) => book.googleBookId === googleBookId
+    );
     console.log("booktofavorite: ", bookToFavorite);
 
     console.log("userdata: ", userData);

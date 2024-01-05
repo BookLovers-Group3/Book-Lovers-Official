@@ -12,8 +12,8 @@ export default function ProfilePage() {
   console.log(data);
 
   const profile = data?.profile;
-  const favoriteBooks = data?.queryFavoriteBooks;
-  const lendingBooks = data?.queryProfileLendingBooks;
+  const favoriteBooks = profile?.favoriteBooks;
+  const booksToLend = profile?.booksToLend;
   const favBookList = favoriteBooks?.map((book) => {
     return (
       <div key={book._id}>
@@ -22,7 +22,7 @@ export default function ProfilePage() {
     );
   });
 
-  const lendingBookList = lendingBooks?.map((book) => {
+  const booksToLendList = booksToLend?.map((book) => {
     return (
       <div key={book._id}>
         <div>{book.title}</div>
@@ -56,7 +56,7 @@ export default function ProfilePage() {
       ProfilePage
       <div>This is {profile?.name}'s Page</div>
       <div>This user's favorite books are {favBookList}</div>
-      <div>This user's lending books are {lendingBookList}</div>
+      <div>This user's lending books are {booksToLendList}</div>
     </div>
   );
 }

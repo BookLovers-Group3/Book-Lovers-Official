@@ -14,19 +14,22 @@ export const QUERY_SINGLE_PROFILE = gql`
     profile(profileId: $profileId) {
       _id
       name
-      friends
-    }
-    queryFavoriteBooks(profileId: $profileId) {
-      _id
-      authors
-      title
-      description
-    }
-    queryProfileLendingBooks(profileId: $profileId) {
-      _id
-      authors
-      title
-      description
+      friends {
+        _id
+        name
+      }
+      favoriteBooks {
+        _id
+        authors
+        title
+        description
+      }
+      booksToLend {
+        _id
+        authors
+        title
+        description
+      }
     }
   }
 `;
@@ -37,24 +40,30 @@ export const QUERY_ME = gql`
       _id
       name
       profileImage
-    }
-    queryMyFavoriteBooks {
-      _id
-      authors
-      title
-      description
-    }
-    queryMyLendingBooks {
-      _id
-      authors
-      title
-      description
-    }
-    queryMyBorrowedBooks {
-      _id
-      authors
-      title
-      description
+      favoriteBooks {
+        _id
+        authors
+        title
+        description
+      }
+      booksToLend {
+        _id
+        authors
+        title
+        description
+      }
+      booksLent {
+        _id
+        authors
+        title
+        description
+      }
+      booksBorrowed {
+        _id
+        authors
+        title
+        description
+      }
     }
   }
 `;
@@ -66,30 +75,11 @@ export const QUERY_BOOKS_LENDING = gql`
       authors
       description
       image
-      owner
       title
-    }
-  }
-`;
-
-export const QUERY_FAVORITE_BOOKS = gql`
-  query QueryFavoriteBooks($profileId: ID!) {
-    queryFavoriteBooks(profileId: $profileId) {
-      _id
-      authors
-      title
-      description
-    }
-  }
-`;
-
-export const QUERY_MY_FAVORITE_BOOKS = gql`
-  query QueryMyFavoriteBooks {
-    queryMyFavoriteBooks {
-      _id
-      authors
-      title
-      description
+      owner {
+        _id
+        name
+      }
     }
   }
 `;

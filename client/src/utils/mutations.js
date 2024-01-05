@@ -51,7 +51,6 @@ export const FAV_BOOK = gql`
     addBook(book: $book) {
       _id
     }
-    
   }
     
 `

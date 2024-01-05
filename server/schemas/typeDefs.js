@@ -6,11 +6,11 @@ const typeDefs = `
     name: String
     email: String
     password: String
-    friends: [ID!]
-    favoriteBooks: [Book]
-    booksToLend: [Book]
-    booksLent: [Book]
-    booksBorrowed: [Book]
+    friends: [Profile!]
+    favoriteBooks: [Book!]
+    booksToLend: [Book!]
+    booksLent: [Book!]
+    booksBorrowed: [Book!]
     gender: String!
     status: String!
     relationshipStatus: [String!]
@@ -19,14 +19,14 @@ const typeDefs = `
 
   type Book {
     _id: ID!
-    bookId: String
+    googleBookId: String
     title: String!
     authors: [String]
     image: String
     description: String
     link: String
-    owner: ID
-    borrower: ID
+    owner: Profile
+    borrower: Profile
     isAvailable: Boolean!
   }
 
@@ -44,7 +44,7 @@ const typeDefs = `
     title: String!
     authors: [String]
     description: String
-    bookId: String
+    googleBookId: String
     image: String
     link: String
   }
@@ -55,16 +55,12 @@ const typeDefs = `
   }
 
   type Query {
-    profiles: [Profile]!
+    books: [Book]
+    profiles: [Profile!]
     profile(profileId: ID!): Profile
-    booksLending:[Book]!
+    booksLending:[Book!]
     book(bookId: ID!): Book
     me: Profile
-    queryFavoriteBooks(profileId: ID!): [Book]
-    queryMyFavoriteBooks: [Book]
-    queryMyLendingBooks: [Book]
-    queryMyBorrowedBooks: [Book]
-    queryProfileLendingBooks(profileId: ID!): [Book]
   }
 
   type Mutation {
@@ -80,7 +76,7 @@ const typeDefs = `
 
     removeFriend(profileId: ID!): Profile
 
-    addBooksToLend(bookId: BookInput!): Profile
+    addBooksToLend(bookId: ID!): Profile
 
     removeBooksToLend(bookId: ID!): Profile
 
@@ -98,7 +94,7 @@ const typeDefs = `
     
     removeProfile: Profile
 
-    addBook(book: BookInput!): Book
+    addBook(book: BookInput!): Profile
 
     updateBookBorrower(bookId: ID!, profileId: ID!): Book
 

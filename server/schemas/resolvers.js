@@ -1,5 +1,10 @@
 const { Profile, Book, Ledger } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
+// const jwt = require("jsonwebtoken");
+// const secret = "mysecretssshhhhhhh";
+// const expiration = "2h";
+// const token =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiZG9taUBnbWFpbC5jb20iLCJuYW1lIjoiRG9taSIsIl9pZCI6IjY1OTMyMGYxNWNhNWMxM2YxNDc1ZDZmMyJ9LCJpYXQiOjE3MDQzNDAxNTgsImV4cCI6MTcwNDQyNjU1OH0.GKBgN2hffzr1B4kJcZCxCIL8kC_hL1NmYDbvyn6EAP0";
 
 const resolvers = {
   Query: {
@@ -9,62 +14,48 @@ const resolvers = {
     },
     // get one profile per profileID
     profile: async (parent, { profileId }) => {
-      return Profile.findOne({ _id: profileId });
+      return Profile.findOne({ _id: profileId }).populate([
+        "favoriteBooks",
+        "booksToLend",
+        "booksLent",
+        "booksBorrowed",
+      ]);
     },
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (parent, args, context) => {
       if (context.user) {
-        return Profile.findOne({ _id: context.user._id });
+        return Profile.findOne({ _id: context.user._id }).populate([
+          "favoriteBooks",
+          "booksToLend",
+          "booksLent",
+          "booksBorrowed",
+        ]);
       }
       throw AuthenticationError;
     },
     // get all books that are avaiable to borrow
-    booksLending: async () => {
-      return Book.find({ isAvailable: true });
+    booksLending: async (parent, args, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
+      if (context.user) {
+        return Book.find({
+          isAvailable: true,
+          owner: { $ne: context.user._id },
+        }).populate("owner");
+      }
+      throw AuthenticationError;
     },
     // get one book per bookID
     book: async (parent, { bookId }) => {
       return Book.findOne({ _id: bookId });
     },
-
-    queryFavoriteBooks: async (parent, { profileId }, context) => {
-      const user = await Profile.findOne({ _id: profileId }).populate(
-        "favoriteBooks"
-      );
-      const favoriteBooks = user.favoriteBooks;
-      return favoriteBooks;
-    },
-
-    queryMyFavoriteBooks: async (parent, args, context) => {
-      const user = await Profile.findOne({ _id: context.user._id }).populate(
-        "favoriteBooks"
-      );
-      const favoriteBooks = user.favoriteBooks;
-      return favoriteBooks;
-    },
-
-    queryMyLendingBooks: async (parent, args, context) => {
-      const user = await Profile.findOne({ _id: context.user._id }).populate(
-        "booksToLend"
-      );
-      const lendingBooks = user.booksToLend;
-      return lendingBooks;
-    },
-
-    queryMyBorrowedBooks: async (parent, args, context) => {
-      const user = await Profile.findOne({ _id: context.user._id }).populate(
-        "booksBorrowed"
-      );
-      const borrowedBooks = user.booksBorrowed;
-      return borrowedBooks;
-    },
-
-    queryProfileLendingBooks: async (parent, { profileId }, context) => {
-      const user = await Profile.findOne({ _id: profileId }).populate(
-        "booksToLend"
-      );
-      const lendingBooks = user.booksToLend;
-      return lendingBooks;
+    //all books
+    books: async (parent, args) => {
+      return Book.find();
     },
   },
 
@@ -162,6 +153,12 @@ const resolvers = {
     },
     // add a book to books to lend
     addBooksToLend: async (parent, { bookId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -178,6 +175,12 @@ const resolvers = {
     },
     // remove a book from books to lend
     removeBooksToLend: async (parent, { bookId }, context) => {
+      // try {
+      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      //   context.user = data;
+      // } catch {
+      //   console.log("Invalid token");
+      // }
       if (context.user) {
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -290,22 +293,26 @@ const resolvers = {
       throw AuthenticationError;
     },
     // create a book
-    addBook: async (
-      parent,
-      {
-        book
-      },
-      context
-    ) => {
-      console.log('book from front: ', book)
+    addBook: async (parent, { book }, context) => {
+      console.log("book from front: ", book);
       if (context.user) {
-        return Book.create({
-          ...book
-          // then grab book _id and use profile.findOneAndUpdate to add to favorites list
+        const response = await Book.create({
+          ...book,
         });
+        // then grab book _id and use profile.findOneAndUpdate to add to favorites list
+        console.log("book? ", book);
+        console.log("response: ", response);
+        const profile = await Profile.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { favoriteBooks: response._id } },
+          { new: true, runValidators: true }
+        );
+
+        return profile;
       }
       throw AuthenticationError;
     },
+
     // update book borrower
     updateBookBorrower: async (parent, { bookId, profileId }, context) => {
       if (context.user) {
