@@ -14,9 +14,7 @@ import { QUERY_ME } from "../../utils/queries";
 import { FAV_BOOK } from "../../utils/mutations";
 
 const BuildBookList = () => {
-  const [addBook, { error }] = useMutation(FAV_BOOK, {
-    refetchQueries: ["me"],
-  });
+
   const [searchedBooks, setSearchedBooks] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
@@ -67,24 +65,7 @@ const BuildBookList = () => {
     }
   };
 
-  const handleFavBook = async (googleBookId) => {
-    console.log("Book Info: ", googleBookId);
-    const bookToFavorite = searchedBooks.find(
-      (book) => book.googleBookId === googleBookId
-    );
-    console.log("booktofavorite: ", bookToFavorite);
 
-    console.log("userdata: ", userData);
-
-    try {
-      const response = await addBook({
-        variables: { book: bookToFavorite },
-      });
-      console.log("response from addBook: ", response);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   if (profileLoading) {
     return <div>Loading...</div>;
@@ -118,7 +99,7 @@ const BuildBookList = () => {
       </div>
 
 
-      <SearchedBookResults searchedBooks={searchedBooks} favBookIds={favBookIds} handleFavBook={handleFavBook}  ></SearchedBookResults>
+      <SearchedBookResults searchedBooks={searchedBooks} favBookIds={favBookIds}  ></SearchedBookResults>
     </>
   );
 };
