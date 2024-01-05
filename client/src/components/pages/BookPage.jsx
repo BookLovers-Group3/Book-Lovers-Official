@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_BOOK } from "../../utils/queries";
 import { useParams } from "react-router-dom";
 import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
+import "./Page.scss";
 
 export default function BookPage() {
   // get the bookId from the params
@@ -23,12 +24,17 @@ export default function BookPage() {
 
   return (
     <>
-      <div>
-        <div>Title: {book.title}</div>
-        <ModalBookDescription book={book} />
-        <div>By: {book.authors}</div>
-        <div>Posted by: This is the place-holder for bookowner</div>
-        <img src={book.image} alt="" />
+      <h2>Your selected book is {book.title}</h2>
+      <div class="single-book-container">
+        <div className="single-book-details">
+          <img src={book.image} alt="" />
+          <div>{book.title}</div>
+        </div>
+        <div>
+          <div>By: {book.authors}</div>
+          <ModalBookDescription book={book} />
+          <div>Posted by: This is the place-holder for bookowner</div>
+        </div>
       </div>
       <div className="request-book-button">
         <button>Request to Borrow</button>
