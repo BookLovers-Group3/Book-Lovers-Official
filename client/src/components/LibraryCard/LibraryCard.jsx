@@ -120,13 +120,13 @@ const LibraryCard = ({ user }) => {
         </div>
       </div>
       <div className="hidden favBookList">
-        <BookList books={user.favoriteBooks} />
+        <BookList books={user.favoriteBooks} type="favorite" />
       </div>
       <div className="hidden lendingBookList">
-        <BookList books={user.booksToLend} />
+        <BookList books={user.booksToLend} type="lending" />
       </div>
       <div className="hidden borrowedBookList">
-        <BookList books={user.booksBorrowed} />
+        <BookList books={user.booksBorrowed} type="borrowed" />
       </div>
     </>
   );

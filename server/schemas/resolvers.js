@@ -292,13 +292,11 @@ const resolvers = {
           ...book,
         });
         // then grab book _id and use profile.findOneAndUpdate to add to favorites list
-        console.log("newBook: ", newBook);
         const profile = await Profile.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { favoriteBooks: newBook._id } },
           { new: true, runValidators: true }
         );
-        console.log("PROFILE?? ", profile);
         return profile;
       }
       throw AuthenticationError;

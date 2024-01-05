@@ -55,9 +55,9 @@ function SearchedBookResults({ searchedBooks, favBookIds }) {
     }
   };
 
-  if (favBookLoading || lendBookLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (favBookLoading || lendBookLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <Container>
