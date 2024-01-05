@@ -7,14 +7,20 @@ import { useMutation } from "@apollo/client";
 
 function SearchedBookResults({ searchedBooks, favBookIds }) {
   // sets up mutation to add book to favorites list
-  const [addBook, { loading: favBookLoading, data: favBookData, error: favBookError }] = useMutation(FAV_BOOK, {
+  const [
+    addBook,
+    { loading: favBookLoading, data: favBookData, error: favBookError },
+  ] = useMutation(FAV_BOOK, {
     refetchQueries: ["me"],
   });
 
   // sets up mutation to add book to lending list
-  const [addBooksToLend, { loading: lendBookLoading, data: lendBookData, error: lendBookError }] = useMutation(LEND_BOOK, {
-    refetchQueries: ["me"]
-  })
+  const [
+    addBooksToLend,
+    { loading: lendBookLoading, data: lendBookData, error: lendBookError },
+  ] = useMutation(LEND_BOOK, {
+    refetchQueries: ["me"],
+  });
 
   // on button press, takes in book data and creates book in database then adds to user's favorite list
   const handleFavBook = async (googleBookId) => {
@@ -28,7 +34,6 @@ function SearchedBookResults({ searchedBooks, favBookIds }) {
       const response = await addBook({
         variables: { book: bookToFavorite },
       });
-
     } catch (e) {
       console.log(e);
     }
@@ -40,13 +45,11 @@ function SearchedBookResults({ searchedBooks, favBookIds }) {
     const bookToLend = searchedBooks.find(
       (book) => book.googleBookId === googleBookId
     );
-    console.log("booktolend: ", bookToLend);
 
     try {
       const response = await addBooksToLend({
         variables: { book: bookToLend },
       });
-
     } catch (e) {
       console.log(e);
     }

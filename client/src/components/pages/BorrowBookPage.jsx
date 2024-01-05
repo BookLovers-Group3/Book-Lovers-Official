@@ -20,9 +20,9 @@ export default function BookLendingListPage() {
           {book.authors}
           <Link
             className="btn btn-lg btn-primary"
-            to={`/profile/${book.owner._id}`}
+            to={`/profile/${book.owner?._id}`}
           >
-            {book.owner.name}
+            {book.owner?.name}
           </Link>
         </p>
       </div>
