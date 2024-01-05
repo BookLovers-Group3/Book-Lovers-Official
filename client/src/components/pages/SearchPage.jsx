@@ -11,7 +11,6 @@ import {
   removeFavBookId,
 } from "../../utils/localStorage";
 import { QUERY_ME } from "../../utils/queries";
-import { FAV_BOOK } from "../../utils/mutations";
 
 const BuildBookList = () => {
 
@@ -34,6 +33,7 @@ const BuildBookList = () => {
     return () => favoritedBookIds(favBookIds);
   });
 
+  // takes data from search field and provides results using google books API
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -65,8 +65,6 @@ const BuildBookList = () => {
     }
   };
 
-
-
   if (profileLoading) {
     return <div>Loading...</div>;
   }
@@ -97,8 +95,7 @@ const BuildBookList = () => {
           </Form>
         </Container>
       </div>
-
-
+      
       <SearchedBookResults searchedBooks={searchedBooks} favBookIds={favBookIds}  ></SearchedBookResults>
     </>
   );
