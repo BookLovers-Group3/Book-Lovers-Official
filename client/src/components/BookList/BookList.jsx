@@ -1,8 +1,33 @@
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import auth from "../../utils/auth";
+import { useMutation } from "@apollo/client";
+import { REMOVE_FAVBOOK } from "../../utils/mutations";
 
 export default function BookList({ user }) {
   const favoriteBooks = user.favoriteBooks;
+
+  const [removeFavBook, { loading, data, error }] = useMutation(REMOVE_FAVBOOK, {
+    refetchQueries: ["me"]
+  })
+
+  const handleRemoveFavBook = async (book) => {
+    console.log("book info: ", book)
+    const bookId = book._id
+
+    try {
+      const response = await removeFavBook({
+        variables: { bookId: bookId }
+      })
+      console.log('response: ', response)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
   return (
     <Container>
       <h2 className="pt-5">
@@ -34,6 +59,7 @@ export default function BookList({ user }) {
                     Authors: {book.authors || "No authors listed"}
                   </p>
                 </Card.Body>
+                <Button onClick={() => handleRemoveFavBook(book)}>Remove</Button>
               </Card>
             </Col>
           );

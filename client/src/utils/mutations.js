@@ -55,14 +55,6 @@ export const FAV_BOOK = gql`
     
 `
 
-// favoriteBook (book: $book) {
-//   _id
-//   name
-//   favoriteBooks {
-//       _id
-//   }
-// }
-
 // add to lending list
 export const LEND_BOOK = gql`
   mutation addBooksToLend($book: BookInput!) {
@@ -73,6 +65,13 @@ export const LEND_BOOK = gql`
 `
 
 // remove from favorites
+export const REMOVE_FAVBOOK = gql`
+  mutation removeFavBook($bookId: bookId) {
+    removeFavBook(bookId: ID!) {
+      _id
+    }
+  }
+`
 
 // remove from lending list
 
