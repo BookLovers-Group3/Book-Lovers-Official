@@ -74,6 +74,11 @@ export default function ProfilePage() {
     return <h4>No such profile exist</h4>;
   }
 
+  // if not logged in, go to the homepage
+  if (!Auth.loggedIn()) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div>
       ProfilePage{" "}
