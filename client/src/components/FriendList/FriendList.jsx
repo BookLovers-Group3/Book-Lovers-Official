@@ -1,62 +1,22 @@
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
-import { REMOVE_FAVBOOK, REMOVE_LENDING_BOOK } from "../../utils/mutations";
+import { REMOVE_FRIEND } from "../../utils/mutations";
 
 export default function FriendList({ friends }) {
-  // get mutation for remove favorite book
-  // const [
-  //   removeFavBook,
-  //   { loading: favLoading, data: favData, error: favError },
-  // ] = useMutation(REMOVE_FAVBOOK, {
-  //   refetchQueries: ["me"],
-  // });
-  // get mutation for remove lending book
-  // const [
-  //   removeLendingBook,
-  //   { loading: lendingLoading, data: lendingData, error: lendingError },
-  // ] = useMutation(REMOVE_LENDING_BOOK, {
-  //   refetchQueries: ["me"],
-  // });
+  // get mutation for remove friend
+  const [removeFriend, { loading, data, error }] = useMutation(REMOVE_FRIEND, {
+    refetchQueries: ["me"],
+  });
 
-  // define function for remove favorite book
-  // const handleRemoveFavBook = async (book) => {
-  //   console.log("book info: ", book);
-
-  //   try {
-  //     const response = await removeFavBook({
-  //       variables: { bookId: book._id },
-  //     });
-  //     console.log("response: ", response);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  // define function for remove lending book
-  // const handleRemoveLendingBook = async (book) => {
-  //   console.log("book info: ", book);
-
-  //   try {
-  //     const response = await removeLendingBook({
-  //       variables: { bookId: book._id },
-  //     });
-  //     console.log("response: ", response);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  // define function for choose which type of book to remove
-  // const handleRemoveBook = (book) => {
-  //   if (type === "favorite") {
-  //     return handleRemoveFavBook(book);
-  //   }
-  //   if (type === "lending") {
-  //     return handleRemoveLendingBook(book);
-  //   }
-  // };
-  const removeFriend = () => {
-    console.log("Remove Friend");
+  const handleRemoveFriend = async (friend) => {
+    console.log("Remove Friend", friend);
+    try {
+      const response = await removeFriend({
+        variables: { profileId: friend._id },
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -84,7 +44,9 @@ export default function FriendList({ friends }) {
                     }}
                   />
                 ) : null}
-                <Button onClick={() => removeFriend(friend)}>Remove</Button>
+                <Button onClick={() => handleRemoveFriend(friend)}>
+                  Unfriend
+                </Button>
               </Card>
             </Col>
           );

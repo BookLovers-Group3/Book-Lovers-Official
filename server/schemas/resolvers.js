@@ -1,10 +1,5 @@
 const { Profile, Book, Ledger } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
-// const jwt = require("jsonwebtoken");
-// const secret = "mysecretssshhhhhhh";
-// const expiration = "2h";
-// const token =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiZG9taUBnbWFpbC5jb20iLCJuYW1lIjoiRG9taSIsIl9pZCI6IjY1OTMyMGYxNWNhNWMxM2YxNDc1ZDZmMyJ9LCJpYXQiOjE3MDQzNDAxNTgsImV4cCI6MTcwNDQyNjU1OH0.GKBgN2hffzr1B4kJcZCxCIL8kC_hL1NmYDbvyn6EAP0";
 
 const resolvers = {
   Query: {
@@ -36,12 +31,6 @@ const resolvers = {
     },
     // get all books that are avaiable to borrow
     booksLending: async (parent, args, context) => {
-      // try {
-      //   const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      //   context.user = data;
-      // } catch {
-      //   console.log("Invalid token");
-      // }
       if (context.user) {
         return Book.find({
           isAvailable: true,
@@ -136,23 +125,14 @@ const resolvers = {
             runValidators: true,
           }
         );
-        const friend = Profile.findOneAndUpdate(
-          { _id: profileId },
-          {
-            $addToSet: { friends: context.user._id },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-        return [user, friend];
+        return user;
       }
       throw AuthenticationError;
     },
     // remove a friend
     removeFriend: async (parent, { profileId }, context) => {
       if (context.user) {
+        console.log("remove friend back end");
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { friends: profileId } },

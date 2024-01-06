@@ -42,7 +42,7 @@ export default function ProfilePage() {
     );
   });
 
-  // check if the current user and the profile page user are frends
+  // check if the current user is the profile page user's friends
   useEffect(() => {
     if (friends && friends.length > 0) {
       for (const friend of friends) {
