@@ -9,20 +9,6 @@ export default function MePage() {
   const { loading: profileLoading, data: profileData } = useQuery(QUERY_ME);
   // user info
   const user = profileData?.me;
-  // user's favorite books, an array
-  const favoriteBooks = user?.favoriteBooks;
-  // user's lending books, an array
-  const booksToLend = user?.booksToLend;
-  // user's borrowed books, an array
-  const booksBorrowed = user?.booksBorrowed;
-
-  const favoriteBookList = favoriteBooks?.map((book) => {
-    return <div key={book._id}>{book.title}</div>;
-  });
-
-  const lendingBookList = booksToLend?.map((book) => {
-    return <div key={book._id}>{book.title}</div>;
-  });
 
   // if not logged in, go to the homepage
   if (!Auth.loggedIn()) {
