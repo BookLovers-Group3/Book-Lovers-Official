@@ -8,7 +8,7 @@ const RandomBooks = ({ randomBook }) => {
           <div>
             <img
               src={
-                randomBook.volumeInfo.imageLinks.thumbnail ||
+                randomBook.volumeInfo.imageLinks?.thumbnail ||
                 "No image available"
               }
               alt={`book cover for ${randomBook.volumeInfo.title}`}
