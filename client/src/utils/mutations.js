@@ -50,6 +50,10 @@ export const FAV_BOOK = gql`
   mutation addBook($book: BookInput!) {
     addBook(book: $book) {
       _id
+      name
+      favoriteBooks{
+        _id
+      }
     }
   }
 `;
@@ -59,6 +63,10 @@ export const LEND_BOOK = gql`
   mutation addBooksToLend($book: BookInput!) {
     addBooksToLend(book: $book) {
       _id
+      name
+      booksToLend{
+        _id
+      }
     }
   }
 `;
@@ -93,18 +101,4 @@ export const ADD_FRIEND = gql`
   }
 `;
 
-// remove from lending list
 
-// add book record
-// export const ADD_BOOK = gql`
-//   mutation AddBook($book: BookInput!) {
-//     addBook(book: $book) {
-//       bookId
-//       authors
-//       title
-//       description
-//       image
-//       link
-//     }
-//   }
-// `

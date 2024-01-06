@@ -4,8 +4,10 @@ import auth from "../../utils/auth";
 import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
 import { FAV_BOOK, LEND_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
+import { useEffect } from "react";
+import { favoritedBookIds } from "../../utils/localStorage";
 
-function SearchedBookResults({ searchedBooks, favBookIds }) {
+function SearchedBookResults({ searchedBooks, favBookIds, updateSavDisplay }) {
   // sets up mutation to add book to favorites list
   const [
     addBook,
@@ -22,6 +24,10 @@ function SearchedBookResults({ searchedBooks, favBookIds }) {
     refetchQueries: ["me"],
   });
 
+  useEffect(() => {
+    return () => favoritedBookIds(favBookIds);
+  });
+
   // on button press, takes in book data and creates book in database then adds to user's favorite list
   const handleFavBook = async (googleBookId) => {
     console.log("Book Info: ", googleBookId);
@@ -34,6 +40,9 @@ function SearchedBookResults({ searchedBooks, favBookIds }) {
       const response = await addBook({
         variables: { book: bookToFavorite },
       });
+      console.log("response: ", response)
+      console.log('favBookIds from user? ', favBookIds)
+      updateSavDisplay()
     } catch (e) {
       console.log(e);
     }
@@ -50,14 +59,11 @@ function SearchedBookResults({ searchedBooks, favBookIds }) {
       const response = await addBooksToLend({
         variables: { book: bookToLend },
       });
+      console.log("response: ", response)
     } catch (e) {
       console.log(e);
     }
   };
-
-  // if (favBookLoading || lendBookLoading) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <Container>

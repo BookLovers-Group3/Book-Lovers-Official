@@ -13,7 +13,6 @@ import {
 import { QUERY_ME } from "../../utils/queries";
 
 const BuildBookList = () => {
-
   const [searchedBooks, setSearchedBooks] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
@@ -21,21 +20,28 @@ const BuildBookList = () => {
 
   const userData = profileData?.me;
 
-  const [favBookIds, setFavBookIds] = useState(
-    userData
-      ? userData.favoriteBooks?.map((book) => {
-          return book.googleBookId;
+  const [favBookIds, setFavBookIds] = useState([]);
+
+  function updateSavDisplay() {
+    setFavBookIds(
+      userData
+      ? userData.favoriteBooks?.map((favoriteBooks) => {
+          return favoriteBooks.googleBookId;
         })
       : []
-  );
-
-  useEffect(() => {
-    return () => favoritedBookIds(favBookIds);
-  });
+    )
+  }
 
   // takes data from search field and provides results using google books API
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setFavBookIds(
+      userData
+      ? userData.favoriteBooks?.map((favoriteBooks) => {
+          return favoriteBooks.googleBookId;
+        })
+      : []
+    )
 
     if (!searchInput) {
       return false;
@@ -52,9 +58,9 @@ const BuildBookList = () => {
 
       const bookData = items.map((book) => ({
         googleBookId: book.id,
-        authors: book.volumeInfo.authors || ["No author to display"],
-        title: book.volumeInfo.title,
-        description: book.volumeInfo.description || "No description yet",
+        authors: book.volumeInfo?.authors || ["No author to display"],
+        title: book.volumeInfo?.title || "No title to display",
+        description: book.volumeInfo?.description || "No description yet",
         image: book.volumeInfo.imageLinks?.thumbnail || "",
       }));
 
@@ -96,7 +102,7 @@ const BuildBookList = () => {
         </Container>
       </div>
       
-      <SearchedBookResults searchedBooks={searchedBooks} favBookIds={favBookIds}  ></SearchedBookResults>
+      <SearchedBookResults searchedBooks={searchedBooks} favBookIds={favBookIds} updateSavDisplay={updateSavDisplay}></SearchedBookResults>
     </>
   );
 };

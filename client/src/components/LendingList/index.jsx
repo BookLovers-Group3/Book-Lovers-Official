@@ -1,1 +1,0 @@
-// make component that displays lending list for user. includes ability to remove from lending list

@@ -42,6 +42,7 @@ export const QUERY_ME = gql`
       profileImage
       favoriteBooks {
         _id
+        googleBookId
         authors
         title
         description
@@ -49,6 +50,7 @@ export const QUERY_ME = gql`
       }
       booksToLend {
         _id
+        googleBookId
         authors
         title
         description
