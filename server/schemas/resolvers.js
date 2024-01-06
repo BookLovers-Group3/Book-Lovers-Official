@@ -123,8 +123,9 @@ const resolvers = {
     },
     // add a friend
     addFriend: async (parent, { profileId }, context) => {
+      console.log("add Friend");
       if (context.user) {
-        return Profile.findOneAndUpdate(
+        const user = Profile.findOneAndUpdate(
           { _id: context.user._id },
           {
             $addToSet: { friends: profileId },
@@ -134,6 +135,17 @@ const resolvers = {
             runValidators: true,
           }
         );
+        const friend = Profile.findOneAndUpdate(
+          { _id: profileId },
+          {
+            $addToSet: { friends: context.user._id },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        return [user, friend];
       }
       throw AuthenticationError;
     },

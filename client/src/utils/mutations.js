@@ -80,6 +80,19 @@ export const REMOVE_LENDING_BOOK = gql`
   }
 `;
 
+// add friend
+export const ADD_FRIEND = gql`
+  mutation addFriend($profileId: ID!) {
+    addFriend(profileId: $profileId) {
+      _id
+      name
+      friends {
+        _id
+      }
+    }
+  }
+`;
+
 // remove from lending list
 
 // add book record
