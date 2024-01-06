@@ -55,10 +55,6 @@ function SearchedBookResults({ searchedBooks, favBookIds }) {
     }
   };
 
-  // if (favBookLoading || lendBookLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
   return (
     <Container>
       <h2 className="pt-5">

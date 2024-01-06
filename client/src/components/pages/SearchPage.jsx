@@ -52,9 +52,9 @@ const BuildBookList = () => {
 
       const bookData = items.map((book) => ({
         googleBookId: book.id,
-        authors: book.volumeInfo.authors || ["No author to display"],
-        title: book.volumeInfo.title,
-        description: book.volumeInfo.description || "No description yet",
+        authors: book.volumeInfo?.authors || ["No author to display"],
+        title: book.volumeInfo?.title || "No title to display",
+        description: book.volumeInfo?.description || "No description yet",
         image: book.volumeInfo.imageLinks?.thumbnail || "",
       }));
 

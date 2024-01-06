@@ -62,7 +62,7 @@ export default function BookList({ books, type }) {
       <h2 className="pt-5">
         {books?.length
           ? `Viewing ${books?.length} results:`
-          : "There is no favorite books yet!"}
+          : "You have no favorite books yet"}
       </h2>
       <Row>
         {books?.map((book) => {
