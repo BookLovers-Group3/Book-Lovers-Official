@@ -60,8 +60,8 @@ export default function BookList({ books, type }) {
     <Container>
       <h2 className="pt-5">
         {books?.length
-          ? `Viewing ${books?.length} results:`
-          : "You have no favorite books yet"}
+          ? `Viewing ${books?.length} ${type} books:`
+          : `You have no ${type} books yet`}
       </h2>
       <Row>
         {books?.map((book) => {
