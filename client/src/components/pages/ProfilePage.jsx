@@ -82,7 +82,11 @@ export default function ProfilePage() {
   return (
     <div>
       ProfilePage{" "}
-      {isFriend ? <p>You are Friends</p> : <p>You are not friends</p>}
+      {isFriend ? (
+        <p>You are {profile?.name}'s Friends</p>
+      ) : (
+        <p>You are not friends</p>
+      )}
       <div>This is {profile?.name}'s Page</div>
       <div>This user's favorite books are {favBookList}</div>
       <div>This user's lending books are {booksToLendList}</div>
