@@ -44,9 +44,9 @@ export default function ProfilePage() {
 
   // check if the current user and the profile page user are frends
   useEffect(() => {
-    if (friends) {
+    if (friends && friends.length > 0) {
       for (const friend of friends) {
-        if (friend._id === Auth.getProfile().data._id) {
+        if (friend._id === Auth?.getProfile().data._id) {
           setIsFriend(true);
           break;
         }
