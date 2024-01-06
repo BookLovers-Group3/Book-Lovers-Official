@@ -85,7 +85,7 @@ export default function ProfilePage() {
       {isFriend ? (
         <p>You are {profile?.name}'s Friends</p>
       ) : (
-        <p>You are not friends</p>
+        <p>You are not {profile?.name}'s friends</p>
       )}
       <div>This is {profile?.name}'s Page</div>
       <div>This user's favorite books are {favBookList}</div>
