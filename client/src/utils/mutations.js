@@ -51,7 +51,7 @@ export const FAV_BOOK = gql`
     addBook(book: $book) {
       _id
       name
-      favoriteBooks{
+      favoriteBooks {
         _id
       }
     }
@@ -64,7 +64,7 @@ export const LEND_BOOK = gql`
     addBooksToLend(book: $book) {
       _id
       name
-      booksToLend{
+      booksToLend {
         _id
       }
     }
@@ -101,4 +101,11 @@ export const ADD_FRIEND = gql`
   }
 `;
 
-
+// remove a friend
+export const REMOVE_FRIEND = gql`
+  mutation removeFriend($profileId: ID!) {
+    removeFriend(profileId: $profileId) {
+      _id
+    }
+  }
+`;

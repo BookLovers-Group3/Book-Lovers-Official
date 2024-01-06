@@ -42,7 +42,7 @@ export default function ProfilePage() {
     );
   });
 
-  // check if the current user and the profile page user are frends
+  // check if the current user is the profile page user's friends
   useEffect(() => {
     if (friends && friends.length > 0) {
       for (const friend of friends) {
@@ -82,7 +82,11 @@ export default function ProfilePage() {
   return (
     <div>
       ProfilePage{" "}
-      {isFriend ? <p>You are Friends</p> : <p>You are not friends</p>}
+      {isFriend ? (
+        <p>You are {profile?.name}'s Friends</p>
+      ) : (
+        <p>You are not {profile?.name}'s friends</p>
+      )}
       <div>This is {profile?.name}'s Page</div>
       <div>This user's favorite books are {favBookList}</div>
       <div>This user's lending books are {booksToLendList}</div>
