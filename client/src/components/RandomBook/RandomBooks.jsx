@@ -15,7 +15,7 @@ const RandomBooks = ({ randomBook }) => {
             />
             <h3> {randomBook.volumeInfo.title}</h3>
             <p>
-              {randomBook.volumeInfo.authors.join(", ") || "author unknown"}
+              {randomBook.volumeInfo.authors?.join(", ") || "author unknown"}
             </p>
           </div>
           <div>

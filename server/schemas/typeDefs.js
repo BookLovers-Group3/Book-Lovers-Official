@@ -72,7 +72,7 @@ const typeDefs = `
 
     removeFavBook(bookId: ID!): Profile
 
-    addFriend(profileId: ID!): Profile
+    addFriend(profileId: ID!): [Profile]
 
     removeFriend(profileId: ID!): Profile
 
