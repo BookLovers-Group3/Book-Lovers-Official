@@ -1,5 +1,4 @@
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
-import auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
 import { REMOVE_FAVBOOK, REMOVE_LENDING_BOOK } from "../../utils/mutations";
 

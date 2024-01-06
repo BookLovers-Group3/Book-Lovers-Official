@@ -29,6 +29,7 @@ const resolvers = {
           "booksToLend",
           "booksLent",
           "booksBorrowed",
+          "friends",
         ]);
       }
       throw AuthenticationError;
@@ -303,7 +304,7 @@ const resolvers = {
         const newBook = await Book.create({
           ...book,
         });
-        console.log("new Book: ", newBook)
+        console.log("new Book: ", newBook);
         // then grab book _id and use profile.findOneAndUpdate to add to favorites list
         const profile = await Profile.findOneAndUpdate(
           { _id: context.user._id },

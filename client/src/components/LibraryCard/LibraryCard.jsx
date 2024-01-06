@@ -5,6 +5,7 @@ import "./LibraryCard.scss";
 import { UPDATE_PROFILE_IMAGE } from "../../utils/mutations";
 const avatar = "../../images/InitialAvatar.jpg";
 import BookList from "../BookList/BookList";
+import FriendList from "../FriendList/FriendList";
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import calculateStatus from "../../utils/helpers";
 
@@ -41,8 +42,10 @@ const LibraryCard = ({ user }) => {
     const favBookEl = document.querySelector(".favBookList");
     const lendingBookEl = document.querySelector(".lendingBookList");
     const borrowedBookEl = document.querySelector(".borrowedBookList");
+    const friendsEl = document.querySelector(".friendList");
     lendingBookEl.classList.add("hidden");
     borrowedBookEl.classList.add("hidden");
+    friendsEl.classList.add("hidden");
     favBookEl.classList.remove("hidden");
   };
 
@@ -51,8 +54,10 @@ const LibraryCard = ({ user }) => {
     const favBookEl = document.querySelector(".favBookList");
     const lendingBookEl = document.querySelector(".lendingBookList");
     const borrowedBookEl = document.querySelector(".borrowedBookList");
+    const friendsEl = document.querySelector(".friendList");
     borrowedBookEl.classList.add("hidden");
     favBookEl.classList.add("hidden");
+    friendsEl.classList.add("hidden");
     lendingBookEl.classList.remove("hidden");
   };
 
@@ -61,9 +66,24 @@ const LibraryCard = ({ user }) => {
     const favBookEl = document.querySelector(".favBookList");
     const lendingBookEl = document.querySelector(".lendingBookList");
     const borrowedBookEl = document.querySelector(".borrowedBookList");
+    const friendsEl = document.querySelector(".friendList");
     lendingBookEl.classList.add("hidden");
     favBookEl.classList.add("hidden");
+    friendsEl.classList.add("hidden");
     borrowedBookEl.classList.remove("hidden");
+  };
+
+  // define function to show friend list
+  const showFriends = () => {
+    const favBookEl = document.querySelector(".favBookList");
+    const lendingBookEl = document.querySelector(".lendingBookList");
+    const borrowedBookEl = document.querySelector(".borrowedBookList");
+    const friendsEl = document.querySelector(".friendList");
+    console.log("show friends", user.friends);
+    lendingBookEl.classList.add("hidden");
+    favBookEl.classList.add("hidden");
+    borrowedBookEl.classList.add("hidden");
+    friendsEl.classList.remove("hidden");
   };
 
   return (
@@ -115,13 +135,18 @@ const LibraryCard = ({ user }) => {
           </Button>
           <Button
             className="btn-block btn-info"
-            onClick={() => showLendingBooks()}>
+            onClick={() => showLendingBooks()}
+          >
             Checkout My Books
           </Button>
           <Button
             className="btn-block btn-info"
-            onClick={() => showBorrowedBooks()}>
+            onClick={() => showBorrowedBooks()}
+          >
             Borrowed Books
+          </Button>
+          <Button className="btn-block btn-info" onClick={() => showFriends()}>
+            My Friends
           </Button>
         </div>
       </div>
@@ -133,6 +158,9 @@ const LibraryCard = ({ user }) => {
       </div>
       <div className="hidden borrowedBookList">
         <BookList books={user.booksBorrowed} type="borrowed" />
+      </div>
+      <div className="hidden friendList">
+        <FriendList friends={user.friends} />
       </div>
     </>
   );

@@ -70,6 +70,11 @@ export const QUERY_ME = gql`
         description
         image
       }
+      friends {
+        _id
+        name
+        profileImage
+      }
     }
   }
 `;
