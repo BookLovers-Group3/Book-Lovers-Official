@@ -20,28 +20,28 @@ const BuildBookList = () => {
 
   const userData = profileData?.me;
 
-  const [favBookIds, setFavBookIds] = useState([]);
+  // const [favBookIds, setFavBookIds] = useState([]);
 
-  function updateSavDisplay() {
-    setFavBookIds(
-      userData
-      ? userData.favoriteBooks?.map((favoriteBooks) => {
-          return favoriteBooks.googleBookId;
-        })
-      : []
-    )
-  }
+  // function updateSavDisplay() {
+  //   setFavBookIds(
+  //     userData
+  //     ? userData.favoriteBooks?.map((favoriteBooks) => {
+  //         return favoriteBooks.googleBookId;
+  //       })
+  //     : []
+  //   )
+  // }
 
   // takes data from search field and provides results using google books API
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    setFavBookIds(
-      userData
-      ? userData.favoriteBooks?.map((favoriteBooks) => {
-          return favoriteBooks.googleBookId;
-        })
-      : []
-    )
+    // setFavBookIds(
+    //   userData
+    //   ? userData.favoriteBooks?.map((favoriteBooks) => {
+    //       return favoriteBooks.googleBookId;
+    //     })
+    //   : []
+    // )
 
     if (!searchInput) {
       return false;
@@ -101,8 +101,11 @@ const BuildBookList = () => {
           </Form>
         </Container>
       </div>
-      
-      <SearchedBookResults searchedBooks={searchedBooks} favBookIds={favBookIds} updateSavDisplay={updateSavDisplay}></SearchedBookResults>
+
+      <SearchedBookResults
+        userData={userData}
+        searchedBooks={searchedBooks}
+      ></SearchedBookResults>
     </>
   );
 };

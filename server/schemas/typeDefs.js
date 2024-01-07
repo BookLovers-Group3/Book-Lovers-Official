@@ -94,7 +94,7 @@ const typeDefs = `
     
     removeProfile: Profile
 
-    addBook(book: BookInput!): Profile
+    addFavBook(book: BookInput!): Profile
 
     updateBookBorrower(bookId: ID!, profileId: ID!): Book
 

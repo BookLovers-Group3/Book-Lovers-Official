@@ -47,8 +47,8 @@ export const UPDATE_PROFILE_IMAGE = gql`
 
 // add to favorites
 export const FAV_BOOK = gql`
-  mutation addBook($book: BookInput!) {
-    addBook(book: $book) {
+  mutation addFavBook($book: BookInput!) {
+    addFavBook(book: $book) {
       _id
       name
       favoriteBooks {
