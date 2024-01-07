@@ -4,13 +4,13 @@ import auth from "../../utils/auth";
 import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
 import { FAV_BOOK, LEND_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { favoritedBookIds } from "../../utils/localStorage";
 
-function SearchedBookResults({ searchedBooks, favBookIds, updateSavDisplay }) {
+function SearchedBookResults({ searchedBooks, userData }) {
   // sets up mutation to add book to favorites list
   const [
-    addBook,
+    addFavBook,
     { loading: favBookLoading, data: favBookData, error: favBookError },
   ] = useMutation(FAV_BOOK, {
     refetchQueries: ["me"],
@@ -24,9 +24,23 @@ function SearchedBookResults({ searchedBooks, favBookIds, updateSavDisplay }) {
     refetchQueries: ["me"],
   });
 
-  useEffect(() => {
-    return () => favoritedBookIds(favBookIds);
-  });
+  const [favBookIds, setFavBookIds] = useState(
+    userData
+      ? userData.favoriteBooks?.map((favoriteBooks) => {
+          return favoriteBooks.googleBookId;
+        })
+      : []
+  );
+
+  // function updateSavDisplay() {
+  //   setFavBookIds(
+  //     userData
+  //       ? userData.favoriteBooks?.map((favoriteBooks) => {
+  //           return favoriteBooks.googleBookId;
+  //         })
+  //       : []
+  //   );
+  // }
 
   // on button press, takes in book data and creates book in database then adds to user's favorite list
   const handleFavBook = async (googleBookId) => {
@@ -37,14 +51,15 @@ function SearchedBookResults({ searchedBooks, favBookIds, updateSavDisplay }) {
     console.log("booktofavorite: ", bookToFavorite);
 
     try {
-      const response = await addBook({
+      const response = await addFavBook({
         variables: { book: bookToFavorite },
       });
-      console.log("response: ", response)
-      console.log('favBookIds from user? ', favBookIds)
-      updateSavDisplay()
+      console.log("response: ", response);
+      console.log("favBookIds from user? ", favBookIds);
+      // updateSavDisplay();
     } catch (e) {
       console.log(e);
+      // updateSavDisplay();
     }
   };
 
@@ -59,7 +74,7 @@ function SearchedBookResults({ searchedBooks, favBookIds, updateSavDisplay }) {
       const response = await addBooksToLend({
         variables: { book: bookToLend },
       });
-      console.log("response: ", response)
+      console.log("response: ", response);
     } catch (e) {
       console.log(e);
     }
@@ -108,7 +123,13 @@ function SearchedBookResults({ searchedBooks, favBookIds, updateSavDisplay }) {
                             favoritedBookId === book.googleBookId
                         )}
                         className="btn-block btn-info"
-                        onClick={() => handleFavBook(book.googleBookId)}
+                        onClick={() => {
+                          setFavBookIds((favBookIds) => [
+                            ...favBookIds,
+                            book.googleBookId,
+                          ]);
+                          handleFavBook(book.googleBookId);
+                        }}
                       >
                         {favBookIds?.some(
                           (favoritedBookId) =>
