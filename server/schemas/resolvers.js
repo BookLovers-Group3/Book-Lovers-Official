@@ -279,7 +279,7 @@ const resolvers = {
       throw AuthenticationError;
     },
     // create a book
-    addBook: async (parent, { book }, context) => {
+    addFavBook: async (parent, { book }, context) => {
       if (context.user) {
         const newBook = await Book.create({
           ...book,
@@ -287,7 +287,9 @@ const resolvers = {
         console.log("new Book: ", newBook);
         // then grab book _id and use profile.findOneAndUpdate to add to favorites list
         const profile = await Profile.findOneAndUpdate(
-          { _id: context.user._id },
+          {
+            _id: context.user._id,
+          },
           { $addToSet: { favoriteBooks: newBook._id } },
           { new: true, runValidators: true }
         );
