@@ -30,6 +30,20 @@ export const QUERY_SINGLE_PROFILE = gql`
         title
         description
       }
+      booksLent {
+        _id
+        authors
+        title
+        description
+        image
+      }
+      booksBorrowed {
+        _id
+        authors
+        title
+        description
+        image
+      }
     }
   }
 `;

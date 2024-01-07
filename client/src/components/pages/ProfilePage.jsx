@@ -5,6 +5,7 @@ import { QUERY_SINGLE_PROFILE } from "../../utils/queries";
 import { ADD_FRIEND } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
+import LibraryCard from "../LibraryCard/LibraryCard";
 
 export default function ProfilePage() {
   //set the isFriend status as a state
@@ -15,6 +16,7 @@ export default function ProfilePage() {
   const { loading, data } = useQuery(QUERY_SINGLE_PROFILE, {
     variables: { profileId: profileId },
   });
+  
   // mutations for adding friends
   const [addFriend, { loading: addLoading, data: addData, error: addError }] =
     useMutation(ADD_FRIEND, {
@@ -22,6 +24,7 @@ export default function ProfilePage() {
     });
   // get all the profile info based on the profileId from params
   const profile = data?.profile;
+  const user = profile
   const friends = profile?.friends;
   const favoriteBooks = profile?.favoriteBooks;
   const booksToLend = profile?.booksToLend;
@@ -87,9 +90,7 @@ export default function ProfilePage() {
       ) : (
         <p>You are not {profile?.name}'s friends</p>
       )}
-      <div>This is {profile?.name}'s Page</div>
-      <div>This user's favorite books are {favBookList}</div>
-      <div>This user's lending books are {booksToLendList}</div>
+      <LibraryCard user={user} />
       <Button onClick={() => handleAddFriend()}>Add Friend</Button>
     </div>
   );
