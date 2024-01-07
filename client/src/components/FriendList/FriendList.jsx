@@ -9,6 +9,7 @@ export default function FriendList({ friends }) {
     refetchQueries: ["me"],
   });
 
+  // remove friend on button click
   const handleRemoveFriend = async (friend) => {
     console.log("Remove Friend", friend);
     try {
@@ -24,8 +25,8 @@ export default function FriendList({ friends }) {
     <Container>
       <h2 className="pt-5">
         {friends?.length
-          ? `You have ${friends?.length} friends:`
-          : "You have no friends yet"}
+          ? `${friends?.length} friends:`
+          : "No friends yet"}
       </h2>
       <Row>
         {friends?.map((friend) => {
