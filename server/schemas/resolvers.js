@@ -47,6 +47,20 @@ const resolvers = {
     books: async (parent, args) => {
       return Book.find();
     },
+    getLentBookCount: async (parent, { userId }, context) => {
+      try {
+        if (context.user) {
+          const userLentBooksCount = await Ledger.countDocuments({
+            lender: userId,
+          });
+          return userLentBooksCount;
+        } else {
+          throw new AuthenticationError("User not authenticated");
+        }
+      } catch (error) {
+        console.error("Error counting books", error);
+      }
+    },
   },
 
   Mutation: {

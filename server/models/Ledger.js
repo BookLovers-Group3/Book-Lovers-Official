@@ -21,6 +21,7 @@ const ledgerSchema = new Schema({
   },
   status: {
     type: Boolean,
+    default: false,
   },
 });
 
