@@ -1,6 +1,3 @@
-
-
-
 :root {
   background-color: #f3f2da;
   --ivory: #f3f2da;
@@ -56,22 +53,49 @@
 }
 
 .random-book-container {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
   border: 1px solid green;
-  width: 80%;
+  width: 50%;
   margin: 30px auto;
+  background-image: url(../public/images/spotlight.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: grayscale(80%);
+  border-radius: 20%;
+  padding: 60px;
+  color: var(--ivory);
+}
+
+.random-book-container a {
+  text-decoration: none;
+  color: yellow;
+  padding: 10px;
+
+}
+
+.random-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.random-card h4 {
+  font-size: 1.5rem;
+  color: yellow;
+}
+
+.random-book-container a:hover {
+  color: var(--pink);
 }
 
 .random-book-container img {
-  width: 175px;
+  width: 10rem;
   border-radius: 20%;
+  margin: 0.5rem auto;
 }
 
 .random-book-container :nth-child(2) {
-  margin: 20px;
-  width: 70%;
   text-align: center;
   align-content: center;
 }
