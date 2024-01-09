@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useMutation } from "@apollo/client";
-import { OPEN_LEDGER, UPDATE_BOOK_AVAILABILITY } from "../../utils/mutations";
+import { OPEN_LEDGER, CLOSE_LEDGER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 
 function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
@@ -13,12 +13,15 @@ function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
     useMutation(OPEN_LEDGER, {
       refetchQueries: ["singleBook", "me", "booksLending", "singleProfile"],
     });
+  const [closeLedger, { error: closeLedgerError, data: closeLedgerData }] =
+    useMutation(CLOSE_LEDGER, {
+      refetchQueries: ["singleBook", "me", "booksLending", "singleProfile"],
+    });
   // const [
   //   updateBookAvailability,
   //   { error: bookUpdateError, data: bookUpdateData },
   // ] = useMutation(UPDATE_BOOK_AVAILABILITY);
   const handleRequest = async () => {
-    console.log("open ledger");
     console.log("book", book);
     handleClose();
     if (type === "Request") {
@@ -31,8 +34,20 @@ function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
             borrower: user.data._id,
           },
         });
-        // update the book availability to false
-
+        console.log("ledger", ledger);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    if (type === "Return") {
+      console.log("return book");
+      try {
+        // close the ledger for this book borrow transaction
+        const ledger = await closeLedger({
+          variables: {
+            bookId: book._id,
+          },
+        });
         console.log("ledger", ledger);
       } catch (e) {
         console.error(e);
@@ -56,15 +71,15 @@ function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
           <Modal.Title>Request Confirmation</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure you want to request this book? Confirming will send an
-          email to the owner
+          Are you sure you want to {type === "Request" ? "request" : "return"}{" "}
+          this book? Confirming will send an email to the owner
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
           <Button variant="primary" onClick={() => handleRequest()}>
-            Request Book
+            Confirm
           </Button>
         </Modal.Footer>
       </Modal>

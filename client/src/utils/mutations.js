@@ -125,13 +125,17 @@ export const OPEN_LEDGER = gql`
   }
 `;
 
-// create a ledger
-export const UPDATE_BOOK_AVAILABILITY = gql`
-  mutation updateBookAavilability($bookId: ID!) {
-    updateBookAvailability(bookId: $bookId) {
+// close a ledger
+export const CLOSE_LEDGER = gql`
+  mutation closeLedger($bookId: ID!) {
+    closeLedger(bookId: $bookId) {
       _id
-      title
-      isAvailable
+      bookId
+      lender
+      borrower
+      lendDate
+      returnDate
+      status
     }
   }
 `;

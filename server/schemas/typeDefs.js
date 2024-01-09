@@ -102,7 +102,7 @@ const typeDefs = `
 
     openLedger(bookId: ID!, lender: ID!, borrower: ID!): Ledger
 
-    closeLedger(ledgerId: ID!): Ledger
+    closeLedger(bookId: ID!): Ledger
   }
 `;
 
