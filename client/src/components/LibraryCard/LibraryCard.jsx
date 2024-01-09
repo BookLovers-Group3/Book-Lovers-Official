@@ -101,7 +101,8 @@ const LibraryCard = ({ user }) => {
 
   const count = ledgerData?.getLentBookCount?.count ?? 0;
 
-  console.log("Lent book count:", count);
+  console.log("Raw Lent book count:", ledgerData?.getLentBookCount?.count);
+
 
   return (
     <>

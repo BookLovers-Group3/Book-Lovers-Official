@@ -47,6 +47,7 @@ const resolvers = {
     books: async (parent, args) => {
       return Book.find();
     },
+    //using using the countDocument in Mongoose to count the number of odocuments specifically in the lender by the user's profileID
     getLentBookCount: async (parent, { profileId }, context) => {
       try {
         if (context.user) {
@@ -54,7 +55,7 @@ const resolvers = {
             lender: profileId,
           });
           console.log("User Lent Books Count:", userLentBooksCount);
-          return parseInt(userLentBooksCount);
+          return { count: userLentBooksCount };
         } else {
           throw new AuthenticationError("User not authenticated");
         }
