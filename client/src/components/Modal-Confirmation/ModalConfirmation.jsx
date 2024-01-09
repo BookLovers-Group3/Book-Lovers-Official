@@ -20,22 +20,24 @@ function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
   const handleRequest = async () => {
     console.log("open ledger");
     console.log("book", book);
-    try {
-      // open the ledger for this book borrow transaction
-      const ledger = await openLedger({
-        variables: {
-          bookId: book._id,
-          lender: book.owner._id,
-          borrower: user.data._id,
-        },
-      });
-      // update the book availability to false
-
-      console.log("ledger", ledger);
-    } catch (e) {
-      console.error(e);
-    }
     handleClose();
+    if (type === "Request") {
+      try {
+        // open the ledger for this book borrow transaction
+        const ledger = await openLedger({
+          variables: {
+            bookId: book._id,
+            lender: book.owner._id,
+            borrower: user.data._id,
+          },
+        });
+        // update the book availability to false
+
+        console.log("ledger", ledger);
+      } catch (e) {
+        console.error(e);
+      }
+    }
   };
 
   return (
