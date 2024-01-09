@@ -356,14 +356,23 @@ const resolvers = {
             runValidators: true,
           }
         );
-        const updatedUser = await Profile.findOneAndUpdate(
-          { _id: context.user._id },
+        const updatedBorrower = await Profile.findOneAndUpdate(
+          { _id: borrower },
           { $addToSet: { booksBorrowed: bookId } },
           {
             new: true,
             runValidators: true,
           }
         );
+        const updatedLender = await Profile.findOneAndUpdate(
+          { _id: lender },
+          { $addToSet: { booksLent: bookId } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        console.log(updatedBorrower, updatedLender);
 
         return ledger;
       }
