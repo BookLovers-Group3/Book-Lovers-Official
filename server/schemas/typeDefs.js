@@ -56,7 +56,6 @@ const typeDefs = `
 
   type LentBookCountInfo {
     count: Int
-    status: String
   }
 
   type Query {
@@ -66,7 +65,7 @@ const typeDefs = `
     booksLending:[Book!]
     book(bookId: ID!): Book
     me: Profile
-    getLentBookCount(userId: ID!): LentBookCountInfo
+    getLentBookCount(profileId: ID!): LentBookCountInfo
   }
 
   type Mutation {

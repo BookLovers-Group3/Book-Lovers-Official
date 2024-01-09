@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { QUERY_LEDGER } from "../../utils/queries";
 
 const LibraryCard = ({ user }) => {
+  console.log(user)
   //if there is a profile Id, get it from the params
   // const { profileId } = useParams();
   // get the user profile image
@@ -91,8 +92,14 @@ const LibraryCard = ({ user }) => {
     friendsEl.classList.remove("hidden");
   };
 
-  const { loading, data: ledgerData } = useQuery(QUERY_LEDGER);
-  console.log("ledger query", ledgerData);
+  const { loading, data: ledgerData } = useQuery(QUERY_LEDGER, {
+    variables: { profileId: user._id }, 
+  });
+  
+  console.log("loading:", loading);
+  console.log("ledger query data:", ledgerData);
+
+  
 
   return (
     <>
