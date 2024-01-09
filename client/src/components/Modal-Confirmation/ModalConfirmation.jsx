@@ -11,7 +11,7 @@ function ModalConfirmation({ handleShow, handleClose, show, book }) {
   console.log("book", book);
   const [openLedger, { error: openLedgerError, data: openLedgerData }] =
     useMutation(OPEN_LEDGER, {
-      refetchQueries: ["singleBook"],
+      refetchQueries: ["singleBook", "me", "booksLending", "singleProfile"],
     });
   // const [
   //   updateBookAvailability,
@@ -20,6 +20,7 @@ function ModalConfirmation({ handleShow, handleClose, show, book }) {
   const handleRequest = async () => {
     console.log("open ledger");
     console.log("book", book);
+    handleClose();
     try {
       // open the ledger for this book borrow transaction
       const ledger = await openLedger({
@@ -35,7 +36,6 @@ function ModalConfirmation({ handleShow, handleClose, show, book }) {
     } catch (e) {
       console.error(e);
     }
-    handleClose();
   };
 
   return (

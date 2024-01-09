@@ -350,12 +350,21 @@ const resolvers = {
         });
         const updatedBook = await Book.findOneAndUpdate(
           { _id: bookId },
-          { $set: { isAvailable: false } },
+          { $set: { isAvailable: false, borrower: context.user._id } },
           {
             new: true,
             runValidators: true,
           }
         );
+        const updatedUser = await Profile.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { booksBorrowed: bookId } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+
         return ledger;
       }
       throw AuthenticationError;
