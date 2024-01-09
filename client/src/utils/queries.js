@@ -14,6 +14,7 @@ export const QUERY_SINGLE_PROFILE = gql`
     profile(profileId: $profileId) {
       _id
       name
+      gender
       friends {
         _id
         name
@@ -54,6 +55,7 @@ export const QUERY_ME = gql`
       _id
       name
       profileImage
+      gender
       favoriteBooks {
         _id
         googleBookId

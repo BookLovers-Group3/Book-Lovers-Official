@@ -130,6 +130,7 @@ const LibraryCard = ({ user }) => {
           <div>
             <div>Favorite Genres</div>
             <div>I am looking for:</div>
+            <div>Gender Identity: {user.gender}</div>
           </div>
         </div>
         <div className="user-list">

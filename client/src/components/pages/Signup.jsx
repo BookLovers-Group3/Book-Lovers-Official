@@ -87,6 +87,11 @@ const Signup = () => {
                   <option value="">Select Gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
+                  <option value="Nonbinary">Nonbinary</option>
+                  <option value="Bigender">Bigender</option>
+                  <option value="Agender">Agender</option>
+                  <option value="Genderqueer">Genderqueer</option>
+                  <option value="Ask me!">Ask me!</option>
                 </select>
                 <button
                   className="btn btn-block btn-info"
