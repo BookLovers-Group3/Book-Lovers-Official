@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import { QUERY_LEDGER } from "../../utils/queries";
 
 const LibraryCard = ({ user }) => {
-  console.log(user)
+  console.log(user);
   //if there is a profile Id, get it from the params
   // const { profileId } = useParams();
   // get the user profile image
@@ -93,13 +93,15 @@ const LibraryCard = ({ user }) => {
   };
 
   const { loading, data: ledgerData } = useQuery(QUERY_LEDGER, {
-    variables: { profileId: user._id }, 
+    variables: { profileId: user._id },
   });
-  
+
   console.log("loading:", loading);
   console.log("ledger query data:", ledgerData);
 
-  
+  const count = ledgerData?.getLentBookCount?.count ?? 0;
+
+  console.log("Lent book count:", count);
 
   return (
     <>
@@ -107,7 +109,7 @@ const LibraryCard = ({ user }) => {
         <div className="top-row">
           <h1>Book Lovers Library</h1>
           <h1 className="user-name">{user.name}</h1>
-          <p className="status-icon">{calculateStatus()}</p>
+          <p className="status-icon">{calculateStatus(count)}</p>
         </div>
         <div className="user-profile">
           <div className="image-upload-container">

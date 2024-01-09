@@ -54,7 +54,7 @@ const resolvers = {
             lender: profileId,
           });
           console.log("User Lent Books Count:", userLentBooksCount);
-          return userLentBooksCount;
+          return parseInt(userLentBooksCount);
         } else {
           throw new AuthenticationError("User not authenticated");
         }
