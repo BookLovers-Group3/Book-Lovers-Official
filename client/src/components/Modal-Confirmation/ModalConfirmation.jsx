@@ -5,7 +5,7 @@ import { useMutation } from "@apollo/client";
 import { OPEN_LEDGER, UPDATE_BOOK_AVAILABILITY } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 
-function ModalConfirmation({ handleShow, handleClose, show, book }) {
+function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
   const user = Auth.getProfile();
   console.log(user);
   console.log("book", book);
@@ -41,7 +41,7 @@ function ModalConfirmation({ handleShow, handleClose, show, book }) {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Request Book
+        {type} Book
       </Button>
 
       <Modal

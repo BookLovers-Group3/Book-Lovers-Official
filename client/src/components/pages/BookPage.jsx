@@ -53,6 +53,7 @@ export default function BookPage() {
           handleClose={handleClose}
           handleShow={handleShow}
           book={book}
+          type={"Request"}
         />
       </div>
     </>
