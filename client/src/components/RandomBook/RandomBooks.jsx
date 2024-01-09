@@ -5,7 +5,6 @@ import { Button } from "react-bootstrap";
 import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
 
 const RandomBooks = ({ randomBook }) => {
-
   // sets up mutation to add book to favorites list
   const [
     addBook,
@@ -21,15 +20,15 @@ const RandomBooks = ({ randomBook }) => {
       authors: randomBook.volumeInfo.authors,
       description: randomBook.volumeInfo.description,
       image: randomBook.volumeInfo.imageLinks.thumbnail,
-      title: randomBook.volumeInfo.title
-    }
+      title: randomBook.volumeInfo.title,
+    };
     console.log("booktofavorite: ", bookToFavorite);
 
     try {
       const response = await addBook({
         variables: { book: bookToFavorite },
       });
-      console.log("response: ", response)
+      console.log("response: ", response);
     } catch (e) {
       console.log(e);
     }
@@ -52,8 +51,8 @@ const RandomBooks = ({ randomBook }) => {
               {randomBook.volumeInfo.authors?.join(", ") || "author unknown"}
             </p>
           </div>
+          <ModalBookDescription randomBook={randomBook} />
           <div>
-            <ModalBookDescription randomBook={randomBook}/>
             {randomBook.saleInfo.isEbook ? (
               <a href={randomBook.saleInfo.buyLink} target="_blank">
                 Buy it as an eBook!
@@ -63,8 +62,7 @@ const RandomBooks = ({ randomBook }) => {
           <div>
             <Button
               className="btn-block btn-info"
-              onClick={() => handleFavBook(randomBook)}
-            >
+              onClick={() => handleFavBook(randomBook)}>
               Favorite
             </Button>
           </div>

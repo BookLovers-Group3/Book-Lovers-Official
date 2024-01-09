@@ -12,15 +12,13 @@ function ModalBookDescription({ description, title, book, randomBook }) {
   let modalTitle = "No title available";
   let modalDescription = "No book description available";
 
-
   if (randomBook) {
     modalTitle = randomBook.volumeInfo.title || modalTitle;
-    modalDescription = randomBook.volumeInfo.description|| modalDescription;
+    modalDescription = randomBook.volumeInfo.description || modalDescription;
   } else {
     modalTitle = title || modalTitle;
     modalDescription = description || modalDescription;
   }
-
 
   if (book) {
     modalTitle = book.title || modalTitle;
@@ -32,12 +30,9 @@ function ModalBookDescription({ description, title, book, randomBook }) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Book Description
-      </Button>
-
+      <Button onClick={handleShow}>Book Description</Button>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>{modalTitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{modalDescription}</Modal.Body>

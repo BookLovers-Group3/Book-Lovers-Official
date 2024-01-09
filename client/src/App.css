@@ -56,12 +56,18 @@
 }
 
 .random-book-container {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
   border: 1px solid green;
-  width: 80%;
+  width: 50%;
   margin: 30px auto;
+  background-image: url(../public/images/spotlight.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: grayscale(80%);
+  border-radius: 50%;
+  padding: 60px;
+  color: white;
+
 }
 
 .random-book-container img {
@@ -70,8 +76,6 @@
 }
 
 .random-book-container :nth-child(2) {
-  margin: 20px;
-  width: 70%;
   text-align: center;
   align-content: center;
 }
