@@ -17,6 +17,7 @@ const LibraryCard = ({ user }) => {
 
   const [isMe, setIsMe] = useState(false)
 
+  //check to see if user looking at page is current profile being viewed
   useEffect(() => {
     if (user._id === Auth?.getProfile().data._id) {
       setIsMe(true)
@@ -25,16 +26,17 @@ const LibraryCard = ({ user }) => {
 
   // get the user profile image
   const userImage = user?.profileImage;
+
   // if set uploaded image by default to the user profile image, if there is no user profile image, set it to avatar
   const [uploadedImage, setUploadedImage] = useState(
     userImage ? userImage : avatar
   );
+
   // mutation to updated the user profile image to the uploaded image
   const [addProfileImage, { error, data }] = useMutation(UPDATE_PROFILE_IMAGE, {
     refetchQueries: ["me"],
   });
-  // get the favorite book list container, the lending book list container and the borrowed books container
-
+  
   // define function to upload the image
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -169,16 +171,16 @@ const LibraryCard = ({ user }) => {
         </div>
       </div>
       <div className="hidden favBookList">
-        <BookList books={user.favoriteBooks} type="favorite" />
+        <BookList books={user.favoriteBooks} isMe={isMe} type="favorite" />
       </div>
       <div className="hidden lendingBookList">
-        <BookList books={user.booksToLend} type="lending" />
+        <BookList books={user.booksToLend} isMe={isMe} type="lending" />
       </div>
       <div className="hidden borrowedBookList">
-        <BookList books={user.booksBorrowed} type="borrowed" />
+        <BookList books={user.booksBorrowed} isMe={isMe} type="borrowed" />
       </div>
       <div className="hidden friendList">
-        <FriendList friends={user.friends} />
+        <FriendList friends={user.friends} isMe={isMe}/>
       </div>
     </>
   );

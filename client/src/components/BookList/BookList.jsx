@@ -2,7 +2,7 @@ import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { REMOVE_FAVBOOK, REMOVE_LENDING_BOOK } from "../../utils/mutations";
 
-export default function BookList({ books, type }) {
+export default function BookList({ books, type, isMe }) {
   // get mutation for remove favorite book
   const [
     removeFavBook,
@@ -87,7 +87,11 @@ export default function BookList({ books, type }) {
                     Authors: {book.authors || "No authors listed"}
                   </p>
                 </Card.Body>
-                <Button onClick={() => handleRemoveBook(book)}>Remove</Button>
+                {isMe ? (
+                  <Button onClick={() => handleRemoveBook(book)}>Remove</Button>
+                ) : (
+                  <div></div>
+                )}
               </Card>
             </Col>
           );
