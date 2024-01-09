@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_SINGLE_BOOK } from "../../utils/queries";
 import { useParams } from "react-router-dom";
 import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
@@ -10,8 +10,10 @@ import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
 
 export default function BookPage() {
   const [show, setShow] = useState(false);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   // get the bookId from the params
   const { bookId } = useParams();
   // manually setup the bookId here for test purpose
@@ -20,12 +22,13 @@ export default function BookPage() {
   });
 
   const book = bookData?.book;
+
   if (bookLoading) {
     return <div>Loading...</div>;
   }
 
   console.log(book);
-  if (!book?._id) {
+  if (book && !book._id) {
     return <h4>No such book exist</h4>;
   }
 
@@ -41,6 +44,7 @@ export default function BookPage() {
           <div>By: {book.authors}</div>
           <ModalBookDescription book={book} />
           <div>Posted by: This is the place-holder for bookowner</div>
+          <div>Available: {book.isAvailable ? "Available" : "Unavailable"}</div>
         </div>
       </div>
       <div className="request-book-button">
@@ -48,6 +52,7 @@ export default function BookPage() {
           show={show}
           handleClose={handleClose}
           handleShow={handleShow}
+          book={book}
         />
       </div>
     </>
