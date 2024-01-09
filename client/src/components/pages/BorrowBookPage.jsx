@@ -1,10 +1,19 @@
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { QUERY_BOOKS_LENDING } from "../../utils/queries";
+import { useEffect } from "react";
 
 export default function BookLendingListPage() {
   // query all books that are currently in lending state
-  const { loading, data } = useQuery(QUERY_BOOKS_LENDING);
+  const { loading, data, refetch } = useQuery(QUERY_BOOKS_LENDING, {
+    fetchPolicy: "no-cache",
+  });
+
+  // Refetch the data when it changes
+  useEffect(() => {
+    refetch();
+  }, [data]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
