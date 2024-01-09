@@ -3,6 +3,7 @@ import { FAV_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { Button } from "react-bootstrap";
 import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
+import Auth from "../../utils/auth";
 
 const RandomBooks = ({ randomBook }) => {
   // sets up mutation to add book to favorites list
@@ -60,11 +61,13 @@ const RandomBooks = ({ randomBook }) => {
             ) : null}
           </div>
           <div>
-            <Button
-              className="btn-block btn-info"
-              onClick={() => handleFavBook(randomBook)}>
-              Favorite
-            </Button>
+            {Auth.loggedIn() && (
+              <Button
+                className="btn-block btn-info"
+                onClick={() => handleFavBook(randomBook)}>
+                Favorite
+              </Button>
+            )}
           </div>
         </section>
       ) : (
