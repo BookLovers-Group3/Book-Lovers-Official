@@ -54,6 +54,10 @@ const typeDefs = `
     profile: Profile
   }
 
+  type LentBookCountInfo {
+    count: Int
+  }
+
   type Query {
     books: [Book]
     profiles: [Profile!]
@@ -61,6 +65,7 @@ const typeDefs = `
     booksLending:[Book!]
     book(bookId: ID!): Book
     me: Profile
+    getLentBookCount(profileId: ID!): LentBookCountInfo
   }
 
   type Mutation {
@@ -102,7 +107,7 @@ const typeDefs = `
 
     openLedger(bookId: ID!, lender: ID!, borrower: ID!): Ledger
 
-    closeLedger(ledgerId: ID!): Ledger
+    closeLedger(bookId: ID!): Ledger
   }
 `;
 

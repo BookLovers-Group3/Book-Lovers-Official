@@ -47,6 +47,22 @@ const resolvers = {
     books: async (parent, args) => {
       return Book.find();
     },
+    //using using the countDocument in Mongoose to count the number of odocuments specifically in the lender by the user's profileID
+    getLentBookCount: async (parent, { profileId }, context) => {
+      try {
+        if (context.user) {
+          const userLentBooksCount = await Ledger.countDocuments({
+            lender: profileId,
+          });
+          console.log("User Lent Books Count:", userLentBooksCount);
+          return { count: userLentBooksCount };
+        } else {
+          throw new AuthenticationError("User not authenticated");
+        }
+      } catch (error) {
+        console.error("Error counting books", error);
+      }
+    },
   },
 
   Mutation: {
@@ -115,7 +131,7 @@ const resolvers = {
     addFriend: async (parent, { profileId }, context) => {
       console.log("add Friend");
       if (context.user) {
-        const user = Profile.findOneAndUpdate(
+        const user = await Profile.findOneAndUpdate(
           { _id: context.user._id },
           {
             $addToSet: { friends: profileId },
@@ -322,7 +338,7 @@ const resolvers = {
         if (!book) {
           throw new Error("Book not found");
         }
-        const updatedBook = Book.findOneAndUpdate(
+        const updatedBook = await Book.findOneAndUpdate(
           { _id: bookId },
           { $set: { isAvailable: false } },
           {
@@ -372,26 +388,25 @@ const resolvers = {
             runValidators: true,
           }
         );
-        console.log(updatedBorrower, updatedLender);
 
         return ledger;
       }
       throw AuthenticationError;
     },
-    // update a ledger return date
-    closeLedger: async (parent, { ledgerId }, context) => {
+    // update a ledger return date and status
+    closeLedger: async (parent, { bookId }, context) => {
       if (context.user) {
-        const ledger = await Ledger.findById(ledgerId);
+        const ledger = await Ledger.findOne({ bookId: bookId, status: true });
 
         if (!ledger) {
           throw new Error("Ledger not found");
         }
-        const updatedLedger = Ledger.findOneAndUpdate(
-          { _id: ledgerId },
+        const updatedLedger = await Ledger.findOneAndUpdate(
+          { _id: ledger._id },
           {
             $set: {
               returnDate: Date.now(),
-              status: !ledger.status,
+              status: false,
             },
           },
           {
@@ -399,6 +414,31 @@ const resolvers = {
             runValidators: true,
           }
         );
+        const updatedBook = await Book.findOneAndUpdate(
+          { _id: bookId },
+          { $set: { isAvailable: true, borrower: null } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        const updatedBorrower = await Profile.findOneAndUpdate(
+          { _id: ledger.borrower },
+          { $pull: { booksBorrowed: bookId } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        const updatedLender = await Profile.findOneAndUpdate(
+          { _id: ledger.lender },
+          { $pull: { booksLent: bookId } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        console.log(updatedBook, updatedBorrower, updatedLender);
 
         return updatedLedger;
       }

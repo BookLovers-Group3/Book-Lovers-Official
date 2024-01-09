@@ -1,8 +1,15 @@
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { REMOVE_FAVBOOK, REMOVE_LENDING_BOOK } from "../../utils/mutations";
+import { useState } from "react";
+import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
 
 export default function BookList({ books, type, isMe }) {
+  // define functions for the modal
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   // get mutation for remove favorite book
   const [
     removeFavBook,
@@ -88,9 +95,21 @@ export default function BookList({ books, type, isMe }) {
                   </p>
                 </Card.Body>
                 {isMe ? (
+                  {type === "borrowed" ? (
+                  <div className="return-book-button">
+                    <ModalConfirmation
+                      show={show}
+                      handleClose={handleClose}
+                      handleShow={handleShow}
+                      book={book}
+                      type={"Return"}
+                    />
+                  </div>
+                ) : (
                   <Button onClick={() => handleRemoveBook(book)}>Remove</Button>
                 ) : (
                   <div></div>
+                )}
                 )}
               </Card>
             </Col>
