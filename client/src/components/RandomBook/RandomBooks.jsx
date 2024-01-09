@@ -2,6 +2,7 @@ import React from "react";
 import { FAV_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { Button } from "react-bootstrap";
+import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
 
 const RandomBooks = ({ randomBook }) => {
 
@@ -52,9 +53,7 @@ const RandomBooks = ({ randomBook }) => {
             </p>
           </div>
           <div>
-            <p>
-              {randomBook.volumeInfo.description || "No description available"}{" "}
-            </p>
+            <ModalBookDescription randomBook={randomBook}/>
             {randomBook.saleInfo.isEbook ? (
               <a href={randomBook.saleInfo.buyLink} target="_blank">
                 Buy it as an eBook!

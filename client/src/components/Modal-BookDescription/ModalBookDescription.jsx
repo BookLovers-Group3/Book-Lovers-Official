@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function ModalBookDescription({ description, title, book }) {
+function ModalBookDescription({ description, title, book, randomBook }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -11,6 +11,16 @@ function ModalBookDescription({ description, title, book }) {
 
   let modalTitle = "No title available";
   let modalDescription = "No book description available";
+
+
+  if (randomBook) {
+    modalTitle = randomBook.volumeInfo.title || modalTitle;
+    modalDescription = randomBook.volumeInfo.description|| modalDescription;
+  } else {
+    modalTitle = title || modalTitle;
+    modalDescription = description || modalDescription;
+  }
+
 
   if (book) {
     modalTitle = book.title || modalTitle;
