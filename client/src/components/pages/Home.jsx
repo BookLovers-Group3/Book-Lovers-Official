@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { randomGoogleBooks } from "../../utils/API";
 import RandomBook from "../RandomBook/RandomBooks";
+import Review from "../ReviewList/Review";
 
 const Home = () => {
   const [randomBook, setRandomBook] = useState(null);
@@ -27,9 +28,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div>
-        <div>Review component here, can use props to do so here</div>
-      </div>
+      <Review />
     </main>
   );
 };
