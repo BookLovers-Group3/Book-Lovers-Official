@@ -104,12 +104,11 @@ export default function BookList({ books, type, isMe }) {
                       book={book}
                       type={"Return"}
                     />
+                  <Button onClick={() => handleRemoveBook(book)}>Remove</Button>
                   </div>
                 ) : (
-                  <Button onClick={() => handleRemoveBook(book)}>Remove</Button>
-                ) : (
                   <div></div>
-                )}
+                  )}
                 )}
               </Card>
             </Col>
