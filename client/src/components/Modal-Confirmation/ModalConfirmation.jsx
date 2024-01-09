@@ -11,7 +11,7 @@ function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
   console.log("book", book);
   const [openLedger, { error: openLedgerError, data: openLedgerData }] =
     useMutation(OPEN_LEDGER, {
-      refetchQueries: ["singleBook"],
+      refetchQueries: ["singleBook", "me", "booksLending", "singleProfile"],
     });
   // const [
   //   updateBookAvailability,

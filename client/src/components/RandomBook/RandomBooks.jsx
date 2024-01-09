@@ -2,9 +2,10 @@ import React from "react";
 import { FAV_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { Button } from "react-bootstrap";
+import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
+import Auth from "../../utils/auth";
 
 const RandomBooks = ({ randomBook }) => {
-
   // sets up mutation to add book to favorites list
   const [
     addBook,
@@ -20,15 +21,15 @@ const RandomBooks = ({ randomBook }) => {
       authors: randomBook.volumeInfo.authors,
       description: randomBook.volumeInfo.description,
       image: randomBook.volumeInfo.imageLinks.thumbnail,
-      title: randomBook.volumeInfo.title
-    }
+      title: randomBook.volumeInfo.title,
+    };
     console.log("booktofavorite: ", bookToFavorite);
 
     try {
       const response = await addBook({
         variables: { book: bookToFavorite },
       });
-      console.log("response: ", response)
+      console.log("response: ", response);
     } catch (e) {
       console.log(e);
     }
@@ -38,23 +39,23 @@ const RandomBooks = ({ randomBook }) => {
     <div>
       {randomBook ? (
         <section className="random-book-container">
-          <div>
-            <img
-              src={
-                randomBook.volumeInfo.imageLinks?.thumbnail ||
-                "No image available"
-              }
-              alt={`book cover for ${randomBook.volumeInfo.title}`}
-            />
-            <h3> {randomBook.volumeInfo.title}</h3>
-            <p>
-              {randomBook.volumeInfo.authors?.join(", ") || "author unknown"}
-            </p>
+          <div className="random-card">
+            <div>
+              <img
+                src={
+                  randomBook.volumeInfo.imageLinks?.thumbnail ||
+                  "No image available"
+                }
+                alt={`book cover for ${randomBook.volumeInfo.title}`}
+              />
+              <p>
+                {randomBook.volumeInfo.authors?.join(", ") || "author unknown"}
+              </p>
+            </div>
+            <h4> {randomBook.volumeInfo.title}</h4>
           </div>
+          <ModalBookDescription randomBook={randomBook} />
           <div>
-            <p>
-              {randomBook.volumeInfo.description || "No description available"}{" "}
-            </p>
             {randomBook.saleInfo.isEbook ? (
               <a href={randomBook.saleInfo.buyLink} target="_blank">
                 Buy it as an eBook!
@@ -62,12 +63,13 @@ const RandomBooks = ({ randomBook }) => {
             ) : null}
           </div>
           <div>
-            <Button
-              className="btn-block btn-info"
-              onClick={() => handleFavBook(randomBook)}
-            >
-              Favorite
-            </Button>
+            {Auth.loggedIn() && (
+              <Button
+                className="btn-block btn-info"
+                onClick={() => handleFavBook(randomBook)}>
+                Favorite
+              </Button>
+            )}
           </div>
         </section>
       ) : (
