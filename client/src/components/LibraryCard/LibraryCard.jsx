@@ -9,10 +9,20 @@ import FriendList from "../FriendList/FriendList";
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import calculateStatus from "../../utils/helpers";
 import { useParams } from "react-router-dom";
+import Auth from "../../utils/auth"
 
 const LibraryCard = ({ user }) => {
   //if there is a profile Id, get it from the params
   // const { profileId } = useParams();
+
+  const [isMe, setIsMe] = useState(false)
+
+  useEffect(() => {
+    if (user._id === Auth?.getProfile().data._id) {
+      setIsMe(true)
+    }
+  }, [user._id])
+
   // get the user profile image
   const userImage = user?.profileImage;
   // if set uploaded image by default to the user profile image, if there is no user profile image, set it to avatar
@@ -114,18 +124,22 @@ const LibraryCard = ({ user }) => {
               scale={1.2}
               rotate={0}
             />
-              <div className="file-input-container">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  style={{ display: "none" }}
-                  id="image-upload"
-                />
-                <label htmlFor="image-upload" className="upload-label">
-                  Click here to upload your picture!
-                </label>
-              </div>
+            {isMe ? (
+                <div className="file-input-container">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    style={{ display: "none" }}
+                    id="image-upload"
+                  />
+                  <label htmlFor="image-upload" className="upload-label">
+                    Click here to upload your picture!
+                  </label>
+                </div>
+            ) : (
+              <div></div>
+              )}
           </div>
           <div>
             <div>Favorite Genres</div>

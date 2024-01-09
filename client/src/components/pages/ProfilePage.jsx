@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { Navigate, useParams } from "react-router-dom";
 import { QUERY_SINGLE_PROFILE } from "../../utils/queries";
-import { ADD_FRIEND } from "../../utils/mutations";
+import { ADD_FRIEND, REMOVE_FRIEND } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import LibraryCard from "../LibraryCard/LibraryCard";
@@ -17,17 +17,25 @@ export default function ProfilePage() {
     variables: { profileId: profileId },
   });
   
-  // mutations for adding friends
+  // mutation for adding friend
   const [addFriend, { loading: addLoading, data: addData, error: addError }] =
     useMutation(ADD_FRIEND, {
-      refetchQueries: ["singleProfile"],
+      refetchQueries: ["me"],
     });
+
+  // mutation for removing friend
+  const [removeFriend, { loading: removeLoading, data: removeData, error: removeError }] = 
+    useMutation(REMOVE_FRIEND, {
+      refetchQueries: ["me"]
+    })
+
   // get all the profile info based on the profileId from params
   const profile = data?.profile;
   const user = profile
   const friends = profile?.friends;
   const favoriteBooks = profile?.favoriteBooks;
   const booksToLend = profile?.booksToLend;
+
   // get the favorite book list
   const favBookList = favoriteBooks?.map((book) => {
     return (
@@ -36,6 +44,7 @@ export default function ProfilePage() {
       </div>
     );
   });
+
   // get the lending book list
   const booksToLendList = booksToLend?.map((book) => {
     return (
@@ -64,6 +73,15 @@ export default function ProfilePage() {
     });
   };
   console.log(isFriend);
+
+  // define function to remove friend
+  const handleRemoveFriend = async () => {
+    const response = await removeFriend({
+      variables: { profileId: profileId }
+    })
+    console.log("remove friend response: ", response)
+  }
+
   // Use React Router's `<Navigate />` component to redirect to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
     return <Navigate to="/me" />;
@@ -84,14 +102,18 @@ export default function ProfilePage() {
 
   return (
     <div>
-      ProfilePage{" "}
       {isFriend ? (
-        <p>You are {profile?.name}'s Friends</p>
+        <div>
+          <p>You and {profile?.name} are friends!</p>
+          <Button onClick={() => handleRemoveFriend()}>Remove Friend</Button>
+        </div>
       ) : (
-        <p>You are not {profile?.name}'s friends</p>
+        <div>
+          <p>You are not {profile?.name}'s friend</p>
+          <Button onClick={() => handleAddFriend()}>Add Friend</Button>
+        </div>
       )}
       <LibraryCard user={user} />
-      <Button onClick={() => handleAddFriend()}>Add Friend</Button>
     </div>
   );
 }
