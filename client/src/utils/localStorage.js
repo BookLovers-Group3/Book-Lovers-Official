@@ -33,3 +33,19 @@ export const removeFavBookId = (googleBookId) => {
 
   return true;
 };
+
+export const getLendBookIds = () => {
+  const lendBookIds = localStorage.getItem("lending_books")
+    ? JSON.parse(localStorage.getItem("lending_books"))
+    : [];
+
+  return lendBookIds;
+};
+
+export const lendingBookIds = (bookIdArr) => {
+  if (bookIdArr?.length) {
+    localStorage.setItem("lending_books", JSON.stringify(bookIdArr));
+  } else {
+    localStorage.removeItem("lending_books");
+  }
+};
