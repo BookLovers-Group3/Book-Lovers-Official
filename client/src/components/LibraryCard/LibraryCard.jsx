@@ -96,13 +96,12 @@ const LibraryCard = ({ user }) => {
     variables: { profileId: user._id },
   });
 
-  console.log("loading:", loading);
-  console.log("ledger query data:", ledgerData);
+  // console.log("loading:", loading);
+  // console.log("ledger query data:", ledgerData);
 
   const count = ledgerData?.getLentBookCount?.count ?? 0;
 
-  console.log("Raw Lent book count:", ledgerData?.getLentBookCount?.count);
-
+  // console.log("Raw Lent book count:", ledgerData?.getLentBookCount?.count);
 
   return (
     <>
