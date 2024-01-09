@@ -117,6 +117,10 @@ export const QUERY_SINGLE_BOOK = gql`
       authors
       image
       description
+      isAvailable
+      owner {
+        _id
+      }
     }
   }
 `;

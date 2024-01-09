@@ -100,7 +100,7 @@ const typeDefs = `
 
     updateBookAvailability(bookId: ID!): Book
 
-    openLedger(bookId: ID!, lender: ID!, borrower: ID!, status: Boolean!): Ledger
+    openLedger(bookId: ID!, lender: ID!, borrower: ID!): Ledger
 
     closeLedger(ledgerId: ID!): Ledger
   }
