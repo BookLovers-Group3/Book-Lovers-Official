@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import AvatarEditor from "react-avatar-editor";
 import "./LibraryCard.scss";
 import { UPDATE_PROFILE_IMAGE } from "../../utils/mutations";
@@ -9,6 +9,7 @@ import FriendList from "../FriendList/FriendList";
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import calculateStatus from "../../utils/helpers";
 import { useParams } from "react-router-dom";
+import { QUERY_LEDGER } from "../../utils/queries";
 
 const LibraryCard = ({ user }) => {
   //if there is a profile Id, get it from the params
@@ -23,6 +24,7 @@ const LibraryCard = ({ user }) => {
   const [addProfileImage, { error, data }] = useMutation(UPDATE_PROFILE_IMAGE, {
     refetchQueries: ["me"],
   });
+
   // get the favorite book list container, the lending book list container and the borrowed books container
 
   // define function to upload the image
@@ -89,19 +91,16 @@ const LibraryCard = ({ user }) => {
     friendsEl.classList.remove("hidden");
   };
 
+  const { loading, data: ledgerData } = useQuery(QUERY_LEDGER);
+  console.log("ledger query", ledgerData);
+
   return (
     <>
       <div className="main-card">
         <div className="top-row">
           <h1>Book Lovers Library</h1>
           <h1 className="user-name">{user.name}</h1>
-          <p className="status-icon">
-            {calculateStatus(
-              user.favoriteBooks,
-              user.booksLent,
-              user.booksBorrowed
-            )}
-          </p>
+          <p className="status-icon">{calculateStatus()}</p>
         </div>
         <div className="user-profile">
           <div className="image-upload-container">
@@ -114,18 +113,18 @@ const LibraryCard = ({ user }) => {
               scale={1.2}
               rotate={0}
             />
-              <div className="file-input-container">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  style={{ display: "none" }}
-                  id="image-upload"
-                />
-                <label htmlFor="image-upload" className="upload-label">
-                  Click here to upload your picture!
-                </label>
-              </div>
+            <div className="file-input-container">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                style={{ display: "none" }}
+                id="image-upload"
+              />
+              <label htmlFor="image-upload" className="upload-label">
+                Click here to upload your picture!
+              </label>
+            </div>
           </div>
           <div>
             <div>Favorite Genres</div>
@@ -139,14 +138,12 @@ const LibraryCard = ({ user }) => {
           </Button>
           <Button
             className="btn-block btn-info"
-            onClick={() => showLendingBooks()}
-          >
+            onClick={() => showLendingBooks()}>
             Checkout My Books
           </Button>
           <Button
             className="btn-block btn-info"
-            onClick={() => showBorrowedBooks()}
-          >
+            onClick={() => showBorrowedBooks()}>
             Borrowed Books
           </Button>
           <Button className="btn-block btn-info" onClick={() => showFriends()}>
