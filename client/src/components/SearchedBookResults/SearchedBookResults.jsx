@@ -5,7 +5,7 @@ import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription"
 import { FAV_BOOK, LEND_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { favoritedBookIds } from "../../utils/localStorage";
+import { favoritedBookIds, lendingBookIds } from "../../utils/localStorage";
 
 function SearchedBookResults({ searchedBooks, userData }) {
   // sets up mutation to add book to favorites list
@@ -32,15 +32,13 @@ function SearchedBookResults({ searchedBooks, userData }) {
       : []
   );
 
-  // function updateSavDisplay() {
-  //   setFavBookIds(
-  //     userData
-  //       ? userData.favoriteBooks?.map((favoriteBooks) => {
-  //           return favoriteBooks.googleBookId;
-  //         })
-  //       : []
-  //   );
-  // }
+  const [lendBookIds, setLendBookIds] = useState(
+    userData
+      ? userData.booksToLend?.map((booksToLend) => {
+          return booksToLend.googleBookId;
+        })
+      : []
+  );
 
   // on button press, takes in book data and creates book in database then adds to user's favorite list
   const handleFavBook = async (googleBookId) => {
@@ -139,20 +137,25 @@ function SearchedBookResults({ searchedBooks, userData }) {
                           : "Add to Favorites"}
                       </Button>
                       <Button
-                        // disabled={favBookIds?.some(
-                        //   (favoritedBookId) =>
-                        //     favoritedBookId === book.googleBookId
-                        // )}
+                        disabled={lendBookIds?.some(
+                          (lendingBookId) =>
+                            lendingBookId === book.googleBookId
+                        )}
                         className="btn-block btn-info"
-                        onClick={() => handleLendBook(book.googleBookId)}
+                        onClick={() => {
+                          setLendBookIds((lendBookIds) => [
+                            ...lendBookIds,
+                            book.googleBookId,
+                          ]);
+                          handleLendBook(book.googleBookId)
+                        }}
                       >
-                        Add to Lending List
-                        {/* {favBookIds?.some(
-                          (favoritedBookId) =>
-                            favoritedBookId === book.googleBookId
+                        {lendBookIds?.some(
+                          (lendingBookId) =>
+                            lendingBookId === book.googleBookId
                         )
-                          ? "Favorited"
-                          : "Add to Favorites"} */}
+                          ? "Added"
+                          : "Add to Lending List"}
                       </Button>
                     </div>
                   )}

@@ -109,3 +109,29 @@ export const REMOVE_FRIEND = gql`
     }
   }
 `;
+
+// create a ledger
+export const OPEN_LEDGER = gql`
+  mutation openLedger($bookId: ID!, $lender: ID!, $borrower: ID!) {
+    openLedger(bookId: $bookId, lender: $lender, borrower: $borrower) {
+      _id
+      bookId
+      lender
+      borrower
+      lendDate
+      returnDate
+      status
+    }
+  }
+`;
+
+// create a ledger
+export const UPDATE_BOOK_AVAILABILITY = gql`
+  mutation updateBookAavilability($bookId: ID!) {
+    updateBookAvailability(bookId: $bookId) {
+      _id
+      title
+      isAvailable
+    }
+  }
+`;

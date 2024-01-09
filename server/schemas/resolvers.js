@@ -324,7 +324,7 @@ const resolvers = {
         }
         const updatedBook = Book.findOneAndUpdate(
           { _id: bookId },
-          { $set: { isAvailable: !book.isAvailable } },
+          { $set: { isAvailable: false } },
           {
             new: true,
             runValidators: true,
@@ -341,13 +341,40 @@ const resolvers = {
       context
     ) => {
       if (context.user) {
-        return Ledger.create({
+        const ledger = await Ledger.create({
           bookId,
           lender,
           borrower,
           lendDate: Date.now(),
-          status,
+          status: true,
         });
+        const updatedBook = await Book.findOneAndUpdate(
+          { _id: bookId },
+          { $set: { isAvailable: false, borrower: context.user._id } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        const updatedBorrower = await Profile.findOneAndUpdate(
+          { _id: borrower },
+          { $addToSet: { booksBorrowed: bookId } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        const updatedLender = await Profile.findOneAndUpdate(
+          { _id: lender },
+          { $addToSet: { booksLent: bookId } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        console.log(updatedBorrower, updatedLender);
+
+        return ledger;
       }
       throw AuthenticationError;
     },
