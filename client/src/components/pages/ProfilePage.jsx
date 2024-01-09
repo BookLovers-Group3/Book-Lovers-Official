@@ -9,7 +9,10 @@ import LibraryCard from "../LibraryCard/LibraryCard";
 
 export default function ProfilePage() {
   //set the isFriend status as a state
-  const [isFriend, setIsFriend] = useState(false);
+  const [youAreTheirFriend, setYouAreTheirFriend] = useState(false);
+
+  const [theyAreYourFriend, setTheyAreYourFriend] = useState(false);
+
   //get profileId from the params
   const { profileId } = useParams();
   // query the profile info based on the profileId
@@ -20,13 +23,13 @@ export default function ProfilePage() {
   // mutation for adding friend
   const [addFriend, { loading: addLoading, data: addData, error: addError }] =
     useMutation(ADD_FRIEND, {
-      refetchQueries: ["me"],
+      refetchQueries: ["singleProfile", "me"],
     });
 
   // mutation for removing friend
   const [removeFriend, { loading: removeLoading, data: removeData, error: removeError }] = 
     useMutation(REMOVE_FRIEND, {
-      refetchQueries: ["me"]
+      refetchQueries: ["singleProfile", "me"]
     })
 
   // get all the profile info based on the profileId from params
@@ -54,12 +57,12 @@ export default function ProfilePage() {
     );
   });
 
-  // check if the current user is the profile page user's friends
+  // check if the current user is the profile page user's friend
   useEffect(() => {
     if (friends && friends.length > 0) {
       for (const friend of friends) {
         if (friend._id === Auth?.getProfile().data._id) {
-          setIsFriend(true);
+          setYouAreTheirFriend(true);
           break;
         }
       }
@@ -71,15 +74,15 @@ export default function ProfilePage() {
     const response = await addFriend({
       variables: { profileId: profileId },
     });
+    setTheyAreYourFriend(true)
   };
-  console.log(isFriend);
 
   // define function to remove friend
   const handleRemoveFriend = async () => {
     const response = await removeFriend({
       variables: { profileId: profileId }
-    })
-    console.log("remove friend response: ", response)
+    });
+    setTheyAreYourFriend(false)
   }
 
   // Use React Router's `<Navigate />` component to redirect to personal profile page if username is yours
@@ -102,7 +105,7 @@ export default function ProfilePage() {
 
   return (
     <div>
-      {isFriend ? (
+      {theyAreYourFriend && youAreTheirFriend ? (
         <div>
           <p>You and {profile?.name} are friends!</p>
           <Button onClick={() => handleRemoveFriend()}>Remove Friend</Button>
