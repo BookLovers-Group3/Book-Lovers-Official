@@ -39,18 +39,20 @@ const RandomBooks = ({ randomBook }) => {
     <div>
       {randomBook ? (
         <section className="random-book-container">
-          <div>
-            <img
-              src={
-                randomBook.volumeInfo.imageLinks?.thumbnail ||
-                "No image available"
-              }
-              alt={`book cover for ${randomBook.volumeInfo.title}`}
-            />
-            <h3> {randomBook.volumeInfo.title}</h3>
-            <p>
-              {randomBook.volumeInfo.authors?.join(", ") || "author unknown"}
-            </p>
+          <div className="random-card">
+            <div>
+              <img
+                src={
+                  randomBook.volumeInfo.imageLinks?.thumbnail ||
+                  "No image available"
+                }
+                alt={`book cover for ${randomBook.volumeInfo.title}`}
+              />
+              <p>
+                {randomBook.volumeInfo.authors?.join(", ") || "author unknown"}
+              </p>
+            </div>
+            <h4> {randomBook.volumeInfo.title}</h4>
           </div>
           <ModalBookDescription randomBook={randomBook} />
           <div>

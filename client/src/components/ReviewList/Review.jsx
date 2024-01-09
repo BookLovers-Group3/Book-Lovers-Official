@@ -19,9 +19,9 @@ function Review() {
   return (
     <div>
       <section className="container">
-        <div className="title">
-          <h2>Our Reviews</h2>
-          <div className="underline"></div>
+        <div>
+          <h2>Testimonials</h2>
+          <div></div>
         </div>
 
         <article className="review">

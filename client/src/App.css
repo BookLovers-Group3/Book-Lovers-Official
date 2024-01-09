@@ -61,7 +61,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   filter: grayscale(80%);
-  border-radius: 50%;
+  border-radius: 20%;
   padding: 60px;
   color: var(--ivory);
 }
@@ -73,12 +73,24 @@
 
 }
 
+.random-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.random-card h4 {
+  font-size: 1.5rem;
+  color: yellow;
+}
+
 .random-book-container a:hover {
   color: var(--pink);
 }
 
 .random-book-container img {
-  width: 175px;
+  width: 10rem;
   border-radius: 20%;
   margin: 0.5rem auto;
 }
