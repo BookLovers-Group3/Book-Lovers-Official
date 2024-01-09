@@ -1,5 +1,6 @@
 import { useState } from "react";
 import reviews from "../../utils/Reviews";
+import "./Review.scss";
 
 function Review() {
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
@@ -18,31 +19,31 @@ function Review() {
 
   return (
     <div>
-      <section className="container">
+      <section className="review-container">
         <div>
           <h2>Testimonials</h2>
-          <div></div>
         </div>
 
-        <article className="review">
+        <section className="review">
           <div className="img-container">
             <img
               src={currentReview["api.img"]}
               id="person-img"
               alt={currentReview["api.name"]}
             />
+            <h4>{currentReview["api.name"]}</h4>
           </div>
-          <h4>{currentReview["api.name"]}</h4>
+
           <p>"{currentReview["api.review"]}"</p>
-          <div className="button-container">
-            <button className="prev-btn" onClick={prevReview}>
-              Previous
-            </button>
-            <button className="next-btn" onClick={nextReview}>
-              Next
-            </button>
-          </div>
-        </article>
+        </section>
+        <div className="button-container">
+          <button className="prev-btn" onClick={prevReview}>
+            Previous
+          </button>
+          <button className="next-btn" onClick={nextReview}>
+            Next
+          </button>
+        </div>
       </section>
     </div>
   );
