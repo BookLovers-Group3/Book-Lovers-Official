@@ -80,7 +80,7 @@ export default function BookList({ books, type }) {
                 className="custom-card"
                 border="dark"
                 style={{
-                  backgroundColor: !book.isAvailable ? null : "lightblue",
+                  backgroundColor: book.isAvailable ? null : "lightblue",
                 }}
               >
                 <Card.Title>{book.title}</Card.Title>
