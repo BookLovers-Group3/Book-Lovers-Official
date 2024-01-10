@@ -1,7 +1,7 @@
 const calculateStatus = (count) => {
-  if (count >= 20) {
+  if (count >= 50) {
     return "Book Lover";
-  } else if (count >= 15) {
+  } else if (count >= 25) {
     return "Scholar";
   } else if (count >= 10) {
     return "Librarian";
