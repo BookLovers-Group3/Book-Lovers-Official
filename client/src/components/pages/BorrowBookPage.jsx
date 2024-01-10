@@ -4,6 +4,7 @@ import { QUERY_BOOKS_LENDING } from "../../utils/queries";
 import { useEffect } from "react";
 import Auth from "../../utils/auth";
 import { Navigate } from "react-router-dom";
+import { Container, Col, Card, Row } from "react-bootstrap";
 
 export default function BookLendingListPage() {
   // query all books that are currently in lending state
@@ -26,28 +27,47 @@ export default function BookLendingListPage() {
     return <Navigate to="/" />;
   }
 
-  const list = data?.booksLending.map((book) => {
+  const books = data?.booksLending;
+  console.log(books);
+  const bookLendingList = data?.booksLending.map((book) => {
     return (
-      <div key={book._id}>
-        <p>
-          <Link className="btn btn-lg btn-primary" to={`/book/${book._id}`}>
-            {book.title}
+      <Col md="4" key={book._id}>
+        <Card key={book._id} className="custom-card" border="dark">
+          <Card.Title>{book?.title}</Card.Title>
+          <Link to={`/book/${book._id}`}>
+            {book?.image ? (
+              <Card.Img
+                src={book?.image || "No image available"}
+                alt={`The cover for ${book?.title}`}
+                variant="top"
+                style={{
+                  maxWidth: "150px",
+                  objectFit: "cover",
+                  margin: "auto",
+                }}
+              />
+            ) : null}
           </Link>
-          {book.authors}
-          <Link
-            className="btn btn-lg btn-primary"
-            to={`/profile/${book.owner?._id}`}
-          >
-            {book.owner?.name}
-          </Link>
-        </p>
-      </div>
+
+          <Card.Body>
+            <p className="small">
+              Authors: {book?.authors || "No authors listed"}
+            </p>
+            <Link to={`/profile/${book.owner._id}`}>
+              <p className="small">Owner: {book.owner.name}</p>
+            </Link>
+          </Card.Body>
+        </Card>
+      </Col>
     );
   });
+
   return (
-    <div>
-      Book Lending List Page
-      <div>{list}</div>
-    </div>
+    <Container>
+      <h2 className="pt-5">
+        {books?.length ? `Viewing ${books?.length} books:` : `No books yet`}
+      </h2>
+      <Row>{bookLendingList}</Row>
+    </Container>
   );
 }
