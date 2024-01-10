@@ -17,3 +17,5 @@ References:
 5. https://www.w3schools.com/jsref/event_onload.asp
 6. https://www.npmjs.com/package/react-avatar-editor
 7. https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
+8. https://www.mongodb.com/docs/current/reference/operator/query/and/ and https://www.mongodb.com/docs/current/reference/operator/query/or/
+

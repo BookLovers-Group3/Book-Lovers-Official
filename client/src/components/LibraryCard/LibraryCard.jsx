@@ -99,7 +99,7 @@ const LibraryCard = ({ user }) => {
   // console.log("loading:", loading);
   // console.log("ledger query data:", ledgerData);
 
-  const count = ledgerData?.getLentBookCount?.count ?? 0;
+  const count = ledgerData?.getUserBookCount?.count ?? 0;
 
   // console.log("Raw Lent book count:", ledgerData?.getLentBookCount?.count);
 

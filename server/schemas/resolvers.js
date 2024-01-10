@@ -52,14 +52,17 @@ const resolvers = {
       return Book.find();
     },
     //using using the countDocument in Mongoose to count the number of odocuments specifically in the lender by the user's profileID
-    getLentBookCount: async (parent, { profileId }, context) => {
+    getUserBookCount: async (parent, { profileId }, context) => {
       try {
         if (context.user) {
-          const userLentBooksCount = await Ledger.countDocuments({
-            lender: profileId,
+          const totoalProfileCount = await Ledger.countDocuments({
+            $or: [
+              { lender: profileId },    // User as lender
+              { borrower: profileId },  // User as borrower
+            ],
           });
-          console.log("User Lent Books Count:", userLentBooksCount);
-          return { count: userLentBooksCount };
+          console.log("User Lent Books Count:", totoalProfileCount);
+          return { count: totoalProfileCount };
         } else {
           throw new AuthenticationError("User not authenticated");
         }
