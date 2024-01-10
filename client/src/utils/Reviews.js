@@ -2,7 +2,7 @@ const reviews = [
   {
     "api.id": 1,
     "api.name": "Henry",
-    "api.img": "https://randomuser.me/api/portraits/men/1.jpg",
+    "api.img": "https://randomuser.me/api/portraits/men/22.jpg",
     "api.review": "The best place to find like-minded individuals.",
   },
   {
@@ -20,24 +20,24 @@ const reviews = [
   {
     "api.id": 4,
     "api.name": "Olivia",
-    "api.img": "https://randomuser.me/api/portraits/women/4.jpg",
+    "api.img": "https://randomuser.me/api/portraits/women/24.jpg",
     "api.review": "Great experience! Found friends and more.",
   },
   {
     "api.id": 5,
     "api.name": "Frank",
-    "api.img": "https://randomuser.me/api/portraits/men/5.jpg",
+    "api.img": "https://randomuser.me/api/portraits/men/54.jpg",
     "api.review": "The best place to find like-minded individuals.",
   },
   {
     "api.id": 6,
     "api.name": "Mia",
-    "api.img": "https://randomuser.me/api/portraits/women/6.jpg",
+    "api.img": "https://randomuser.me/api/portraits/women/17.jpg",
     "api.review": "A wonderful community. Thumbs up!",
   },
   {
     "api.id": 7,
-    "api.name": "Henry",
+    "api.name": "Bob",
     "api.img": "https://randomuser.me/api/portraits/men/7.jpg",
     "api.review": "Superior to other platforms. 10/10!",
   },
@@ -74,7 +74,7 @@ const reviews = [
   {
     "api.id": 13,
     "api.name": "George",
-    "api.img": "https://randomuser.me/api/portraits/men/13.jpg",
+    "api.img": "https://randomuser.me/api/portraits/men/67.jpg",
     "api.review": "I recommend this to everyone seeking connections.",
   },
   {
@@ -98,7 +98,7 @@ const reviews = [
   {
     "api.id": 17,
     "api.name": "Alex",
-    "api.img": "https://randomuser.me/api/portraits/men/17.jpg",
+    "api.img": "https://randomuser.me/api/portraits/men/28.jpg",
     "api.review": "Easy to use and effective. Found my match!",
   },
   {
@@ -116,7 +116,7 @@ const reviews = [
   {
     "api.id": 20,
     "api.name": "Tiffany",
-    "api.img": "https://randomuser.me/api/portraits/women/20.jpg",
+    "api.img": "https://randomuser.me/api/portraits/women/42.jpg",
     "api.review": "I never expected to meet such interesting people here.",
   },
 ];

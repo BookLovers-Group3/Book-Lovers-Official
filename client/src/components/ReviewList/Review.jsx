@@ -20,8 +20,10 @@ function Review() {
   return (
     <div>
       <section className="review-container">
-        <div>
-          <h2>Testimonials</h2>
+        <div className="button-container left">
+          <button className="prev-btn" onClick={prevReview}>
+            Previous
+          </button>
         </div>
 
         <section className="review">
@@ -36,10 +38,8 @@ function Review() {
 
           <p>"{currentReview["api.review"]}"</p>
         </section>
-        <div className="button-container">
-          <button className="prev-btn" onClick={prevReview}>
-            Previous
-          </button>
+
+        <div className="button-container right">
           <button className="next-btn" onClick={nextReview}>
             Next
           </button>
