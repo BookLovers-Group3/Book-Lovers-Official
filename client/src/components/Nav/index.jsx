@@ -26,18 +26,23 @@ const Header = () => {
           <div className="login-signup-container">
             {Auth.loggedIn() ? (
               <>
-                <NavDropdown title="Explore" id="collapsible-nav-dropdown">
-                  <NavDropdown.Item href="/me">
-                    View My Profile
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/build-book-list">
-                    Search Books
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/book-lending-list">
-                    Borrow Books
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+                <NavDropdown
+                  className="nav-menu"
+                  title="Menu"
+                  id="collapsible-nav-dropdown">
+                  <span className="dropdown-container">
+                    <NavDropdown.Item href="/me">
+                      View My Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/build-book-list">
+                      Search Books
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/book-lending-list">
+                      Borrow Books
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+                  </span>
                 </NavDropdown>
               </>
             ) : (
@@ -48,7 +53,7 @@ const Header = () => {
             )}
           </div>
         </div>
-        <p className="tagline">Share your books and social.</p>
+        {/* <p className="tagline">Share your books and social.</p> */}
       </div>
     </nav>
   );

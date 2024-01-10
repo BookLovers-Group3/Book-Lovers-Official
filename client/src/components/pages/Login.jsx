@@ -53,30 +53,36 @@ const Login = () => {
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (
-              <form className="custom-form" onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  className="btn btn-block btn-info"
-                  style={{ cursor: "pointer" }}
-                  type="submit">
-                  Submit
+              <div>
+                <form className="custom-form" onSubmit={handleFormSubmit}>
+                  <input
+                    className="form-input"
+                    placeholder="Your email"
+                    name="email"
+                    type="email"
+                    value={formState.email}
+                    onChange={handleChange}
+                  />
+                  <input
+                    className="form-input"
+                    placeholder="******"
+                    name="password"
+                    type="password"
+                    value={formState.password}
+                    onChange={handleChange}
+                  />
+                  <button
+                    className="btn btn-block btn-info"
+                    style={{ cursor: "pointer" }}
+                    type="submit">
+                    Submit
+                  </button>
+                </form>
+
+                <button>
+                  <Link to="/signup">Create new accout</Link>
                 </button>
-              </form>
+              </div>
             )}
 
             {error && (
