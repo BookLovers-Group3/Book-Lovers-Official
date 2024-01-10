@@ -45,7 +45,7 @@ const resolvers = {
     },
     // get one book per bookID
     book: async (parent, { bookId }) => {
-      return Book.findOne({ _id: bookId });
+      return Book.findOne({ _id: bookId }).populate("owner");
     },
     //all books
     books: async (parent, args) => {

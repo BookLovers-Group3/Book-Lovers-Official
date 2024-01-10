@@ -45,6 +45,7 @@ export default function BookPage() {
           <ModalBookDescription book={book} />
           <div>Posted by: This is the place-holder for bookowner</div>
           <div>Available: {book.isAvailable ? "Available" : "Unavailable"}</div>
+          <div>Owner: {book.owner.name}</div>
         </div>
       </div>
       <div className="request-book-button">
