@@ -2,6 +2,8 @@ import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { QUERY_BOOKS_LENDING } from "../../utils/queries";
 import { useEffect } from "react";
+import Auth from "../../utils/auth";
+import { Navigate } from "react-router-dom";
 
 export default function BookLendingListPage() {
   // query all books that are currently in lending state
@@ -18,6 +20,11 @@ export default function BookLendingListPage() {
     return <div>Loading...</div>;
   }
   console.log(data);
+
+  // if not logged in, go to the homepage
+  if (!Auth.loggedIn()) {
+    return <Navigate to="/" />;
+  }
 
   const list = data?.booksLending.map((book) => {
     return (
