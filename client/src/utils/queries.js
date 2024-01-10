@@ -130,8 +130,8 @@ export const QUERY_SINGLE_BOOK = gql`
 `;
 
 export const QUERY_LEDGER = gql`
-  query GetLentBookCount($profileId: ID!) {
-    getLentBookCount(profileId: $profileId) {
+  query getUserBookCount($profileId: ID!) {
+    getUserBookCount(profileId: $profileId) {
       count
     }
   }
