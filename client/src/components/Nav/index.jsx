@@ -47,8 +47,7 @@ const Header = () => {
               </>
             ) : (
               <>
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Signup</Link>
+                <Link style={{textDecoration: "none"}} to="/login">Login</Link>
               </>
             )}
           </div>

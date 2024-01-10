@@ -79,8 +79,8 @@ const Login = () => {
                   </button>
                 </form>
 
-                <button>
-                  <Link to="/signup">Create new accout</Link>
+                <button className = "create-account-btn">
+                  <Link style={{textDecoration: 'none'}} to="/signup">Create new account</Link>
                 </button>
               </div>
             )}
