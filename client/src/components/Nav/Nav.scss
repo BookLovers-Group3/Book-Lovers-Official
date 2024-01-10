@@ -9,7 +9,6 @@ nav {
   align-items: center;
   text-align: center;
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.185);
-  /* background-color:#f3f2da; */
 
   .custom-header {
     display: flex;
@@ -37,6 +36,13 @@ nav {
       margin-right: 10px;
     }
 
+    .title-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1; /* Take up remaining space */
+    }
+    
     .logo-text {
       font-size: 2.5rem;
       color: #4e8d7c;
@@ -46,14 +52,13 @@ nav {
       margin: 0;
       text-decoration: none;
     }
-
+    
     .login-signup-container {
       display: flex;
-      /* flex-direction: column; */
       justify-content: space-evenly;
       align-items: center;
-      /* margin-top: 20px; */
-
+      color: black;
+    
       .btn {
         margin: 0 10px;
         text-decoration: none;
@@ -61,5 +66,4 @@ nav {
         color: #a86c7c;
       }
     }
-  }
-}
+  }}
