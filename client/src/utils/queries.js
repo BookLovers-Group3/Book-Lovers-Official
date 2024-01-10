@@ -122,6 +122,7 @@ export const QUERY_SINGLE_BOOK = gql`
       isAvailable
       owner {
         _id
+        name
       }
     }
   }
