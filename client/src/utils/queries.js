@@ -71,6 +71,7 @@ export const QUERY_ME = gql`
         title
         description
         image
+        isAvailable
       }
       booksLent {
         _id
