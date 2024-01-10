@@ -44,7 +44,7 @@ const Login = () => {
   return (
     <main>
       <div className="container">
-        <div className="card">
+        <div className="custom-card">
           <h4>Login</h4>
           <div className="custom-card-body  ">
             {data ? (
