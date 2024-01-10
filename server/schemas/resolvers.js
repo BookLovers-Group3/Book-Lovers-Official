@@ -16,6 +16,10 @@ const resolvers = {
         "booksBorrowed",
       ]);
     },
+    // get all the ledgers
+    ledgers: async () => {
+      return Ledger.find();
+    },
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (parent, args, context) => {
       if (context.user) {

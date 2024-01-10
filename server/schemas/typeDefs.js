@@ -61,6 +61,7 @@ const typeDefs = `
   type Query {
     books: [Book]
     profiles: [Profile!]
+    ledgers: [Ledger]
     profile(profileId: ID!): Profile
     booksLending:[Book!]
     book(bookId: ID!): Book
