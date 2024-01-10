@@ -147,12 +147,14 @@ const LibraryCard = ({ user }) => {
           </Button>
           <Button
             className="btn-block btn-info"
-            onClick={() => showLendingBooks()}>
+            onClick={() => showLendingBooks()}
+          >
             Checkout My Books
           </Button>
           <Button
             className="btn-block btn-info"
-            onClick={() => showBorrowedBooks()}>
+            onClick={() => showBorrowedBooks()}
+          >
             Borrowed Books
           </Button>
           <Button className="btn-block btn-info" onClick={() => showFriends()}>

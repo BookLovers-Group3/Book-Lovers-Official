@@ -7,8 +7,6 @@ import Auth from "../../utils/auth";
 
 function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
   const user = Auth.getProfile();
-  console.log(user);
-  console.log("book", book);
   const [openLedger, { error: openLedgerError, data: openLedgerData }] =
     useMutation(OPEN_LEDGER, {
       refetchQueries: ["singleBook", "me", "booksLending", "singleProfile"],

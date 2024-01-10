@@ -5,6 +5,7 @@ import { useState } from "react";
 import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
 
 export default function BookList({ books, type }) {
+  console.log(books);
   // define functions for the modal
   const [show, setShow] = useState(false);
 
@@ -74,7 +75,14 @@ export default function BookList({ books, type }) {
         {books?.map((book) => {
           return (
             <Col md="4" key={book._id}>
-              <Card key={book._id} className="custom-card" border="dark">
+              <Card
+                key={book._id}
+                className="custom-card"
+                border="dark"
+                style={{
+                  backgroundColor: !book.isAvailable ? null : "lightblue",
+                }}
+              >
                 <Card.Title>{book.title}</Card.Title>
                 {book.image ? (
                   <Card.Img
