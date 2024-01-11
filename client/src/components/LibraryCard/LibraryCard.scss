@@ -1,6 +1,16 @@
+:root {
+  --main-bg-color: rgb(148, 113, 119);
+  --border-color: wheat;
+  --text-color: wheat;
+  --link-color: wheat;
+  --link-hover-color: black;
+  --status-icon-bg: pink;
+  --status-icon-text: black;
+}
+
 .main-card {
-  background-color: rgb(148, 113, 119);
-  border: 5px solid wheat;
+  background-color: var(--main-bg-color);
+  border: 5px solid var(--border-color);
   width: 70%;
   margin: 50px auto;
 }
@@ -10,11 +20,9 @@
   justify-content: space-around;
   margin: 0 25px;
   padding: 15px;
-  color: wheat;
-  align-items: center;
-  align-items: center;
+  color: var(--text-color);
+  align-items: center; /* Consider removing duplicated line */
   position: relative;
-
 }
 
 .user-profile {
@@ -22,8 +30,8 @@
   justify-content: space-between;
   margin: 0 25px;
   padding: 25px;
-  color: wheat;
-  border: 2px wheat solid;
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
 }
 
 .user-list {
@@ -36,11 +44,11 @@
 
 .user-list a {
   text-decoration: none;
-  color: wheat;
+  color: var(--link-color);
 }
 
 .user-list a:hover {
-  color: black;
+  color: var(--link-hover-color);
 }
 
 .hidden {
@@ -48,11 +56,22 @@
 }
 
 .status-icon {
-  background-color: pink;
+  background-color: var(--status-icon-bg);
   position: absolute;
   right: -60px;
   top: -20px;
-  color: black;
-  padding: 15px; 
+  color: var(--status-icon-text);
+  padding: 15px;
   border-radius: 30%;
+}
+
+.avatar-editor-container {
+  width: 100%;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .avatar-editor-container {
+    padding: 20px;
+  }
 }
