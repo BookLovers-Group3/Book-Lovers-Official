@@ -64,9 +64,18 @@ export default function ProfilePage() {
       for (const friend of friends) {
         if (friend._id === Auth?.getProfile().data._id) {
           setYouAreTheirFriend(true);
+          console.log("useEffect to check friends triggered")
           break;
         }
       }
+    }
+  });
+
+  console.log("ME FRIENDS: ", Auth?.getProfile().data._id)
+
+  useEffect(() => {
+    if (Auth?.getProfile().data.friends) {
+      console.log("ME FRIENDS: ", Auth?.getProfile().data.friends)
     }
   }, [friends]);
 
@@ -104,11 +113,19 @@ export default function ProfilePage() {
     return <Navigate to="/" />;
   }
 
+  console.log("they are your friend? ", theyAreYourFriend)
+  console.log("you are their friend? ", youAreTheirFriend)
+
   return (
     <div>
       {theyAreYourFriend && youAreTheirFriend ? (
         <div>
           <p>You and {profile?.name} are friends!</p>
+          <Button onClick={() => handleRemoveFriend()}>Remove Friend</Button>
+        </div>
+      ) : youAreTheirFriend && !theyAreYourFriend ? (
+        <div>
+          <p>You have added {profile?.name} as a friend</p>
           <Button onClick={() => handleRemoveFriend()}>Remove Friend</Button>
         </div>
       ) : (
