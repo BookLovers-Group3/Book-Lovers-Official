@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./ModalBookDescription.scss";
 
 function ModalBookDescription({ description, title, book, randomBook }) {
   const [show, setShow] = useState(false);
@@ -11,18 +12,16 @@ function ModalBookDescription({ description, title, book, randomBook }) {
 
   let modalTitle = "No title available";
   let modalDescription = "No book description available";
+  let modalClassName = "custom-modal-container";
 
   if (randomBook) {
     modalTitle = randomBook.volumeInfo.title || modalTitle;
     modalDescription = randomBook.volumeInfo.description || modalDescription;
-  } else {
+    modalClassName = " random-book-modal";
+  } else if (book) {
     modalTitle = title || modalTitle;
     modalDescription = description || modalDescription;
-  }
-
-  if (book) {
-    modalTitle = book.title || modalTitle;
-    modalDescription = book.description || modalDescription;
+    modalClassName = " book-modal";
   } else {
     modalTitle = title || modalTitle;
     modalDescription = description || modalDescription;
@@ -31,11 +30,11 @@ function ModalBookDescription({ description, title, book, randomBook }) {
   return (
     <>
       <Button onClick={handleShow}>Book Description</Button>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header>
-          <Modal.Title>{modalTitle}</Modal.Title>
+      <Modal className={modalClassName} show={show} onHide={handleClose}>
+        <Modal.Header className="modal-header">
+          <Modal.Title className="modal-title">{modalTitle}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{modalDescription}</Modal.Body>
+        <Modal.Body class="modal-body">{modalDescription}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close

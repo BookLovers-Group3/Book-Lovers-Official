@@ -1,0 +1,47 @@
+.random-book-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: sepia(20%);
+  line-height: 1.6rem;
+  padding: 5px;
+
+  .modal-header {
+    text-align: center;
+
+    .modal-title {
+      text-align: center;
+      font-size: cursive;
+      color: rgb(104, 37, 48);
+    }
+  }
+
+  .modal-body {
+    background-color: rgb(238, 230, 231);
+    font-family: Helvetica, sans-serif;
+  }
+}
+
+.book-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: sepia(20%);
+  line-height: 1.6rem;
+  padding: 5px;
+
+  .modal-header {
+    text-align: center;
+
+    .modal-title {
+      text-align: center;
+      font-size: cursive;
+      color: rgb(104, 37, 48);
+    }
+  }
+
+  .modal-body {
+    background-color: rgb(238, 230, 231);
+    font-family: Helvetica, sans-serif;
+  }
+}
