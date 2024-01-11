@@ -1,5 +1,7 @@
 export const searchGoogleBooks = (query) => {
-  return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
+  return fetch(
+    `https://www.googleapis.com/books/v1/volumes?q=${query}&key=AIzaSyDq2hkeJJsaSAG1neZuYsHCcsWKeX3mli4`
+  );
 };
 
 const subjects = [
