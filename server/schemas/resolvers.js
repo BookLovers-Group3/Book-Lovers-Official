@@ -57,8 +57,8 @@ const resolvers = {
         if (context.user) {
           const totoalProfileCount = await Ledger.countDocuments({
             $or: [
-              { lender: profileId },    // User as lender
-              { borrower: profileId },  // User as borrower
+              { lender: profileId }, // User as lender
+              { borrower: profileId }, // User as borrower
             ],
           });
           console.log("User Lent Books Count:", totoalProfileCount);
@@ -74,13 +74,19 @@ const resolvers = {
 
   Mutation: {
     // create a profile
-    addProfile: async (parent, { name, email, password, gender, status }) => {
+    addProfile: async (
+      parent,
+      { name, email, password, gender, status, lookingFor, favoriteGenres }
+    ) => {
+      console.log(lookingFor, favoriteGenres);
       const profile = await Profile.create({
         name,
         email,
         password,
         gender,
         status,
+        lookingFor,
+        favoriteGenres,
       });
       const token = signToken(profile);
 

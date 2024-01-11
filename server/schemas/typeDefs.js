@@ -13,7 +13,8 @@ const typeDefs = `
     booksBorrowed: [Book!]
     gender: String!
     status: String!
-    relationshipStatus: [String!]
+    lookingFor: [String!]
+    favoriteGenres: [String!]
     profileImage: String
   }
 
@@ -70,7 +71,7 @@ const typeDefs = `
   }
 
   type Mutation {
-    addProfile(name: String!, email: String!, password: String!, gender: String!, status: String!): Auth
+    addProfile(name: String!, email: String!, password: String!, gender: String!, status: String!, favoriteGenres: [String!], lookingFor: [String!]): Auth
 
     login(email: String!, password: String!): Auth
 
