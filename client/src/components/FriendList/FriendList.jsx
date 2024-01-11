@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import { REMOVE_FRIEND } from "../../utils/mutations";
 import { Link } from "react-router-dom";
 
-export default function FriendList({ friends }) {
+export default function FriendList({ friends, isMe }) {
   // get mutation for remove friend
   const [removeFriend, { loading, data, error }] = useMutation(REMOVE_FRIEND, {
     refetchQueries: ["me"],
@@ -35,7 +35,7 @@ export default function FriendList({ friends }) {
               <Card key={friend._id} className="custom-card" border="dark">
                 <Card.Title>
                   <Link to={`/profile/${friend._id}`}>
-                    {friend.name}
+                    Name: {friend.name}
                   </Link>
                 </Card.Title>
                 {friend.profileImage ? (
@@ -50,9 +50,13 @@ export default function FriendList({ friends }) {
                     }}
                   />
                 ) : null}
+                {isMe ? (
                 <Button onClick={() => handleRemoveFriend(friend)}>
                   Unfriend
                 </Button>
+                ) : (
+                  <div></div>
+                )}
               </Card>
             </Col>
           );

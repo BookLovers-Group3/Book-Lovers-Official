@@ -9,18 +9,31 @@ import FriendList from "../FriendList/FriendList";
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import calculateStatus from "../../utils/helpers";
 import { useParams } from "react-router-dom";
+import Auth from "../../utils/auth"
 import { QUERY_LEDGER } from "../../utils/queries";
 
 const LibraryCard = ({ user }) => {
-  console.log(user);
+  console.log("user: ", user);
   //if there is a profile Id, get it from the params
   // const { profileId } = useParams();
+
+  const [isMe, setIsMe] = useState(false)
+
+  //check to see if user looking at page is current profile being viewed
+  useEffect(() => {
+    if (user._id === Auth?.getProfile().data._id) {
+      setIsMe(true)
+    }
+  }, [user._id])
+
   // get the user profile image
   const userImage = user?.profileImage;
+
   // if set uploaded image by default to the user profile image, if there is no user profile image, set it to avatar
   const [uploadedImage, setUploadedImage] = useState(
     userImage ? userImage : avatar
   );
+
   // mutation to updated the user profile image to the uploaded image
   const [addProfileImage, { error, data }] = useMutation(UPDATE_PROFILE_IMAGE, {
     refetchQueries: ["me"],
@@ -122,18 +135,22 @@ const LibraryCard = ({ user }) => {
               scale={1.2}
               rotate={0}
             />
-            <div className="file-input-container">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                style={{ display: "none" }}
-                id="image-upload"
-              />
-              <label htmlFor="image-upload" className="upload-label">
-                Click here to upload your picture!
-              </label>
-            </div>
+            {isMe ? (
+                <div className="file-input-container">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    style={{ display: "none" }}
+                    id="image-upload"
+                  />
+                  <label htmlFor="image-upload" className="upload-label">
+                    Click here to upload your picture!
+                  </label>
+                </div>
+            ) : (
+              <div></div>
+              )}
           </div>
           <div>
             <div>Favorite Genres</div>
@@ -163,16 +180,16 @@ const LibraryCard = ({ user }) => {
         </div>
       </div>
       <div className="hidden favBookList">
-        <BookList books={user.favoriteBooks} type="favorite" />
+        <BookList books={user.favoriteBooks} isMe={isMe} type="favorite" />
       </div>
       <div className="hidden lendingBookList">
-        <BookList books={user.booksToLend} type="lending" />
+        <BookList books={user.booksToLend} isMe={isMe} type="lending" />
       </div>
       <div className="hidden borrowedBookList">
-        <BookList books={user.booksBorrowed} type="borrowed" />
+        <BookList books={user.booksBorrowed} isMe={isMe} type="borrowed" />
       </div>
       <div className="hidden friendList">
-        <FriendList friends={user.friends} />
+        <FriendList friends={user.friends} isMe={isMe}/>
       </div>
     </>
   );

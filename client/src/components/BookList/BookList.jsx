@@ -4,7 +4,7 @@ import { REMOVE_FAVBOOK, REMOVE_LENDING_BOOK } from "../../utils/mutations";
 import { useState } from "react";
 import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
 
-export default function BookList({ books, type }) {
+export default function BookList({ books, type, isMe }) {
   console.log(books);
   // define functions for the modal
   const [show, setShow] = useState(false);
@@ -102,7 +102,7 @@ export default function BookList({ books, type }) {
                     Authors: {book.authors || "No authors listed"}
                   </p>
                 </Card.Body>
-                {type === "borrowed" ? (
+                {isMe && type === "borrowed" ? (
                   <div className="return-book-button">
                     <ModalConfirmation
                       show={show}
@@ -111,10 +111,9 @@ export default function BookList({ books, type }) {
                       book={book}
                       type={"Return"}
                     />
-                  </div>
-                ) : (
                   <Button onClick={() => handleRemoveBook(book)}>Remove</Button>
-                )}
+                  </div>
+                ) : null}
               </Card>
             </Col>
           );
