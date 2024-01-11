@@ -22,7 +22,7 @@ function Review() {
       <section className="review-container">
         <div className="button-container left">
           <button className="prev-btn" onClick={prevReview}>
-            Previous
+          &#9664;
           </button>
         </div>
 
@@ -41,7 +41,7 @@ function Review() {
 
         <div className="button-container right">
           <button className="next-btn" onClick={nextReview}>
-            Next
+          &#9654;
           </button>
         </div>
       </section>
