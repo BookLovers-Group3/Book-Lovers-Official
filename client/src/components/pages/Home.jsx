@@ -17,8 +17,7 @@ const Home = () => {
 
   return (
     <main>
-      <div>
-        <div>
+        <div className = "book-spotlight">
           <h2>Book Spotlight</h2>
           {randomBook ? (
             <RandomBook randomBook={randomBook} />
@@ -26,8 +25,6 @@ const Home = () => {
             <p>Loading...</p>
           )}
         </div>
-      </div>
-
       <Review />
     </main>
   );

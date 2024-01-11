@@ -3,16 +3,24 @@
   justify-content: center;
   align-items: center;
   padding: 5px;
-  
+}
+
+.review p {
+  font-size: 0.8rem;
+  margin-left: 20px; /* Default spacing */
 }
 
 .review-container {
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.185);
-  width: 50%;
+  width: 70%;
   margin: auto;
   display: flex;
   align-items: center;
   position: relative;
+}
+
+.img-container img {
+  border-radius: 40%;
 }
 
 .button-container {
@@ -26,4 +34,10 @@
 
 .right {
   text-align: right;
+}
+
+@media (min-width: 769px) {
+  .review p {
+    margin-left: 200px;
+  }
 }

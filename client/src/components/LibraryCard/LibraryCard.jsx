@@ -115,25 +115,43 @@ const LibraryCard = ({ user }) => {
   const count = ledgerData?.getUserBookCount?.count ?? 0;
 
   // console.log("Raw Lent book count:", ledgerData?.getLentBookCount?.count);
+  const [editorSize, setEditorSize] = useState({
+    width: 200,
+    height: 200,
+  });
+
+
+  const handleSizeChange = () => {
+    if (window.innerWidth < 768) {
+      setEditorSize({ width: 100, height: 100 });
+    } else {
+      setEditorSize({ width: 200, height: 200 });
+    }
+  };
+
+  // the hanndleSizeChange is the event basedon the medium article.
+  window.addEventListener("resize", handleSizeChange);
+
 
   return (
     <>
       <div className="main-card">
         <div className="top-row">
           <h1>Book Lovers Library</h1>
-          <h1 className="user-name">{user.name}</h1>
+          <h2 className="user-name">{user.name}</h2>
           <p className="status-icon">{calculateStatus(count)}</p>
         </div>
         <div className="user-profile">
           <div className="image-upload-container">
             <AvatarEditor
               image={uploadedImage}
-              width={200}
-              height={200}
+              width={editorSize.width}
+              height={editorSize.height}
               border={15}
               color={[255, 255, 255, 0.6]}
               scale={1.2}
               rotate={0}
+              className="responsive-avatar"
             />
             {isMe ? (
                 <div className="file-input-container">
@@ -164,14 +182,12 @@ const LibraryCard = ({ user }) => {
           </Button>
           <Button
             className="btn-block btn-info"
-            onClick={() => showLendingBooks()}
-          >
+            onClick={() => showLendingBooks()}>
             Checkout My Books
           </Button>
           <Button
             className="btn-block btn-info"
-            onClick={() => showBorrowedBooks()}
-          >
+            onClick={() => showBorrowedBooks()}>
             Borrowed Books
           </Button>
           <Button className="btn-block btn-info" onClick={() => showFriends()}>
