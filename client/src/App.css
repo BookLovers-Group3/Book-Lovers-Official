@@ -28,9 +28,9 @@
   }
 }
 
-.card {
+/* .card {
   padding: 2em;
-}
+} */
 
 .read-the-docs {
   color: #888;
@@ -43,7 +43,7 @@
 }
 
 .bg {
-  background-image: url(../public/images/BackgroundDesign.png);
+  background-image: url(/images/BackgroundDesign.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -56,7 +56,7 @@
   border: 1px solid green;
   width: 50%;
   margin: 30px auto;
-  background-image: url(../public/images/spotlight.jpg);
+  background-image: url(/images/spotlight.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

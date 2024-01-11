@@ -71,6 +71,7 @@ export const QUERY_ME = gql`
         title
         description
         image
+        isAvailable
       }
       booksLent {
         _id
@@ -122,14 +123,15 @@ export const QUERY_SINGLE_BOOK = gql`
       isAvailable
       owner {
         _id
+        name
       }
     }
   }
 `;
 
 export const QUERY_LEDGER = gql`
-  query GetLentBookCount($profileId: ID!) {
-    getLentBookCount(profileId: $profileId) {
+  query getUserBookCount($profileId: ID!) {
+    getUserBookCount(profileId: $profileId) {
       count
     }
   }

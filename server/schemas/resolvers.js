@@ -16,6 +16,10 @@ const resolvers = {
         "booksBorrowed",
       ]);
     },
+    // get all the ledgers
+    ledgers: async () => {
+      return Ledger.find();
+    },
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (parent, args, context) => {
       if (context.user) {
@@ -41,21 +45,24 @@ const resolvers = {
     },
     // get one book per bookID
     book: async (parent, { bookId }) => {
-      return Book.findOne({ _id: bookId });
+      return Book.findOne({ _id: bookId }).populate("owner");
     },
     //all books
     books: async (parent, args) => {
       return Book.find();
     },
     //using using the countDocument in Mongoose to count the number of odocuments specifically in the lender by the user's profileID
-    getLentBookCount: async (parent, { profileId }, context) => {
+    getUserBookCount: async (parent, { profileId }, context) => {
       try {
         if (context.user) {
-          const userLentBooksCount = await Ledger.countDocuments({
-            lender: profileId,
+          const totoalProfileCount = await Ledger.countDocuments({
+            $or: [
+              { lender: profileId },    // User as lender
+              { borrower: profileId },  // User as borrower
+            ],
           });
-          console.log("User Lent Books Count:", userLentBooksCount);
-          return { count: userLentBooksCount };
+          console.log("User Lent Books Count:", totoalProfileCount);
+          return { count: totoalProfileCount };
         } else {
           throw new AuthenticationError("User not authenticated");
         }

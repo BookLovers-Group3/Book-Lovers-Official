@@ -44,7 +44,7 @@ const Login = () => {
   return (
     <main>
       <div className="container">
-        <div className="card">
+        <div className="custom-card">
           <h4>Login</h4>
           <div className="custom-card-body  ">
             {data ? (
@@ -53,30 +53,36 @@ const Login = () => {
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (
-              <form className="custom-form" onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  className="btn btn-block btn-info"
-                  style={{ cursor: "pointer" }}
-                  type="submit">
-                  Submit
+              <div>
+                <form className="custom-form" onSubmit={handleFormSubmit}>
+                  <input
+                    className="form-input"
+                    placeholder="Your email"
+                    name="email"
+                    type="email"
+                    value={formState.email}
+                    onChange={handleChange}
+                  />
+                  <input
+                    className="form-input"
+                    placeholder="******"
+                    name="password"
+                    type="password"
+                    value={formState.password}
+                    onChange={handleChange}
+                  />
+                  <button
+                    className="btn btn-block btn-info"
+                    style={{ cursor: "pointer" }}
+                    type="submit">
+                    Submit
+                  </button>
+                </form>
+
+                <button className = "create-account-btn">
+                  <Link style={{textDecoration: 'none'}} to="/signup">Create new account</Link>
                 </button>
-              </form>
+              </div>
             )}
 
             {error && (
