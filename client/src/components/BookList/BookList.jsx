@@ -2,6 +2,7 @@ import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { REMOVE_FAVBOOK, REMOVE_LENDING_BOOK } from "../../utils/mutations";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
 
 export default function BookList({ books, type, isMe }) {
@@ -83,7 +84,13 @@ export default function BookList({ books, type, isMe }) {
                   backgroundColor: !book.isAvailable ? null : "lightblue",
                 }}
               >
+                {type === "lending" ? (
+                  <div>
+                    <Link to={`/book/${book._id}`}><Card.Title>{book.title}</Card.Title></Link>
+                  </div>
+                ) : (
                 <Card.Title>{book.title}</Card.Title>
+                )}
                 {book.image ? (
                   <Card.Img
                     src={book.image || "No image available"}
