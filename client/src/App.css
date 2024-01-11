@@ -1,9 +1,13 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
 :root {
   background-color: #f3f2da;
   --ivory: #f3f2da;
   --green: #4e8d7c;
   --darkgreen: #045762;
   --pink: #ea97ad;
+  font-family: 'Dancing Script', cursive;
 }
 
 #root {
@@ -11,15 +15,6 @@
   /* margin: 0 auto; */
   /* padding: 2rem; */
   text-align: center;
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -98,4 +93,9 @@
 .random-book-container :nth-child(2) {
   text-align: center;
   align-content: center;
+}
+
+.book-spotlight {
+  font-family: 'Dancing Script', cursive;
+  margin: 20px;
 }

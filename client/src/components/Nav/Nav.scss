@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
+
 body {
-  font-family: cursive, monospace, sans-serif;
+  font-family: "Dancing Script", cursive;
   margin: 0;
 }
 
@@ -60,8 +62,13 @@ nav {
     }
 
     .dropdown-container {
-      background-color: #ff69b4 !important;
-      color: white;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.25rem;
+      text-align: center;
+    }
+    .nav-menu {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.25rem;
     }
   }
 }
