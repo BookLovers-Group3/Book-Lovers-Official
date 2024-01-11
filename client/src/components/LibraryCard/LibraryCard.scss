@@ -13,6 +13,10 @@
   border: 5px solid var(--border-color);
   width: 70%;
   margin: 50px auto;
+  background-image: url(/images/Library.Card.jpeg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .top-row {
@@ -21,8 +25,12 @@
   margin: 0 25px;
   padding: 15px;
   color: var(--text-color);
-  align-items: center; /* Consider removing duplicated line */
   position: relative;
+
+  h1 {
+    font-size: 1.5rem;
+    font-family: cursive;
+  }
 }
 
 .user-profile {

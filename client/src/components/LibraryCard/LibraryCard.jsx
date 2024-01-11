@@ -116,6 +116,7 @@ const LibraryCard = ({ user }) => {
     }
   };
 
+  // the hanndleSizeChange is the event basedon the medium article.
   window.addEventListener("resize", handleSizeChange);
 
 
@@ -124,7 +125,7 @@ const LibraryCard = ({ user }) => {
       <div className="main-card">
         <div className="top-row">
           <h1>Book Lovers Library</h1>
-          <h1 className="user-name">{user.name}</h1>
+          <h2 className="user-name">{user.name}</h2>
           <p className="status-icon">{calculateStatus(count)}</p>
         </div>
         <div className="user-profile">
