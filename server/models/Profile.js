@@ -58,7 +58,12 @@ const profileSchema = new Schema({
     type: String,
     required: true,
   },
-  relationshipstatus: [
+  lookingFor: [
+    {
+      type: String,
+    },
+  ],
+  favoriteGenres: [
     {
       type: String,
     },

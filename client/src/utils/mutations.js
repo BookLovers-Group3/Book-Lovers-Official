@@ -7,6 +7,8 @@ export const ADD_PROFILE = gql`
     $password: String!
     $gender: String!
     $status: String!
+    $lookingFor: [String!]
+    $favoriteGenres: [String!]
   ) {
     addProfile(
       name: $name
@@ -14,6 +16,8 @@ export const ADD_PROFILE = gql`
       password: $password
       gender: $gender
       status: $status
+      lookingFor: $lookingFor
+      favoriteGenres: $favoriteGenres
     ) {
       token
       profile {

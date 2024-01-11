@@ -171,8 +171,12 @@ const LibraryCard = ({ user }) => {
               )}
           </div>
           <div>
-            <div>Favorite Genres</div>
-            <div>I am looking for:</div>
+            <div>
+              Favorite Genres {user.favoriteGenres.map((genre) => genre)}
+            </div>
+            <div>
+              I am looking for:{user.lookingFor.map((lookingFor) => lookingFor)}
+            </div>
             <div>Gender Identity: {user.gender}</div>
           </div>
         </div>

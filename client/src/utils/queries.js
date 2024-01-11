@@ -92,6 +92,8 @@ export const QUERY_ME = gql`
         name
         profileImage
       }
+      favoriteGenres
+      lookingFor
     }
   }
 `;
