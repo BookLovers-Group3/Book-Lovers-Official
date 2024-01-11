@@ -35,7 +35,7 @@ export default function FriendList({ friends, isMe }) {
               <Card key={friend._id} className="custom-card" border="dark">
                 <Card.Title>
                   <Link to={`/profile/${friend._id}`}>
-                    {friend.name}
+                    Name: {friend.name}
                   </Link>
                 </Card.Title>
                 {friend.profileImage ? (
