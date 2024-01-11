@@ -102,8 +102,7 @@ export default function BookList({ books, type, isMe }) {
                     Authors: {book.authors || "No authors listed"}
                   </p>
                 </Card.Body>
-                {isMe ? (
-                  {type === "borrowed" ? (
+                {isMe && type === "borrowed" ? (
                   <div className="return-book-button">
                     <ModalConfirmation
                       show={show}
@@ -112,12 +111,9 @@ export default function BookList({ books, type, isMe }) {
                       book={book}
                       type={"Return"}
                     />
-                  <Button onClick={() => handleRemoveBook(book)}>Remove</Button>
+                  {/* <Button onClick={() => handleRemoveBook(book)}>Remove</Button> */}
                   </div>
-                ) : (
-                  <div></div>
-                  )}
-                )}
+                ) : null}
               </Card>
             </Col>
           );

@@ -19,6 +19,13 @@ export default function ProfilePage() {
   const { loading, data } = useQuery(QUERY_SINGLE_PROFILE, {
     variables: { profileId: profileId },
   });
+
+  // get all the profile info based on the profileId from params
+  const profile = data?.profile;
+  const user = profile
+  const friends = profile?.friends;
+  const favoriteBooks = profile?.favoriteBooks;
+  const booksToLend = profile?.booksToLend;
   
   // mutation for adding friend
   const [addFriend, { loading: addLoading, data: addData, error: addError }] =
@@ -32,12 +39,6 @@ export default function ProfilePage() {
       refetchQueries: ["singleProfile", "me"]
     })
 
-  // get all the profile info based on the profileId from params
-  const profile = data?.profile;
-  const user = profile
-  const friends = profile?.friends;
-  const favoriteBooks = profile?.favoriteBooks;
-  const booksToLend = profile?.booksToLend;
 
   // get the favorite book list
   const favBookList = favoriteBooks?.map((book) => {

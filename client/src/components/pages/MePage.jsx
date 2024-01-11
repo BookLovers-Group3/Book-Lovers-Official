@@ -7,8 +7,12 @@ import Auth from "../../utils/auth";
 export default function MePage() {
   // query the user information from the token, QUERY_ME will query the user info, as well as user's favorite books, and user's lending books and the user's borrowed books
   const { loading: profileLoading, data: profileData } = useQuery(QUERY_ME);
+
+  console.log("profile data?: ", profileData)
+
   // user info
   const user = profileData?.me;
+  console.log("user from MePage: ", user)
 
   // if not logged in, go to the homepage
   if (!Auth.loggedIn()) {
@@ -23,7 +27,7 @@ export default function MePage() {
 
   return (
     <>
-      <LibraryCard user={user} />
+      <LibraryCard user={ user } />
     </>
   );
 }
