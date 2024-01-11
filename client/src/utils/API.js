@@ -1,5 +1,9 @@
+const apiKey = import.meta.env.VITE_APP_API_KEY;
+
 export const searchGoogleBooks = (query) => {
-  return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
+  return fetch(
+    `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`
+  );
 };
 
 const subjects = [
@@ -62,7 +66,7 @@ export const randomGoogleBooks = async () => {
   const randomSubject = subjects[randomIndex];
 
   const response = await fetch(
-    `https://www.googleapis.com/books/v1/volumes?q=${randomSubject}`
+    `https://www.googleapis.com/books/v1/volumes?q=${randomSubject}&key=${apiKey}`
   );
   const data = await response.json();
 
