@@ -7,24 +7,20 @@
 
 .review p {
   font-size: 0.8rem;
+  margin-left: 20px; /* Default spacing */
 }
 
 .review-container {
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.185);
-  width: 80%;
+  width: 70%;
   margin: auto;
   display: flex;
   align-items: center;
   position: relative;
-  border-radius: 20%;
 }
 
-.img-container {
-  margin-right: 20px;
-}
 .img-container img {
-  border-radius: 20%;
-  width: 8rem;
+  border-radius: 40%;
 }
 
 .button-container {
@@ -38,4 +34,10 @@
 
 .right {
   text-align: right;
+}
+
+@media (min-width: 769px) {
+  .review p {
+    margin-left: 200px;
+  }
 }

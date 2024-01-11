@@ -38,13 +38,18 @@ nav {
     }
 
     .logo-text {
-      font-size: 2.5rem;
+      font-size: 3rem;
       color: #4e8d7c;
       text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
         1px 1px 0 #000;
       font-family: "Dancing Script", cursive;
       margin: 0;
       text-decoration: none;
+    }
+    @media (min-width: 768px) {
+      .logo-text {
+        font-size: 4rem;
+      }
     }
 
     .login-signup-container {
