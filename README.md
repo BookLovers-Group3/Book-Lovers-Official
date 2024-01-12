@@ -5,7 +5,7 @@ Book Lovers Dating App
 
 Libraries: 
 1. React-Avatar-Editor
-
+2. emailjs
 
 
 References: 
