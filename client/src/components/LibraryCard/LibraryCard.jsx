@@ -162,7 +162,7 @@ const LibraryCard = ({ user }) => {
                   id="image-upload"
                 />
                 <label htmlFor="image-upload" className="upload-label">
-                  Click here to upload your picture!
+                  Upload your picture!
                 </label>
               </div>
             ) : (
