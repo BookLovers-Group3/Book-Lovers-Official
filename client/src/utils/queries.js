@@ -19,18 +19,21 @@ export const QUERY_SINGLE_PROFILE = gql`
       friends {
         _id
         name
+        profileImage
       }
       favoriteBooks {
         _id
         authors
         title
         description
+        image
       }
       booksToLend {
         _id
         authors
         title
         description
+        image
       }
       booksLent {
         _id

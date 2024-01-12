@@ -24,9 +24,7 @@ export default function FriendList({ friends, isMe }) {
   return (
     <Container>
       <h2 className="pt-5">
-        {friends?.length
-          ? `${friends?.length} friends:`
-          : "No friends yet"}
+        {friends?.length ? `${friends?.length} friends:` : "No friends yet"}
       </h2>
       <Row>
         {friends?.map((friend) => {
@@ -34,9 +32,7 @@ export default function FriendList({ friends, isMe }) {
             <Col md="4" key={friend._id}>
               <Card key={friend._id} className="custom-card" border="dark">
                 <Card.Title>
-                  <Link to={`/profile/${friend._id}`}>
-                    Name: {friend.name}
-                  </Link>
+                  <Link to={`/profile/${friend._id}`}>Name: {friend.name}</Link>
                 </Card.Title>
                 {friend.profileImage ? (
                   <Card.Img
@@ -51,12 +47,10 @@ export default function FriendList({ friends, isMe }) {
                   />
                 ) : null}
                 {isMe ? (
-                <Button onClick={() => handleRemoveFriend(friend)}>
-                  Unfriend
-                </Button>
-                ) : (
-                  <div></div>
-                )}
+                  <Button onClick={() => handleRemoveFriend(friend)}>
+                    Unfriend
+                  </Button>
+                ) : null}
               </Card>
             </Col>
           );
