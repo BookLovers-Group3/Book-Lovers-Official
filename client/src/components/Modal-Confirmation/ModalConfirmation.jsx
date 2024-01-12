@@ -1,18 +1,15 @@
-<<<<<<< HEAD
-=======
-import React, { useState, useEffect } from "react";
->>>>>>> main
+import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useMutation } from "@apollo/client";
 import { OPEN_LEDGER, CLOSE_LEDGER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
-<<<<<<< HEAD
 import {
   setReturnBookId,
   getReturnBookId,
   removeReturnBookId,
 } from "../../utils/localStorage";
+import emailjs from "@emailjs/browser";
 
 function ModalConfirmation({
   handleShow,
@@ -22,14 +19,19 @@ function ModalConfirmation({
   type,
   books,
 }) {
-  // get user data
+  // initiate emailjs on component load
+  useEffect(() => emailjs.init("tFj6zAOJjHz2zSQ9C"));
+
+  //get requesting user data
   const user = Auth.getProfile();
-  // get open ledger mutation
+
+  // mutation for adding ledger entry
   const [openLedger, { error: openLedgerError, data: openLedgerData }] =
     useMutation(OPEN_LEDGER, {
       refetchQueries: ["singleBook", "me", "booksLending", "singleProfile"],
     });
-  // get close ledger mutation
+
+  // mutation for closing ledger entry
   const [closeLedger, { error: closeLedgerError, data: closeLedgerData }] =
     useMutation(CLOSE_LEDGER, {
       refetchQueries: ["singleBook", "me", "booksLending", "singleProfile"],
@@ -41,43 +43,15 @@ function ModalConfirmation({
     handleShow();
     setReturnBookId(book._id);
   };
-  //
+
+  //  handle confirm function
   const handleConfirm = async () => {
-=======
-import emailjs from "@emailjs/browser";
-
-function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
-  // initiate emailjs on component load
-  useEffect(() => emailjs.init("tFj6zAOJjHz2zSQ9C"))
-
-  //get requesting user data
-  const user = Auth.getProfile();
-
-  // mutation for adding ledger entry
-  const [openLedger, { error: openLedgerError, data: openLedgerData }] =
-    useMutation(OPEN_LEDGER, {
-      refetchQueries: ["singleBook", "me", "booksLending", "singleProfile"],
-  });
-
-  // mutation for closing ledger entry
-  const [closeLedger, { error: closeLedgerError, data: closeLedgerData }] =
-    useMutation(CLOSE_LEDGER, {
-      refetchQueries: ["singleBook", "me", "booksLending", "singleProfile"],
-  });
-
-  // const [
-  //   updateBookAvailability,
-  //   { error: bookUpdateError, data: bookUpdateData },
-  // ] = useMutation(UPDATE_BOOK_AVAILABILITY);
-  
-  const handleRequest = async () => {
     // variables for emailjs function
-    const serviceId = "book_lovers"
-    const borrowTemplateId = "bl-borrow"
-    const returnTemplateId = "bl-return"
+    const serviceId = "book_lovers";
+    const borrowTemplateId = "bl-borrow";
+    const returnTemplateId = "bl-return";
 
     console.log("book", book);
->>>>>>> main
     handleClose();
 
     if (type === "Request") {
@@ -98,9 +72,9 @@ function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
           from_name: user.data.name,
           from_email: user.data.email,
           book_name: book.title,
-          reply_to: user.data.email
-        })
-        console.log("email sent with this data: ", email)
+          reply_to: user.data.email,
+        });
+        console.log("email sent with this data: ", email);
       } catch (e) {
         console.error(e);
       }
@@ -126,9 +100,9 @@ function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
           from_name: user.data.name,
           from_email: user.data.email,
           book_name: book.title,
-          reply_to: user.data.email
-        })
-        console.log("email sent with this data: ", email)
+          reply_to: user.data.email,
+        });
+        console.log("email sent with this data: ", email);
       } catch (e) {
         console.error(e);
       }
@@ -142,7 +116,11 @@ function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
 
   return (
     <>
-      <Button className="btn-request" variant="primary" onClick={() => handleReturn()}>
+      <Button
+        className="btn-request"
+        variant="primary"
+        onClick={() => handleReturn()}
+      >
         {type} Book
       </Button>
 
