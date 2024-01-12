@@ -9,7 +9,7 @@ import FriendList from "../FriendList/FriendList";
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import calculateStatus from "../../utils/helpers";
 import { useParams } from "react-router-dom";
-import Auth from "../../utils/auth"
+import Auth from "../../utils/auth";
 import { QUERY_LEDGER } from "../../utils/queries";
 
 const LibraryCard = ({ user }) => {
@@ -17,14 +17,14 @@ const LibraryCard = ({ user }) => {
   //if there is a profile Id, get it from the params
   // const { profileId } = useParams();
 
-  const [isMe, setIsMe] = useState(false)
+  const [isMe, setIsMe] = useState(false);
 
   //check to see if user looking at page is current profile being viewed
   useEffect(() => {
     if (user._id === Auth?.getProfile().data._id) {
-      setIsMe(true)
+      setIsMe(true);
     }
-  }, [user._id])
+  }, [user._id]);
 
   // get the user profile image
   const userImage = user?.profileImage;
@@ -120,7 +120,6 @@ const LibraryCard = ({ user }) => {
     height: 200,
   });
 
-
   const handleSizeChange = () => {
     if (window.innerWidth < 768) {
       setEditorSize({ width: 100, height: 100 });
@@ -132,13 +131,12 @@ const LibraryCard = ({ user }) => {
   // the hanndleSizeChange is the event basedon the medium article.
   window.addEventListener("resize", handleSizeChange);
 
-
   return (
     <>
       <div className="main-card">
         <div className="top-row">
           <h1>Book Lovers Library</h1>
-          <h2 className="user-name">{user.name}</h2>
+
           <p className="status-icon">{calculateStatus(count)}</p>
         </div>
         <div className="user-profile">
@@ -153,24 +151,25 @@ const LibraryCard = ({ user }) => {
               rotate={0}
               className="responsive-avatar"
             />
+
             {isMe ? (
-                <div className="file-input-container">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    style={{ display: "none" }}
-                    id="image-upload"
-                  />
-                  <label htmlFor="image-upload" className="upload-label">
-                    Click here to upload your picture!
-                  </label>
-                </div>
+              <div className="file-input-container">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  style={{ display: "none" }}
+                  id="image-upload"
+                />
+                <label htmlFor="image-upload" className="upload-label">
+                  Upload your picture!
+                </label>
+              </div>
             ) : (
               <div></div>
-              )}
+            )}
           </div>
-          <div>
+          <div className="user-details">
             <div>
               Favorite Genres {user.favoriteGenres.map((genre) => genre)}
             </div>
@@ -180,23 +179,20 @@ const LibraryCard = ({ user }) => {
             <div>Gender Identity: {user.gender}</div>
           </div>
         </div>
+        <h2 className="user-name">{user.name}</h2>
         <div className="user-list">
-          <Button className="btn-block btn-info" onClick={() => showFavBooks()}>
+          <button className="" onClick={() => showFavBooks()}>
             Favorite Books
-          </Button>
-          <Button
-            className="btn-block btn-info"
-            onClick={() => showLendingBooks()}>
+          </button>
+          <button className="" onClick={() => showLendingBooks()}>
             Checkout My Books
-          </Button>
-          <Button
-            className="btn-block btn-info"
-            onClick={() => showBorrowedBooks()}>
+          </button>
+          <button className="" onClick={() => showBorrowedBooks()}>
             Borrowed Books
-          </Button>
-          <Button className="btn-block btn-info" onClick={() => showFriends()}>
+          </button>
+          <button className="" onClick={() => showFriends()}>
             Friends
-          </Button>
+          </button>
         </div>
       </div>
       <div className="hidden favBookList">
@@ -209,7 +205,7 @@ const LibraryCard = ({ user }) => {
         <BookList books={user.booksBorrowed} isMe={isMe} type="borrowed" />
       </div>
       <div className="hidden friendList">
-        <FriendList friends={user.friends} isMe={isMe}/>
+        <FriendList friends={user.friends} isMe={isMe} />
       </div>
     </>
   );
