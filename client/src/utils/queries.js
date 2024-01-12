@@ -45,6 +45,8 @@ export const QUERY_SINGLE_PROFILE = gql`
         description
         image
       }
+      favoriteGenres
+      lookingFor
     }
   }
 `;
