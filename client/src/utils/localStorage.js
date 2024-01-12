@@ -53,3 +53,23 @@ export const lendingBookId = (bookId) => {
 export const removeLendingBookId = () => {
   localStorage.removeItem("lending_book");
 };
+
+export const getReturnBookId = () => {
+  const lendBookId = localStorage.getItem("return_book")
+    ? JSON.parse(localStorage.getItem("return_book"))
+    : [];
+
+  return lendBookId;
+};
+
+export const setReturnBookId = (bookId) => {
+  if (bookId) {
+    localStorage.setItem("return_book", JSON.stringify(bookId));
+  } else {
+    localStorage.removeItem("return_book");
+  }
+};
+
+export const removeReturnBookId = () => {
+  localStorage.removeItem("return_book");
+};

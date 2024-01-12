@@ -1,9 +1,7 @@
-import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useMutation } from "@apollo/client";
 import { LEND_BOOK } from "../../utils/mutations";
-import Auth from "../../utils/auth";
 import {
   lendingBookId,
   getLendBookId,
@@ -28,7 +26,7 @@ function LendModalConfirmation({
   });
 
   // get the book id from local storage and find the book then add the book to the lending list
-  const handleRequest = async () => {
+  const handleConfirm = async () => {
     const lendBookId = getLendBookId();
     const bookToLend = books.find((book) => book.googleBookId === lendBookId);
     handleClose();
@@ -46,8 +44,14 @@ function LendModalConfirmation({
     }
   };
 
+  // if didnt confirm, then close modal and remove the book id from localstorage
+  const handleCloseBtn = () => {
+    handleClose();
+    removeLendingBookId();
+  };
+
   // when click on add to lend list, save the book google id into local storage
-  const handleAddToLend = async () => {
+  const handleAddToLend = () => {
     handleShow();
     lendingBookId(book.googleBookId);
   };
@@ -84,10 +88,10 @@ function LendModalConfirmation({
           Please confirm
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={() => handleCloseBtn()}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => handleRequest()}>
+          <Button variant="primary" onClick={() => handleConfirm()}>
             Confirm
           </Button>
         </Modal.Footer>

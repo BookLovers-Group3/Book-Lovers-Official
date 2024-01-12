@@ -1,24 +1,45 @@
-import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useMutation } from "@apollo/client";
 import { OPEN_LEDGER, CLOSE_LEDGER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
+import {
+  setReturnBookId,
+  getReturnBookId,
+  removeReturnBookId,
+} from "../../utils/localStorage";
 
-function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
+function ModalConfirmation({
+  handleShow,
+  handleClose,
+  show,
+  book,
+  type,
+  books,
+}) {
+  // get user data
   const user = Auth.getProfile();
+  // get open ledger mutation
   const [openLedger, { error: openLedgerError, data: openLedgerData }] =
     useMutation(OPEN_LEDGER, {
       refetchQueries: ["singleBook", "me", "booksLending", "singleProfile"],
     });
+  // get close ledger mutation
   const [closeLedger, { error: closeLedgerError, data: closeLedgerData }] =
     useMutation(CLOSE_LEDGER, {
       refetchQueries: ["singleBook", "me", "booksLending", "singleProfile"],
     });
 
-  const handleRequest = async () => {
-    console.log("book", book);
+  // when click on return list, save the book google id into local storage
+  const handleReturn = () => {
+    console.log(book);
+    handleShow();
+    setReturnBookId(book._id);
+  };
+  //
+  const handleConfirm = async () => {
     handleClose();
+
     if (type === "Request") {
       try {
         // open the ledger for this book borrow transaction
@@ -36,13 +57,17 @@ function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
     }
     if (type === "Return") {
       console.log("return book");
+      const returnBookId = getReturnBookId();
+      const bookToReturn = books.find((book) => book._id === returnBookId);
+      console.log("book to return", bookToReturn);
       try {
         // close the ledger for this book borrow transaction
         const ledger = await closeLedger({
           variables: {
-            bookId: book._id,
+            bookId: bookToReturn._id,
           },
         });
+        removeReturnBookId();
         console.log("ledger", ledger);
       } catch (e) {
         console.error(e);
@@ -52,7 +77,7 @@ function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" onClick={() => handleReturn()}>
         {type} Book
       </Button>
 
@@ -73,7 +98,7 @@ function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => handleRequest()}>
+          <Button variant="primary" onClick={() => handleConfirm()}>
             Confirm
           </Button>
         </Modal.Footer>
