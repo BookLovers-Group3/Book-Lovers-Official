@@ -123,7 +123,7 @@ function ModalConfirmation({
         variant="primary"
         disabled={
           (type === "Request" && !book.isAvailable) ||
-          user.data._id === book.owner._id
+          user.data._id === book.owner?._id
         }
         onClick={() => handleReturn()}
       >
