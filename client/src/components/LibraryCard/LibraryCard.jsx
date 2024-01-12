@@ -169,8 +169,7 @@ const LibraryCard = ({ user }) => {
               <div></div>
             )}
           </div>
-          <div>
-            <h2 className="user-name">{user.name}</h2>
+          <div className="user-details">
             <div>
               Favorite Genres {user.favoriteGenres.map((genre) => genre)}
             </div>
@@ -180,7 +179,7 @@ const LibraryCard = ({ user }) => {
             <div>Gender Identity: {user.gender}</div>
           </div>
         </div>
-
+        <h2 className="user-name">{user.name}</h2>
         <div className="user-list">
           <button className="" onClick={() => showFavBooks()}>
             Favorite Books
