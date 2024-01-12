@@ -6,6 +6,8 @@ import { FAV_BOOK, LEND_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import LendModalConfirmation from "../Modal-Confirmation/LendModalConfirmation";
+import { useRef } from "react";
+
 function SearchedBookResults({ searchedBooks, userData }) {
   // define functions for the modal
   const [show, setShow] = useState(false);
@@ -43,6 +45,8 @@ function SearchedBookResults({ searchedBooks, userData }) {
         })
       : []
   );
+
+  const modalRef = useRef(null);
 
   // on button press, takes in book data and creates book in database then adds to user's favorite list
   const handleFavBook = async (googleBookId) => {
@@ -117,7 +121,7 @@ function SearchedBookResults({ searchedBooks, userData }) {
                     Authors: {book.authors || "No authors listed"}
                   </p>
 
-                  {auth.loggedIn() && (
+                  {auth.loggedIn() ? (
                     <div>
                       <Button
                         disabled={favBookIds?.some(
@@ -142,9 +146,6 @@ function SearchedBookResults({ searchedBooks, userData }) {
                       </Button>
                       <div className="return-book-button">
                         <LendModalConfirmation
-                          show={show}
-                          handleClose={handleClose}
-                          handleShow={handleShow}
                           book={book}
                           books={searchedBooks}
                           type={"Return"}
@@ -153,7 +154,7 @@ function SearchedBookResults({ searchedBooks, userData }) {
                         />
                       </div>
                     </div>
-                  )}
+                  ) : null}
                 </Card.Body>
               </Card>
             </Col>

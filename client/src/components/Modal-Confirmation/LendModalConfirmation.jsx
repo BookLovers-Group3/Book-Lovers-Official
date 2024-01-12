@@ -7,16 +7,13 @@ import {
   getLendBookId,
   removeLendingBookId,
 } from "../../utils/localStorage";
+import { useState } from "react";
 
-function LendModalConfirmation({
-  handleShow,
-  handleClose,
-  show,
-  book,
-  books,
-  lendBookIds,
-  setLendBookIds,
-}) {
+function LendModalConfirmation({ book, books, lendBookIds, setLendBookIds }) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   // sets up mutation to add book to lending list
   const [
     addBooksToLend,
@@ -79,6 +76,7 @@ function LendModalConfirmation({
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        constainer={null}
       >
         <Modal.Header closeButton>
           <Modal.Title>Request Confirmation</Modal.Title>

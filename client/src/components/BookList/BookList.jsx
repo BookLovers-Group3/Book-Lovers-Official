@@ -115,9 +115,6 @@ export default function BookList({ books, type, isMe }) {
                   type === "borrowed" ? (
                     <div className="return-book-button">
                       <ModalConfirmation
-                        show={show}
-                        handleClose={handleClose}
-                        handleShow={handleShow}
                         book={book}
                         books={books}
                         type={"Return"}

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useMutation } from "@apollo/client";
@@ -11,14 +11,11 @@ import {
 } from "../../utils/localStorage";
 import emailjs from "@emailjs/browser";
 
-function ModalConfirmation({
-  handleShow,
-  handleClose,
-  show,
-  book,
-  type,
-  books,
-}) {
+function ModalConfirmation({ book, type, books }) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   // initiate emailjs on component load
   useEffect(() => emailjs.init("tFj6zAOJjHz2zSQ9C"));
 
