@@ -57,7 +57,7 @@ const RandomBooks = ({ randomBook }) => {
           <ModalBookDescription randomBook={randomBook} />
           <div>
             {randomBook.saleInfo.isEbook ? (
-              <a href={randomBook.saleInfo.buyLink} target="_blank">
+              <a className="custom-e-book" href={randomBook.saleInfo.buyLink} target="_blank">
                 Buy it as an eBook!
               </a>
             ) : null}

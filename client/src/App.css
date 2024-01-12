@@ -106,6 +106,15 @@
   margin: 20px;
 }
 
+.custom-e-book {
+  margin-top: 15px;
+  display: inline-block; 
+}
+
+.custom-e-book:hover {
+  box-shadow: 0 0 10px rgba(255, 223, 0, 0.8);
+}
+
 @media screen and (min-width: 768px) {
   .random-book-container img {
     width: 12rem;
