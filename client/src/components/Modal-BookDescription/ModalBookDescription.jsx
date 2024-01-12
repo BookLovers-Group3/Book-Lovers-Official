@@ -5,6 +5,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./ModalBookDescription.scss";
 
 function ModalBookDescription({ description, title, book, randomBook }) {
+
+console.log(book)
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -19,8 +22,8 @@ function ModalBookDescription({ description, title, book, randomBook }) {
     modalDescription = randomBook.volumeInfo.description || modalDescription;
     modalClassName = " random-book-modal";
   } else if (book) {
-    modalTitle = title || modalTitle;
-    modalDescription = description || modalDescription;
+    modalTitle = book.title || modalTitle;
+    modalDescription = book.description || modalDescription;
     modalClassName = " book-modal";
   } else {
     modalTitle = title || modalTitle;
@@ -34,7 +37,7 @@ function ModalBookDescription({ description, title, book, randomBook }) {
         <Modal.Header className="modal-header">
           <Modal.Title className="modal-title">{modalTitle}</Modal.Title>
         </Modal.Header>
-        <Modal.Body class="modal-body">{modalDescription}</Modal.Body>
+        <Modal.Body className="modal-body">{modalDescription}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
