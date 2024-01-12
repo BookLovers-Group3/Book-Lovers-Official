@@ -55,7 +55,7 @@ function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button className="btn-request" variant="primary" onClick={handleShow}>
         {type} Book
       </Button>
 

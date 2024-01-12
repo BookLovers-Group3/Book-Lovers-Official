@@ -1,11 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
+
 :root {
   background-color: #f3f2da;
   --ivory: #f3f2da;
   --green: #4e8d7c;
   --darkgreen: #045762;
   --pink: #ea97ad;
+  letter-spacing: 1.25px;
 }
-
 
 .container {
   margin: 25px auto;
@@ -43,15 +45,14 @@
   padding: 40px;
   background-color: var(--darkgreen);
   border-radius: 15px;
-
 }
 
 .single-book-container {
   display: flex;
-  flex-direction: column;
   padding: 20px;
-  margin: 20px auto;
+  justify-content: center;
   align-items: center;
+  box-shadow: 0 20px 80px #0000002f;
 
   img {
     margin-bottom: 15px;
@@ -62,7 +63,7 @@
   padding: 5px 10px;
   margin: 20px 15px 0;
   cursor: pointer;
-  background-color: var(--green)
+  background-color: var(--green);
 }
 
 .create-account-btn a {
@@ -71,6 +72,56 @@
 }
 
 .create-account-btn a:hover {
-  color:white;
+  color: white;
+}
+
+.selected-book {
+  font-family: "Dancing Script", cursive;
+  margin-top: 20px;
+  line-height: 2.5rem;
+}
+
+.single-book-details {
+  display: flex;
+  flex-direction: column;
+  margin-right: 40px;
+  
+  
+}
+
+.single-book-user {
+  line-height: 2.5rem;
+  font-family: "Dancing Script", cursive;
+  box-shadow: 0 20px 80px #0000002f;
+  padding: 1px 5px;
+
+}
+
+.max-width-border-top {
+  border-top: 1px var(--darkgreen) dashed;
+  width: 80%;
+  margin: auto;
+}
+
+
+@media screen and (min-width: 768px) {
+
+  .single-book-user {
+    font-size: 2.25rem;
+    line-height: 5rem;
+  }
+
+  .selected-book {
+    font-size: 3rem;
+    line-height: 5rem;
+  }
+
+  .single-book-details img {
+
+    width: 225px;
+    
+  }
+
+
 }
 
