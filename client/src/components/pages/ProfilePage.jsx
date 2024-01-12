@@ -18,6 +18,7 @@ export default function ProfilePage() {
   const user = data?.profile;
   const userId = user?._id;
   const friends = user?.friends;
+  const friendImage = user?.profileImage;
   const favoriteBooks = user?.favoriteBooks;
   const booksToLend = user?.booksToLend;
   console.log("friendId", userId);
@@ -27,7 +28,9 @@ export default function ProfilePage() {
   const { loading: meLoading, data: meData } = useQuery(QUERY_ME);
   const [youAreTheirFriend, setYouAreTheirFriend] = useState();
   const [theyAreYourFriend, setTheyAreYourFriend] = useState();
-  
+
+  console.log(friendImage);
+
   useEffect(() => {
     console.log("meData", meData);
 
