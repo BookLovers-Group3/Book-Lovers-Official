@@ -65,6 +65,7 @@ export default function BookList({ books, type, isMe }) {
     }
   };
 
+  console.log(books);
   return (
     <Container>
       <h2 className="pt-5">
@@ -111,20 +112,24 @@ export default function BookList({ books, type, isMe }) {
                     Authors: {book.authors || "No authors listed"}
                   </p>
                 </Card.Body>
-                {isMe && type === "borrowed" ? (
-                  <div className="return-book-button">
-                    <ModalConfirmation
-                      show={show}
-                      handleClose={handleClose}
-                      handleShow={handleShow}
-                      book={book}
-                      books={books}
-                      type={"Return"}
-                    />
-                  </div>
-                ) : (
-                  <Button onClick={() => handleRemoveBook(book)}>Remove</Button>
-                )}
+                {isMe ? (
+                  type === "borrowed" ? (
+                    <div className="return-book-button">
+                      <ModalConfirmation
+                        show={show}
+                        handleClose={handleClose}
+                        handleShow={handleShow}
+                        book={book}
+                        books={books}
+                        type={"Return"}
+                      />
+                    </div>
+                  ) : (
+                    <Button onClick={() => handleRemoveBook(book)}>
+                      Remove
+                    </Button>
+                  )
+                ) : null}
               </Card>
             </Col>
           );

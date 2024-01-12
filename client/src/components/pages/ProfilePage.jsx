@@ -18,9 +18,6 @@ export default function ProfilePage() {
   const user = data?.profile;
   const userId = user?._id;
   const friends = user?.friends;
-  // const friendImage = user?.profileImage;
-  const favoriteBooks = user?.favoriteBooks;
-  const booksToLend = user?.booksToLend;
   console.log("friendId", userId);
   //this is the user that I am now under
   console.log("profile", user);
@@ -28,8 +25,6 @@ export default function ProfilePage() {
   const { loading: meLoading, data: meData } = useQuery(QUERY_ME);
   const [youAreTheirFriend, setYouAreTheirFriend] = useState();
   const [theyAreYourFriend, setTheyAreYourFriend] = useState();
-
-  // console.log(friendImage);
 
   useEffect(() => {
     console.log("meData", meData);
@@ -69,24 +64,6 @@ export default function ProfilePage() {
     refetchQueries: ["singleProfile", "me"],
   });
 
-  // get the favorite book list
-  const favBookList = favoriteBooks?.map((book) => {
-    return (
-      <div key={book._id}>
-        <div>{book.title}</div>
-      </div>
-    );
-  });
-
-  // get the lending book list
-  const booksToLendList = booksToLend?.map((book) => {
-    return (
-      <div key={book._id}>
-        <div>{book.title}</div>
-      </div>
-    );
-  });
-
   // check if the current user is the profile page user's friend
   useEffect(() => {
     if (friends && friends.length > 0) {
@@ -97,14 +74,6 @@ export default function ProfilePage() {
           break;
         }
       }
-    }
-  }, [friends]);
-
-  // console.log("ME FRIENDS: ", Auth?.getProfile().data._id);
-
-  useEffect(() => {
-    if (Auth?.getProfile().data.friends) {
-      console.log("ME FRIENDS: ", Auth?.getProfile().data.friends);
     }
   }, [friends]);
 
@@ -129,11 +98,6 @@ export default function ProfilePage() {
     }
   };
 
-  // Use React Router's `<Navigate />` component to redirect to personal profile page if username is yours
-  if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
-    return <Navigate to="/me" />;
-  }
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -145,6 +109,11 @@ export default function ProfilePage() {
   // if not logged in, go to the homepage
   if (!Auth.loggedIn()) {
     return <Navigate to="/" />;
+  }
+
+  // Use React Router's `<Navigate />` component to redirect to personal profile page if username is yours
+  if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
+    return <Navigate to="/me" />;
   }
 
   console.log("they are your friend? ", theyAreYourFriend);
