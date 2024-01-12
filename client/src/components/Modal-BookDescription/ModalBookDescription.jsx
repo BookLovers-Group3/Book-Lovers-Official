@@ -29,7 +29,7 @@ function ModalBookDescription({ description, title, book, randomBook }) {
 
   return (
     <>
-      <Button onClick={handleShow}>Book Description</Button>
+      <Button className="btn-book-d" onClick={handleShow}>Book Description</Button>
       <Modal className={modalClassName} show={show} onHide={handleClose}>
         <Modal.Header className="modal-header">
           <Modal.Title className="modal-title">{modalTitle}</Modal.Title>

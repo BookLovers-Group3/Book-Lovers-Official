@@ -111,6 +111,7 @@ export const QUERY_BOOKS_LENDING = gql`
       owner {
         _id
         name
+        email
       }
     }
   }
@@ -128,6 +129,7 @@ export const QUERY_SINGLE_BOOK = gql`
       owner {
         _id
         name
+        email
       }
     }
   }
