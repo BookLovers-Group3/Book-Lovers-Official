@@ -44,7 +44,7 @@ export default function BookPage() {
         </div>
         <div className = "single-book-user">
           <div>By: {book.authors}</div>
-          <div>Book Status: {book.isAvailable ? "Available" : "Unavailable"}</div>
+          <div>{book.isAvailable ? "Available" : "Unavailable"}</div>
           <div>Owner: {book.owner.name}</div>
           <div className="request-book-button">
             <ModalConfirmation
