@@ -138,7 +138,7 @@ export default function ProfilePage() {
           <Button onClick={() => handleAddFriend()}>Add Friend</Button>
         </div>
       )}
-      <LibraryCard user={user} isOwner={false} />
+      <LibraryCard user={user} />
     </div>
   );
 }

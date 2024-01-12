@@ -65,6 +65,7 @@ export default function BookList({ books, type, isMe }) {
     }
   };
 
+  console.log(books);
   return (
     <Container>
       <h2 className="pt-5">

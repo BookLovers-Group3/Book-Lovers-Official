@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import Auth from "../../utils/auth";
 import { QUERY_LEDGER } from "../../utils/queries";
 
-const LibraryCard = ({ user, isOwner }) => {
+const LibraryCard = ({ user }) => {
   // console.log("user: ", user);
   //if there is a profile Id, get it from the params
   // const { profileId } = useParams();

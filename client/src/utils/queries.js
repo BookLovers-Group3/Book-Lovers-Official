@@ -34,6 +34,7 @@ export const QUERY_SINGLE_PROFILE = gql`
         title
         description
         image
+        isAvailable
       }
       booksLent {
         _id
