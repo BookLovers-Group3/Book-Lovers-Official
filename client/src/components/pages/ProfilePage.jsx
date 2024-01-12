@@ -1,32 +1,57 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { Navigate, useParams } from "react-router-dom";
-import { QUERY_SINGLE_PROFILE } from "../../utils/queries";
+import { QUERY_SINGLE_PROFILE, QUERY_ME } from "../../utils/queries";
 import { ADD_FRIEND, REMOVE_FRIEND } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import LibraryCard from "../LibraryCard/LibraryCard";
 
 export default function ProfilePage() {
-  //set the isFriend status as a state
-  const [youAreTheirFriend, setYouAreTheirFriend] = useState(false);
-
-  const [theyAreYourFriend, setTheyAreYourFriend] = useState(false);
-
   //get profileId from the params
   const { profileId } = useParams();
   // query the profile info based on the profileId
   const { loading, data } = useQuery(QUERY_SINGLE_PROFILE, {
     variables: { profileId: profileId },
   });
-
   // get all the profile info based on the profileId from params
-  const profile = data?.profile;
-  const user = profile
-  const friends = profile?.friends;
-  const favoriteBooks = profile?.favoriteBooks;
-  const booksToLend = profile?.booksToLend;
+  const user = data?.profile;
+  const userId = user?._id;
+  const friends = user?.friends;
+  const favoriteBooks = user?.favoriteBooks;
+  const booksToLend = user?.booksToLend;
+  console.log("friendId", userId);
+  //this is the user that I am now under
+  console.log("profile", user);
+  // console.log("user", user)
+  const { loading: meLoading, data: meData } = useQuery(QUERY_ME);
+  const [youAreTheirFriend, setYouAreTheirFriend] = useState();
+  const [theyAreYourFriend, setTheyAreYourFriend] = useState();
   
+  useEffect(() => {
+    console.log("meData", meData);
+
+    if (meData?.me?.friends) {
+      const isFriend = meData.me.friends.some(
+        (friend) => friend._id === userId
+      );
+      setTheyAreYourFriend(isFriend);
+    }
+  }, [meData, userId]);
+
+  //Extract friends from meData
+  const isUserFriend = meData?.me?.friends?.some(
+    (friend) => friend._id === userId
+  );
+  console.log("Is user a friend?", isUserFriend);
+
+  //set the isFriend status as a state
+
+  useEffect(() => {
+    // This will log the user data when it changes
+    console.log("me", meData);
+  }, [meData]);
+
   // mutation for adding friend
   const [addFriend, { loading: addLoading, data: addData, error: addError }] =
     useMutation(ADD_FRIEND, {
@@ -34,11 +59,12 @@ export default function ProfilePage() {
     });
 
   // mutation for removing friend
-  const [removeFriend, { loading: removeLoading, data: removeData, error: removeError }] = 
-    useMutation(REMOVE_FRIEND, {
-      refetchQueries: ["singleProfile", "me"]
-    })
-
+  const [
+    removeFriend,
+    { loading: removeLoading, data: removeData, error: removeError },
+  ] = useMutation(REMOVE_FRIEND, {
+    refetchQueries: ["singleProfile", "me"],
+  });
 
   // get the favorite book list
   const favBookList = favoriteBooks?.map((book) => {
@@ -64,36 +90,41 @@ export default function ProfilePage() {
       for (const friend of friends) {
         if (friend._id === Auth?.getProfile().data._id) {
           setYouAreTheirFriend(true);
-          console.log("useEffect to check friends triggered")
+          console.log("useEffect to check friends triggered");
           break;
         }
       }
     }
-  });
+  }, [friends]);
 
-  console.log("ME FRIENDS: ", Auth?.getProfile().data._id)
+  // console.log("ME FRIENDS: ", Auth?.getProfile().data._id);
 
   useEffect(() => {
     if (Auth?.getProfile().data.friends) {
-      console.log("ME FRIENDS: ", Auth?.getProfile().data.friends)
+      console.log("ME FRIENDS: ", Auth?.getProfile().data.friends);
     }
   }, [friends]);
 
   // define function to add friend with each other
   const handleAddFriend = async () => {
+    console.log("Adding friend. Profile ID:", profileId);
     const response = await addFriend({
       variables: { profileId: profileId },
     });
-    setTheyAreYourFriend(true)
+    if (response.data.addFriend) {
+      setTheyAreYourFriend(true);
+    }
   };
 
   // define function to remove friend
   const handleRemoveFriend = async () => {
     const response = await removeFriend({
-      variables: { profileId: profileId }
+      variables: { profileId: profileId },
     });
-    setTheyAreYourFriend(false)
-  }
+    if (response.data.removeFriend) {
+      setTheyAreYourFriend(false);
+    }
+  };
 
   // Use React Router's `<Navigate />` component to redirect to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
@@ -104,7 +135,7 @@ export default function ProfilePage() {
     return <div>Loading...</div>;
   }
 
-  if (!profile?._id) {
+  if (!user?._id) {
     return <h4>No such profile exist</h4>;
   }
 
@@ -113,24 +144,25 @@ export default function ProfilePage() {
     return <Navigate to="/" />;
   }
 
-  console.log("they are your friend? ", theyAreYourFriend)
-  console.log("you are their friend? ", youAreTheirFriend)
+  console.log("they are your friend? ", theyAreYourFriend);
+  console.log("you are their friend? ", youAreTheirFriend);
 
   return (
     <div>
       {theyAreYourFriend && youAreTheirFriend ? (
         <div>
-          <p>You and {profile?.name} are friends!</p>
+          <p>You and {user?.name} are friends!</p>
           <Button onClick={() => handleRemoveFriend()}>Remove Friend</Button>
         </div>
-      ) : youAreTheirFriend && !theyAreYourFriend ? (
+      ) : theyAreYourFriend && !youAreTheirFriend ? (
         <div>
-          <p>You have added {profile?.name} as a friend</p>
+          <p>You have added {user?.name} as a friend.</p>
+          <p>Start borrowing books!</p>
           <Button onClick={() => handleRemoveFriend()}>Remove Friend</Button>
         </div>
       ) : (
         <div>
-          <p>You are not {profile?.name}'s friend</p>
+          <p>You are not {user?.name}'s friend</p>
           <Button onClick={() => handleAddFriend()}>Add Friend</Button>
         </div>
       )}
