@@ -10,7 +10,6 @@ import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
 
 export default function BookPage() {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -34,28 +33,29 @@ export default function BookPage() {
 
   return (
     <>
-      <h2>Your selected book is {book.title}</h2>
-      <div className="single-book-container">
+      <h2 className="selected-book">
+        Your selected book is: <br />
+        {book.title}
+      </h2>
+      <div className="single-book-container max-width-border-top">
         <div className="single-book-details">
           <img src={book.image} alt="" />
-          <div>{book.title}</div>
-        </div>
-        <div>
-          <div>By: {book.authors}</div>
           <ModalBookDescription book={book} />
-          <div>Posted by: This is the place-holder for bookowner</div>
-          <div>Available: {book.isAvailable ? "Available" : "Unavailable"}</div>
-          <div>Owner: {book.owner.name}</div>
         </div>
-      </div>
-      <div className="request-book-button">
-        <ModalConfirmation
-          show={show}
-          handleClose={handleClose}
-          handleShow={handleShow}
-          book={book}
-          type={"Request"}
-        />
+        <div className = "single-book-user">
+          <div>By: {book.authors}</div>
+          <div>Book Status: {book.isAvailable ? "Available" : "Unavailable"}</div>
+          <div>Owner: {book.owner.name}</div>
+          <div className="request-book-button">
+            <ModalConfirmation
+              show={show}
+              handleClose={handleClose}
+              handleShow={handleShow}
+              book={book}
+              type={"Request"}
+            />
+          </div>
+        </div>
       </div>
     </>
   );
