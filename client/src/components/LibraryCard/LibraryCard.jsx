@@ -136,7 +136,7 @@ const LibraryCard = ({ user, isOwner }) => {
       <div className="main-card">
         <div className="top-row">
           <h1>Book Lovers Library</h1>
-          <h2 className="user-name">{user.name}</h2>
+
           <p className="status-icon">{calculateStatus(count)}</p>
         </div>
         <div className="user-profile">
@@ -151,6 +151,7 @@ const LibraryCard = ({ user, isOwner }) => {
               rotate={0}
               className="responsive-avatar"
             />
+
             {isMe ? (
               <div className="file-input-container">
                 <input
@@ -161,14 +162,14 @@ const LibraryCard = ({ user, isOwner }) => {
                   id="image-upload"
                 />
                 <label htmlFor="image-upload" className="upload-label">
-                  Click here to upload your picture!
+                  Upload your picture!
                 </label>
               </div>
             ) : (
               <div></div>
             )}
           </div>
-          <div>
+          <div className="user-details">
             <div>
               Favorite Genres {user.favoriteGenres.map((genre) => genre)}
             </div>
@@ -178,25 +179,20 @@ const LibraryCard = ({ user, isOwner }) => {
             <div>Gender Identity: {user.gender}</div>
           </div>
         </div>
+        <h2 className="user-name">{user.name}</h2>
         <div className="user-list">
-          <Button className="btn-block btn-info" onClick={() => showFavBooks()}>
+          <button className="" onClick={() => showFavBooks()}>
             Favorite Books
-          </Button>
-          <Button
-            className="btn-block btn-info"
-            onClick={() => showLendingBooks()}
-          >
+          </button>
+          <button className="" onClick={() => showLendingBooks()}>
             Checkout My Books
-          </Button>
-          <Button
-            className="btn-block btn-info"
-            onClick={() => showBorrowedBooks()}
-          >
+          </button>
+          <button className="" onClick={() => showBorrowedBooks()}>
             Borrowed Books
-          </Button>
-          <Button className="btn-block btn-info" onClick={() => showFriends()}>
+          </button>
+          <button className="" onClick={() => showFriends()}>
             Friends
-          </Button>
+          </button>
         </div>
       </div>
       <div className="hidden favBookList">

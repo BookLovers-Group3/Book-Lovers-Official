@@ -18,7 +18,6 @@ export default function ProfilePage() {
   const user = data?.profile;
   const userId = user?._id;
   const friends = user?.friends;
-
   console.log("friendId", userId);
   //this is the user that I am now under
   console.log("profile", user);
