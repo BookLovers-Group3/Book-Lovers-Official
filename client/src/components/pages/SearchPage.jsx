@@ -1,16 +1,12 @@
-import { useState, useEffect } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useState } from "react";
+import { useQuery } from "@apollo/client";
 import { Container, Col, Form, Button, Row } from "react-bootstrap";
 import SearchedBookResults from "../SearchedBookResults/SearchedBookResults";
 import "../SearchedBookResults/SearchedBookResults.scss";
-import auth from "../../utils/auth";
 import { searchGoogleBooks } from "../../utils/API";
-import {
-  favoritedBookIds,
-  getFavBookIds,
-  removeFavBookId,
-} from "../../utils/localStorage";
 import { QUERY_ME } from "../../utils/queries";
+import { Navigate } from "react-router-dom";
+import Auth from "../../utils/auth";
 
 const BuildBookList = () => {
   const [searchedBooks, setSearchedBooks] = useState([]);
@@ -20,29 +16,9 @@ const BuildBookList = () => {
 
   const userData = profileData?.me;
 
-  // const [favBookIds, setFavBookIds] = useState([]);
-
-  // function updateSavDisplay() {
-  //   setFavBookIds(
-  //     userData
-  //     ? userData.favoriteBooks?.map((favoriteBooks) => {
-  //         return favoriteBooks.googleBookId;
-  //       })
-  //     : []
-  //   )
-  // }
-
   // takes data from search field and provides results using google books API
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    // setFavBookIds(
-    //   userData
-    //   ? userData.favoriteBooks?.map((favoriteBooks) => {
-    //       return favoriteBooks.googleBookId;
-    //     })
-    //   : []
-    // )
-
     if (!searchInput) {
       return false;
     }
@@ -73,6 +49,11 @@ const BuildBookList = () => {
 
   if (profileLoading) {
     return <div>Loading...</div>;
+  }
+
+  // if not logged in, go to the homepage
+  if (!Auth.loggedIn()) {
+    return <Navigate to="/" />;
   }
 
   return (
