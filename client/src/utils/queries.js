@@ -132,6 +132,9 @@ export const QUERY_SINGLE_BOOK = gql`
         name
         email
       }
+      borrower {
+        _id
+      }
     }
   }
 `;

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { OPEN_LEDGER, CLOSE_LEDGER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import {
@@ -24,7 +24,7 @@ function ModalConfirmation({
 
   //get requesting user data
   const user = Auth.getProfile();
-
+  console.log(user.data._id);
   // mutation for adding ledger entry
   const [openLedger, { error: openLedgerError, data: openLedgerData }] =
     useMutation(OPEN_LEDGER, {
@@ -41,7 +41,9 @@ function ModalConfirmation({
   const handleReturn = () => {
     console.log(book);
     handleShow();
-    setReturnBookId(book._id);
+    if (type === "Return") {
+      setReturnBookId(book._id);
+    }
   };
 
   //  handle confirm function
@@ -119,9 +121,12 @@ function ModalConfirmation({
       <Button
         className="btn-request"
         variant="primary"
+        disabled={book.borrower?._id === user.data._id}
         onClick={() => handleReturn()}
       >
-        {type} Book
+        {book.borrower?._id === user.data._id
+          ? "Book Requested"
+          : `${type} Book`}
       </Button>
 
       <Modal
