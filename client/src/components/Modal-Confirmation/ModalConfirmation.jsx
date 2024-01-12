@@ -121,7 +121,10 @@ function ModalConfirmation({
       <Button
         className="btn-request"
         variant="primary"
-        disabled={type === "Request" && !book.isAvailable}
+        disabled={
+          (type === "Request" && !book.isAvailable) ||
+          user.data._id === book.owner._id
+        }
         onClick={() => handleReturn()}
       >
         {book.borrower?._id === user.data._id
