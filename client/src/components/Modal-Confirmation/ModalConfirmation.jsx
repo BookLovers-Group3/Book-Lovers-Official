@@ -15,10 +15,7 @@ function ModalConfirmation({ handleShow, handleClose, show, book, type }) {
     useMutation(CLOSE_LEDGER, {
       refetchQueries: ["singleBook", "me", "booksLending", "singleProfile"],
     });
-  // const [
-  //   updateBookAvailability,
-  //   { error: bookUpdateError, data: bookUpdateData },
-  // ] = useMutation(UPDATE_BOOK_AVAILABILITY);
+
   const handleRequest = async () => {
     console.log("book", book);
     handleClose();

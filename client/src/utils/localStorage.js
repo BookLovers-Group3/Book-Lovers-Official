@@ -34,18 +34,22 @@ export const removeFavBookId = (googleBookId) => {
   return true;
 };
 
-export const getLendBookIds = () => {
-  const lendBookIds = localStorage.getItem("lending_books")
-    ? JSON.parse(localStorage.getItem("lending_books"))
+export const getLendBookId = () => {
+  const lendBookId = localStorage.getItem("lending_book")
+    ? JSON.parse(localStorage.getItem("lending_book"))
     : [];
 
-  return lendBookIds;
+  return lendBookId;
 };
 
-export const lendingBookIds = (bookIdArr) => {
-  if (bookIdArr?.length) {
-    localStorage.setItem("lending_books", JSON.stringify(bookIdArr));
+export const lendingBookId = (bookId) => {
+  if (bookId) {
+    localStorage.setItem("lending_book", JSON.stringify(bookId));
   } else {
-    localStorage.removeItem("lending_books");
+    localStorage.removeItem("lending_book");
   }
+};
+
+export const removeLendingBookId = () => {
+  localStorage.removeItem("lending_book");
 };

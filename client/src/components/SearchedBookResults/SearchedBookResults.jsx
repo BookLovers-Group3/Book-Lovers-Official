@@ -4,10 +4,14 @@ import auth from "../../utils/auth";
 import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
 import { FAV_BOOK, LEND_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
-import { useEffect, useState } from "react";
-import { favoritedBookIds, lendingBookIds } from "../../utils/localStorage";
-
+import { useState } from "react";
+import LendModalConfirmation from "../Modal-Confirmation/LendModalConfirmation";
 function SearchedBookResults({ searchedBooks, userData }) {
+  // define functions for the modal
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   // sets up mutation to add book to favorites list
   const [
     addFavBook,
@@ -136,27 +140,18 @@ function SearchedBookResults({ searchedBooks, userData }) {
                           ? "Favorited"
                           : "Add to Favorites"}
                       </Button>
-                      <Button
-                        disabled={lendBookIds?.some(
-                          (lendingBookId) =>
-                            lendingBookId === book.googleBookId
-                        )}
-                        className="btn-block btn-info"
-                        onClick={() => {
-                          setLendBookIds((lendBookIds) => [
-                            ...lendBookIds,
-                            book.googleBookId,
-                          ]);
-                          handleLendBook(book.googleBookId)
-                        }}
-                      >
-                        {lendBookIds?.some(
-                          (lendingBookId) =>
-                            lendingBookId === book.googleBookId
-                        )
-                          ? "Added"
-                          : "Add to Lending List"}
-                      </Button>
+                      <div className="return-book-button">
+                        <LendModalConfirmation
+                          show={show}
+                          handleClose={handleClose}
+                          handleShow={handleShow}
+                          book={book}
+                          books={searchedBooks}
+                          type={"Return"}
+                          lendBookIds={lendBookIds}
+                          setLendBookIds={setLendBookIds}
+                        />
+                      </div>
                     </div>
                   )}
                 </Card.Body>
