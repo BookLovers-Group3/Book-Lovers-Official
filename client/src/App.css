@@ -138,3 +138,14 @@
     font-size: 2rem;
   }
 }
+
+.btn-favorite-rdm {
+  color: white;
+  background-color: rgb(134, 65, 76);
+  padding: 10px 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 8px;
+  border-radius: 50%;
+}
