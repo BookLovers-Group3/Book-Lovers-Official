@@ -1,9 +1,10 @@
-import React from "react";
+import { useState } from "react";
 import { FAV_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { Button } from "react-bootstrap";
 import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
 import Auth from "../../utils/auth";
+import { HeartFilled } from "@ant-design/icons";
 
 const RandomBooks = ({ randomBook }) => {
   // sets up mutation to add book to favorites list
@@ -14,6 +15,16 @@ const RandomBooks = ({ randomBook }) => {
     refetchQueries: ["me"],
   });
 
+  const [buttonText, setButtonText] = useState("Add to Favorites");
+  console.log("Before button click", buttonText);
+
+  const handleButtonClick = () => {
+    if (buttonText === "Add to Favorites") {
+      setButtonText("Favorite Added!");
+    }
+  };
+
+  console.log("After button click", buttonText);
   // on button press, takes in book data and creates book in database then adds to user's favorite list
   const handleFavBook = async (randomBook) => {
     const bookToFavorite = {
@@ -23,7 +34,7 @@ const RandomBooks = ({ randomBook }) => {
       image: randomBook.volumeInfo.imageLinks.thumbnail,
       title: randomBook.volumeInfo.title,
     };
-    console.log("booktofavorite: ", bookToFavorite);
+    // console.log("booktofavorite: ", bookToFavorite);
 
     try {
       const response = await addBook({
@@ -37,8 +48,28 @@ const RandomBooks = ({ randomBook }) => {
 
   return (
     <div>
+      
       {randomBook ? (
+        
         <section className="random-book-container">
+            <div>
+            {Auth.loggedIn() && (
+              <button
+                className="btn-favorite-rdm"
+                onClick={() => {
+                  handleFavBook(randomBook);
+                  handleButtonClick();
+                }}>
+                {buttonText === "Favorite Added!" ? (
+                  <HeartFilled
+                    style={{ paddingBottom: "3px", marginRight: "4px" }}
+                  />
+                ) : null}
+                {buttonText}
+              </button>
+            )}
+          </div>
+          
           <div className="random-card">
             <div>
               <img
@@ -57,20 +88,15 @@ const RandomBooks = ({ randomBook }) => {
           <ModalBookDescription randomBook={randomBook} />
           <div>
             {randomBook.saleInfo.isEbook ? (
-              <a className="custom-e-book" href={randomBook.saleInfo.buyLink} target="_blank">
+              <a
+                className="custom-e-book"
+                href={randomBook.saleInfo.buyLink}
+                target="_blank">
                 Buy it as an eBook!
               </a>
             ) : null}
           </div>
-          <div>
-            {Auth.loggedIn() && (
-              <Button
-                className="btn-block btn-info"
-                onClick={() => handleFavBook(randomBook)}>
-                Favorite
-              </Button>
-            )}
-          </div>
+        
         </section>
       ) : (
         <p>Loading...</p>
