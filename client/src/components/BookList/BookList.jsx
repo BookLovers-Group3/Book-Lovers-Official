@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
 
 export default function BookList({ books, type, isMe }) {
-  console.log(books);
+  // console.log(books);
   // define functions for the modal
   const [show, setShow] = useState(false);
 
