@@ -5,9 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./ModalBookDescription.scss";
 
 function ModalBookDescription({ description, title, book, randomBook }) {
-
-console.log(book)
-
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);

@@ -86,10 +86,12 @@ export default function BookList({ books, type, isMe }) {
               >
                 {type === "lending" ? (
                   <div>
-                    <Link to={`/book/${book._id}`}><Card.Title>{book.title}</Card.Title></Link>
+                    <Link to={`/book/${book._id}`}>
+                      <Card.Title>{book.title}</Card.Title>
+                    </Link>
                   </div>
                 ) : (
-                <Card.Title>{book.title}</Card.Title>
+                  <Card.Title>{book.title}</Card.Title>
                 )}
                 {book.image ? (
                   <Card.Img
@@ -116,11 +118,13 @@ export default function BookList({ books, type, isMe }) {
                       handleClose={handleClose}
                       handleShow={handleShow}
                       book={book}
+                      books={books}
                       type={"Return"}
                     />
-                  <Button onClick={() => handleRemoveBook(book)}>Remove</Button>
                   </div>
-                ) : null}
+                ) : (
+                  <Button onClick={() => handleRemoveBook(book)}>Remove</Button>
+                )}
               </Card>
             </Col>
           );
