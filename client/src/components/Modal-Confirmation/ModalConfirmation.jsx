@@ -74,6 +74,11 @@ function ModalConfirmation({
       }
     }
   };
+  // if didnt confirm, then close modal and remove the book id from localstorage
+  const handleCloseBtn = () => {
+    handleClose();
+    removeReturnBookId();
+  };
 
   return (
     <>
@@ -95,7 +100,7 @@ function ModalConfirmation({
           this book? Confirming will send an email to the owner
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={() => handleCloseBtn()}>
             Close
           </Button>
           <Button variant="primary" onClick={() => handleConfirm()}>
