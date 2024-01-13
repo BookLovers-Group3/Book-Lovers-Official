@@ -4,14 +4,14 @@ import Modal from "react-bootstrap/Modal";
 import { useMutation } from "@apollo/client";
 import { OPEN_LEDGER, CLOSE_LEDGER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
-import {
-  setReturnBookId,
-  getReturnBookId,
-  removeReturnBookId,
-} from "../../utils/localStorage";
+// import {
+//   setReturnBookId,
+//   getReturnBookId,
+//   removeReturnBookId,
+// } from "../../utils/localStorage";
 import emailjs from "@emailjs/browser";
 
-function ModalConfirmation({ book, type, books }) {
+function ModalConfirmation({ book, type }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -37,9 +37,9 @@ function ModalConfirmation({ book, type, books }) {
   // when click on return list, save the book google id into local storage
   const handleReturn = () => {
     handleShow();
-    if (type === "Return") {
-      setReturnBookId(book._id);
-    }
+    // if (type === "Return") {
+    //   setReturnBookId(book._id);
+    // }
   };
 
   //  handle confirm function
@@ -76,9 +76,8 @@ function ModalConfirmation({ book, type, books }) {
       }
     }
     if (type === "Return") {
-      console.log("return book");
-      const returnBookId = getReturnBookId();
-      const bookToReturn = books.find((book) => book._id === returnBookId);
+      // const returnBookId = getReturnBookId();
+      const bookToReturn = book;
       console.log("book to return", bookToReturn);
       try {
         // close the ledger for this book borrow transaction
@@ -87,7 +86,7 @@ function ModalConfirmation({ book, type, books }) {
             bookId: bookToReturn._id,
           },
         });
-        removeReturnBookId();
+        // removeReturnBookId();
         console.log("ledger", ledger);
 
         // send email notification for this borrow transaction
@@ -107,7 +106,7 @@ function ModalConfirmation({ book, type, books }) {
   // if didnt confirm, then close modal and remove the book id from localstorage
   const handleCloseBtn = () => {
     handleClose();
-    removeReturnBookId();
+    // removeReturnBookId();
   };
 
   return (
