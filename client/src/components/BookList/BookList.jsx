@@ -21,7 +21,7 @@ export default function BookList({ books, type, isMe }) {
   ] = useMutation(REMOVE_FAVBOOK, {
     refetchQueries: ["me"],
   });
-  
+
   // get mutation for remove lending book
   const [
     removeLendingBook,
@@ -96,7 +96,13 @@ export default function BookList({ books, type, isMe }) {
                     </Link>
                   </div>
                 ) : (
-                  <Card.Title className="card-title">{book.title}</Card.Title>
+                  <div>
+                    <Link to={`/book/${book._id}`} className="custom-link">
+                      <Card.Title className="card-title">
+                        {book.title}
+                      </Card.Title>
+                    </Link>
+                  </div>
                 )}
                 {book.image ? (
                   <Card.Img
