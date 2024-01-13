@@ -90,6 +90,10 @@ export const QUERY_ME = gql`
       booksBorrowed {
         _id
         authors
+        owner {
+          name
+          email
+        }
         title
         description
         image

@@ -28,6 +28,13 @@ const resolvers = {
           "booksToLend",
           "booksLent",
           "booksBorrowed",
+          {
+            path: "booksBorrowed",
+            populate: {
+              path: "owner",
+              model: "Profile"
+            }
+          },
           "friends",
         ]);
       }

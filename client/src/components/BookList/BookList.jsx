@@ -12,6 +12,7 @@ export default function BookList({ books, type, isMe }) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   // get mutation for remove favorite book
   const [
     removeFavBook,
@@ -19,6 +20,7 @@ export default function BookList({ books, type, isMe }) {
   ] = useMutation(REMOVE_FAVBOOK, {
     refetchQueries: ["me"],
   });
+  
   // get mutation for remove lending book
   const [
     removeLendingBook,
