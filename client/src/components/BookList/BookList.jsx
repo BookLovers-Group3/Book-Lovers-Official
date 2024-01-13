@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
 
+
 export default function BookList({ books, type, isMe }) {
   // console.log(books);
   // define functions for the modal
@@ -66,8 +67,8 @@ export default function BookList({ books, type, isMe }) {
   };
 
   return (
-    <Container>
-      <h2 className="pt-5">
+    <div className="custom-favbook-list">
+      <h2>
         {books?.length
           ? `Viewing ${books?.length} ${type} books:`
           : `No ${type} books yet`}
@@ -75,15 +76,14 @@ export default function BookList({ books, type, isMe }) {
       <Row>
         {books?.map((book) => {
           return (
-            <Col md="4" key={book._id}>
-              <Card
+            <Col className="container" md="4" key={book._id}>
+              <div
                 key={book._id}
                 className="custom-card"
                 border="dark"
                 style={{
                   backgroundColor: !book.isAvailable ? null : "lightblue",
-                }}
-              >
+                }}>
                 {type === "lending" ? (
                   <div>
                     <Link to={`/book/${book._id}`}>
@@ -124,16 +124,16 @@ export default function BookList({ books, type, isMe }) {
                       />
                     </div>
                   ) : (
-                    <Button onClick={() => handleRemoveBook(book)}>
+                    <button onClick={() => handleRemoveBook(book)}>
                       Remove
-                    </Button>
+                    </button>
                   )
                 ) : null}
-              </Card>
+              </div>
             </Col>
           );
         })}
       </Row>
-    </Container>
+    </div>
   );
 }
