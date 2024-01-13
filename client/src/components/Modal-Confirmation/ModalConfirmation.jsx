@@ -36,7 +36,6 @@ function ModalConfirmation({ book, type }) {
 
   // when click on return list, save the book google id into local storage
   const handleReturn = () => {
-    console.log(book);
     handleShow();
     // if (type === "Return") {
     //   setReturnBookId(book._id);
@@ -50,7 +49,6 @@ function ModalConfirmation({ book, type }) {
     const borrowTemplateId = "bl-borrow";
     const returnTemplateId = "bl-return";
 
-    console.log("book", book);
     handleClose();
 
     if (type === "Request") {
@@ -73,7 +71,6 @@ function ModalConfirmation({ book, type }) {
           book_name: book.title,
           reply_to: user.data.email,
         });
-        console.log("email sent with this data: ", email);
       } catch (e) {
         console.error(e);
       }
@@ -91,6 +88,7 @@ function ModalConfirmation({ book, type }) {
         });
         // removeReturnBookId();
         console.log("ledger", ledger);
+
         // send email notification for this borrow transaction
         const email = await emailjs.send(serviceId, returnTemplateId, {
           owner_email: book.owner.email,
@@ -100,7 +98,6 @@ function ModalConfirmation({ book, type }) {
           book_name: book.title,
           reply_to: user.data.email,
         });
-        console.log("email sent with this data: ", email);
       } catch (e) {
         console.error(e);
       }
