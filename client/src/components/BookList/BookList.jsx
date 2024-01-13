@@ -5,7 +5,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
 
-
 export default function BookList({ books, type, isMe }) {
   // console.log(books);
   // define functions for the modal
@@ -67,7 +66,7 @@ export default function BookList({ books, type, isMe }) {
   };
 
   return (
-    <div className="custom-favbook-list">
+    <div className="custom-booklist-container">
       <h2>
         {books?.length
           ? `Viewing ${books?.length} ${type} books:`
@@ -76,10 +75,10 @@ export default function BookList({ books, type, isMe }) {
       <Row>
         {books?.map((book) => {
           return (
-            <Col className="container" md="4" key={book._id}>
+            <Col className="custom-booklist-card" md="4" key={book._id}>
               <div
                 key={book._id}
-                className="custom-card"
+                className="custom-card-single"
                 border="dark"
                 style={{
                   backgroundColor: !book.isAvailable ? null : "lightblue",
@@ -87,11 +86,13 @@ export default function BookList({ books, type, isMe }) {
                 {type === "lending" ? (
                   <div>
                     <Link to={`/book/${book._id}`}>
-                      <Card.Title>{book.title}</Card.Title>
+                      <Card.Title className="card-title">
+                        {book.title}
+                      </Card.Title>
                     </Link>
                   </div>
                 ) : (
-                  <Card.Title>{book.title}</Card.Title>
+                  <Card.Title className="card-title">{book.title}</Card.Title>
                 )}
                 {book.image ? (
                   <Card.Img
@@ -124,9 +125,9 @@ export default function BookList({ books, type, isMe }) {
                       />
                     </div>
                   ) : (
-                    <button onClick={() => handleRemoveBook(book)}>
+                    <Button onClick={() => handleRemoveBook(book)}>
                       Remove
-                    </button>
+                    </Button>
                   )
                 ) : null}
               </div>
