@@ -4,6 +4,7 @@ import { REMOVE_FAVBOOK, REMOVE_LENDING_BOOK } from "../../utils/mutations";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
+import "./BookList.scss";
 
 export default function BookList({ books, type, isMe }) {
   // console.log(books);
@@ -84,10 +85,11 @@ export default function BookList({ books, type, isMe }) {
                 border="dark"
                 style={{
                   backgroundColor: !book.isAvailable ? null : "lightblue",
-                }}>
+                }}
+              >
                 {type === "lending" ? (
                   <div>
-                    <Link to={`/book/${book._id}`}>
+                    <Link to={`/book/${book._id}`} className="custom-link">
                       <Card.Title className="card-title">
                         {book.title}
                       </Card.Title>
