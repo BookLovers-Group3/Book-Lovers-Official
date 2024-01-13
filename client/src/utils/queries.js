@@ -93,6 +93,10 @@ export const QUERY_ME = gql`
         title
         description
         image
+        owner {
+          name
+          email
+        }
       }
       friends {
         _id

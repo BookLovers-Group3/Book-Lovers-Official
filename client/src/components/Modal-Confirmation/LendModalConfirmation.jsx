@@ -2,14 +2,14 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useMutation } from "@apollo/client";
 import { LEND_BOOK } from "../../utils/mutations";
-import {
-  lendingBookId,
-  getLendBookId,
-  removeLendingBookId,
-} from "../../utils/localStorage";
+// import {
+//   lendingBookId,
+//   getLendBookId,
+//   removeLendingBookId,
+// } from "../../utils/localStorage";
 import { useState } from "react";
 
-function LendModalConfirmation({ book, books, lendBookIds, setLendBookIds }) {
+function LendModalConfirmation({ book, lendBookIds, setLendBookIds }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -24,14 +24,14 @@ function LendModalConfirmation({ book, books, lendBookIds, setLendBookIds }) {
 
   // get the book id from local storage and find the book then add the book to the lending list
   const handleConfirm = async () => {
-    const lendBookId = getLendBookId();
-    const bookToLend = books.find((book) => book.googleBookId === lendBookId);
+    // const lendBookId = getLendBookId();
+    const bookToLend = book;
     handleClose();
     try {
       const response = await addBooksToLend({
         variables: { book: bookToLend },
       });
-      removeLendingBookId();
+      // removeLendingBookId();
       setLendBookIds((lendBookIds) => [
         ...lendBookIds,
         bookToLend.googleBookId,
@@ -44,13 +44,13 @@ function LendModalConfirmation({ book, books, lendBookIds, setLendBookIds }) {
   // if didnt confirm, then close modal and remove the book id from localstorage
   const handleCloseBtn = () => {
     handleClose();
-    removeLendingBookId();
+    // removeLendingBookId();
   };
 
   // when click on add to lend list, save the book google id into local storage
   const handleAddToLend = () => {
     handleShow();
-    lendingBookId(book.googleBookId);
+    // lendingBookId(book.googleBookId);
   };
 
   return (
