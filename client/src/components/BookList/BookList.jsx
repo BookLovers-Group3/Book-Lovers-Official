@@ -66,8 +66,8 @@ export default function BookList({ books, type, isMe }) {
   };
 
   return (
-    <Container>
-      <h2 className="pt-5">
+    <div className="custom-booklist-container">
+      <h2>
         {books?.length
           ? `Viewing ${books?.length} ${type} books:`
           : `No ${type} books yet`}
@@ -75,23 +75,24 @@ export default function BookList({ books, type, isMe }) {
       <Row>
         {books?.map((book) => {
           return (
-            <Col md="4" key={book._id}>
-              <Card
+            <Col className="custom-booklist-card" md="4" key={book._id}>
+              <div
                 key={book._id}
-                className="custom-card"
+                className="custom-card-single"
                 border="dark"
                 style={{
                   backgroundColor: !book.isAvailable ? null : "lightblue",
-                }}
-              >
+                }}>
                 {type === "lending" ? (
                   <div>
                     <Link to={`/book/${book._id}`}>
-                      <Card.Title>{book.title}</Card.Title>
+                      <Card.Title className="card-title">
+                        {book.title}
+                      </Card.Title>
                     </Link>
                   </div>
                 ) : (
-                  <Card.Title>{book.title}</Card.Title>
+                  <Card.Title className="card-title">{book.title}</Card.Title>
                 )}
                 {book.image ? (
                   <Card.Img
@@ -126,11 +127,11 @@ export default function BookList({ books, type, isMe }) {
                     </Button>
                   )
                 ) : null}
-              </Card>
+              </div>
             </Col>
           );
         })}
       </Row>
-    </Container>
+    </div>
   );
 }
