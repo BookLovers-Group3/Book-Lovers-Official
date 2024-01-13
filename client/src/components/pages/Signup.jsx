@@ -62,8 +62,8 @@ const Signup = () => {
   };
 
   return (
-    <main className="container">
-      <div className="custom-card">
+    <main className="account-container">
+      <div className="account-background">
         <h4>Sign Up</h4>
         <div className="custom-card-body">
           {data ? (
@@ -114,8 +114,9 @@ const Signup = () => {
                 <option value="Genderqueer">Genderqueer</option>
                 <option value="Ask me!">Ask me!</option>
               </select>
-              <div>
+              <div className = "form-genre">
                 <p>Select your favorite genres</p>
+                <div className = "genre-options"></div>
                 <input
                   type="checkbox"
                   name="favoriteGenres"

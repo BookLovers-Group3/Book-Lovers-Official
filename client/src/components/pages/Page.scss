@@ -9,6 +9,19 @@
   letter-spacing: 1.25px;
 }
 
+.account-container {
+  
+}
+
+.account-background {
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.185);
+  border-radius: 50%;
+  margin: 25px auto;
+  color: white;
+  text-align: center;
+}
+
+
 .container {
   margin: 25px auto;
   padding: 20px;
@@ -122,6 +135,16 @@
     
   }
 
+  .account-background {
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.185);
+    border-radius: 50%;
+    width: 70%;
+    margin: auto;
+    padding: 10%;
+    color: white;
+  }
+  
+  
 
 }
 
