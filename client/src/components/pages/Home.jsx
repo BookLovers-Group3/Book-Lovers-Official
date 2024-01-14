@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { randomGoogleBooks } from "../../utils/API";
 import RandomBook from "../RandomBook/RandomBooks";
 import Review from "../ReviewList/Review";
@@ -17,14 +17,14 @@ const Home = () => {
 
   return (
     <main>
-        <div className = "book-spotlight">
-          <h2>Book Spotlight</h2>
-          {randomBook ? (
-            <RandomBook randomBook={randomBook} />
-          ) : (
-            <p>Loading...</p>
-          )}
-        </div>
+      <div className="book-spotlight">
+        <h2>Book Spotlight</h2>
+        {randomBook ? (
+          <RandomBook randomBook={randomBook} />
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
       <Review />
     </main>
   );

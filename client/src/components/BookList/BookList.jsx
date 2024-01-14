@@ -1,19 +1,11 @@
-import { Container, Col, Card, Row, Button } from "react-bootstrap";
+import { Col, Card, Row, Button } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { REMOVE_FAVBOOK, REMOVE_LENDING_BOOK } from "../../utils/mutations";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
 import "./BookList.scss";
 
 export default function BookList({ books, type, isMe }) {
-  // console.log(books);
-  // define functions for the modal
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   // get mutation for remove favorite book
   const [
     removeFavBook,

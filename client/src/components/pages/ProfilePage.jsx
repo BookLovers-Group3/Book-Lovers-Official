@@ -4,7 +4,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { QUERY_SINGLE_PROFILE, QUERY_ME } from "../../utils/queries";
 import { ADD_FRIEND, REMOVE_FRIEND } from "../../utils/mutations";
 import Auth from "../../utils/auth";
-import { Container, Col, Card, Row, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import LibraryCard from "../LibraryCard/LibraryCard";
 
 export default function ProfilePage() {

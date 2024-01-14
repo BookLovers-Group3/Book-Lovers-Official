@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FAV_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
-import { Button } from "react-bootstrap";
 import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
 import Auth from "../../utils/auth";
 import { HeartFilled } from "@ant-design/icons";
@@ -48,18 +47,17 @@ const RandomBooks = ({ randomBook }) => {
 
   return (
     <div>
-      
       {randomBook ? (
-        
         <section className="random-book-container">
-            <div>
+          <div>
             {Auth.loggedIn() && (
               <button
                 className="btn-favorite-rdm"
                 onClick={() => {
                   handleFavBook(randomBook);
                   handleButtonClick();
-                }}>
+                }}
+              >
                 {buttonText === "Favorite Added!" ? (
                   <HeartFilled
                     style={{ paddingBottom: "3px", marginRight: "4px" }}
@@ -69,7 +67,7 @@ const RandomBooks = ({ randomBook }) => {
               </button>
             )}
           </div>
-          
+
           <div className="random-card">
             <div>
               <img
@@ -91,12 +89,12 @@ const RandomBooks = ({ randomBook }) => {
               <a
                 className="custom-e-book"
                 href={randomBook.saleInfo.buyLink}
-                target="_blank">
+                target="_blank"
+              >
                 Buy it as an eBook!
               </a>
             ) : null}
           </div>
-        
         </section>
       ) : (
         <p>Loading...</p>

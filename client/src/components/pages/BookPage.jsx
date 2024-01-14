@@ -1,10 +1,9 @@
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_BOOK } from "../../utils/queries";
 import { useParams } from "react-router-dom";
 import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
 import "./Page.scss";
 import { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
 
@@ -42,7 +41,7 @@ export default function BookPage() {
           <img src={book.image} alt="" />
           <ModalBookDescription book={book} />
         </div>
-        <div className = "single-book-user">
+        <div className="single-book-user">
           <div>By: {book.authors}</div>
           <div>{book.isAvailable ? "Available" : "Unavailable"}</div>
           <div>Owner: {book.owner.name}</div>
