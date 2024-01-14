@@ -179,19 +179,15 @@ const LibraryCard = ({ user, theyAreYourFriend }) => {
           <button className="" onClick={() => showFavBooks()}>
             Favorite Books
           </button>
-          {theyAreYourFriend ? (
-            <>
-              <button className="" onClick={() => showLendingBooks()}>
-                Checkout My Books
-              </button>
-              <button className="" onClick={() => showBorrowedBooks()}>
-                Borrowed Books
-              </button>
-              <button className="" onClick={() => showFriends()}>
-                Friends
-              </button>
-            </>
-          ) : null}
+          <button className="" onClick={() => showLendingBooks()}>
+            Checkout My Books
+          </button>
+          <button className="" onClick={() => showBorrowedBooks()}>
+            Borrowed Books
+          </button>
+          <button className="" onClick={() => showFriends()}>
+            Friends
+          </button>
         </div>
       </div>
       <div className="hidden favBookList">
