@@ -12,7 +12,7 @@ import calculateStatus from "../../utils/helpers";
 import Auth from "../../utils/auth";
 import { QUERY_LEDGER } from "../../utils/queries";
 
-const LibraryCard = ({ user }) => {
+const LibraryCard = ({ user, theyAreYourFriend }) => {
   const [isMe, setIsMe] = useState(false);
 
   //check to see if user looking at page is current profile being viewed
@@ -179,15 +179,19 @@ const LibraryCard = ({ user }) => {
           <button className="" onClick={() => showFavBooks()}>
             Favorite Books
           </button>
-          <button className="" onClick={() => showLendingBooks()}>
-            Checkout My Books
-          </button>
-          <button className="" onClick={() => showBorrowedBooks()}>
-            Borrowed Books
-          </button>
-          <button className="" onClick={() => showFriends()}>
-            Friends
-          </button>
+          {theyAreYourFriend ? (
+            <>
+              <button className="" onClick={() => showLendingBooks()}>
+                Checkout My Books
+              </button>
+              <button className="" onClick={() => showBorrowedBooks()}>
+                Borrowed Books
+              </button>
+              <button className="" onClick={() => showFriends()}>
+                Friends
+              </button>
+            </>
+          ) : null}
         </div>
       </div>
       <div className="hidden favBookList">

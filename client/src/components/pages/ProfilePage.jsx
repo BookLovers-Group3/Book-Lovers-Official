@@ -134,11 +134,11 @@ export default function ProfilePage() {
         </div>
       ) : (
         <div>
-          <p>You are not {user?.name}'s friend</p>
+          <p>You have not added {user?.name} as a friend</p>
           <Button onClick={() => handleAddFriend()}>Add Friend</Button>
         </div>
       )}
-      <LibraryCard user={user} />
+      <LibraryCard user={user} theyAreYourFriend={theyAreYourFriend} />
     </div>
   );
 }
