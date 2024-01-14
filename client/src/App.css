@@ -134,6 +134,53 @@ body {
   margin: 20px auto;
 }
 
+.custom-friends-container {
+  box-shadow: 0 0 10px rgba(22, 23, 22, 0.8);
+  border: 1px solid #045762;
+  width: 90%;
+  margin: auto;
+  padding: 5px;
+}
+.custom-friend-container {
+  box-shadow: 0 0 10px rgba(22, 23, 22, 0.8);
+  padding: 10px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+}
+
+.custom-friend-container a {
+  color: var(--darkgreen);
+
+}
+
+.custom-friend-container button {
+  color: var(--darkgreen);
+  background-color: var(--pink);
+  border-radius: 10%;
+}
+
+.custom-friend-container button:hover {
+  color: var(--darkgreen);
+  background-color: var(--ivory);
+}
+
+.custom-friend-card {
+  color: black;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(22, 23, 22, 0.8);
+  background-color: var(--ivory);
+  margin: 5px;
+}
+
+.custom-friend-card img {
+  border-radius: 20%;
+  margin: 5px;
+  box-shadow: 0 0 10px rgba(22, 23, 22, 0.8);
+  margin-bottom: 5px;
+}
+
 .custom-card-single {
   color: black;
   width: 75%;
