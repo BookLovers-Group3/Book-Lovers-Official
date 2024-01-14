@@ -87,12 +87,12 @@ function SearchedBookResults({ searchedBooks, userData }) {
   };
 
   return (
-    <Container>
-      <h2 className="pt-5">
+    <div>
+      {/* <h2 className="pt-5">
         {searchedBooks.length
           ? `Viewing ${searchedBooks.length} results:`
           : "Search for a book to add it to your personal library list"}
-      </h2>
+      </h2> */}
       <Row>
         {searchedBooks.map((book) => {
           return (
@@ -161,7 +161,7 @@ function SearchedBookResults({ searchedBooks, userData }) {
           );
         })}
       </Row>
-    </Container>
+    </div>
   );
 }
 

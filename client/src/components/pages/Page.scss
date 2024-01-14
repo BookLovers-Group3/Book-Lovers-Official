@@ -69,7 +69,6 @@ label {
   margin: 200px auto;
   color: white;
   text-align: center;
-
 }
 
 .account-background h4 {
@@ -179,6 +178,33 @@ label {
 }
 .btn-submit:hover {
   background-color: var(--green);
+}
+
+.search-container {
+  display: flex;
+  box-shadow: 0 20px 80px #0000002f;
+  align-items: center;
+  flex-direction: column;
+  width: 80%;
+  margin: 50px auto;
+  padding: 15px;
+}
+
+.search-container h2 {
+  margin-bottom: 30px;
+  color: var(--darkgreen);
+  line-height: 3rem;
+}
+
+.search-container button {
+  color: var(--ivory);
+  background-color: var(--darkgreen);
+  border-radius: 10%;
+  padding: 8px 15px;
+}
+
+.search-container button:hover {
+  background-color: var(--pink);
 }
 
 @media screen and (min-width: 768px) {

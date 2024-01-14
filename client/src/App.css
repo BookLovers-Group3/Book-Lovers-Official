@@ -156,7 +156,6 @@ body {
 }
 
 .custom-friend-container button {
-  color: var(--darkgreen);
   background-color: var(--pink);
   border-radius: 10%;
 }
