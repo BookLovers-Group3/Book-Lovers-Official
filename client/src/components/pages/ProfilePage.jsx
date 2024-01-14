@@ -37,19 +37,6 @@ export default function ProfilePage() {
     }
   }, [meData, userId]);
 
-  //Extract friends from meData
-  const isUserFriend = meData?.me?.friends?.some(
-    (friend) => friend._id === userId
-  );
-  console.log("Is user a friend?", isUserFriend);
-
-  //set the isFriend status as a state
-
-  useEffect(() => {
-    // This will log the user data when it changes
-    console.log("me", meData);
-  }, [meData]);
-
   // mutation for adding friend
   const [addFriend, { loading: addLoading, data: addData, error: addError }] =
     useMutation(ADD_FRIEND, {
@@ -134,11 +121,11 @@ export default function ProfilePage() {
         </div>
       ) : (
         <div>
-          <p>You are not {user?.name}'s friend</p>
+          <p>You have not added {user?.name} as a friend</p>
           <Button onClick={() => handleAddFriend()}>Add Friend</Button>
         </div>
       )}
-      <LibraryCard user={user} />
+      <LibraryCard user={user} youAreTheirFriend={youAreTheirFriend} />
     </div>
   );
 }
