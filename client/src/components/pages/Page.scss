@@ -9,6 +9,8 @@
   letter-spacing: 1.25px;
 }
 
+
+
 .custom-looking-container {
   display: flex;
   align-items: center;
@@ -71,6 +73,10 @@ label {
   margin: 25px auto;
   color: white;
   text-align: center;
+}
+
+.account-background h4 {
+  color:var(--darkgreen); 
 }
 
 .container {
