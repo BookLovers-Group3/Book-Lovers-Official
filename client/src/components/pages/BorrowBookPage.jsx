@@ -53,7 +53,7 @@ export default function BookLendingListPage() {
             <p className="small">
               Authors: {book?.authors || "No authors listed"}
             </p>
-            <Link to={`/profile/${book.owner._id}`}>
+            <Link className="custom-link" to={`/profile/${book.owner._id}`}>
               <p className="small">Owner: {book.owner.name}</p>
             </Link>
           </Card.Body>
