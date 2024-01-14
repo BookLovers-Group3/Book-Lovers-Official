@@ -6,6 +6,8 @@ import "./Page.scss";
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
+import { Navigate } from "react-router-dom";
+import Auth from "../../utils/auth";
 
 export default function BookPage() {
   const [show, setShow] = useState(false);
@@ -28,6 +30,11 @@ export default function BookPage() {
   console.log(book);
   if (book && !book._id) {
     return <h4>No such book exist</h4>;
+  }
+
+  // if not logged in, go to the homepage
+  if (!Auth.loggedIn()) {
+    return <Navigate to="/" />;
   }
 
   return (
