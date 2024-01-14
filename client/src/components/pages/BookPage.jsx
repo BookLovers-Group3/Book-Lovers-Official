@@ -1,12 +1,13 @@
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_BOOK } from "../../utils/queries";
 import { useParams } from "react-router-dom";
 import ModalBookDescription from "../Modal-BookDescription/ModalBookDescription";
 import "./Page.scss";
 import { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ModalConfirmation from "../Modal-Confirmation/ModalConfirmation";
+import { Navigate } from "react-router-dom";
+import Auth from "../../utils/auth";
 
 export default function BookPage() {
   const [show, setShow] = useState(false);
@@ -31,6 +32,11 @@ export default function BookPage() {
     return <h4>No such book exist</h4>;
   }
 
+  // if not logged in, go to the homepage
+  if (!Auth.loggedIn()) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <>
       <h2 className="selected-book">
@@ -42,7 +48,7 @@ export default function BookPage() {
           <img src={book.image} alt="" />
           <ModalBookDescription book={book} />
         </div>
-        <div className = "single-book-user">
+        <div className="single-book-user">
           <div>By: {book.authors}</div>
           <div>{book.isAvailable ? "Available" : "Unavailable"}</div>
           <div>Owner: {book.owner.name}</div>

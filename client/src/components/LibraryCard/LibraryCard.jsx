@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import AvatarEditor from "react-avatar-editor";
 import "./LibraryCard.scss";
@@ -6,17 +6,13 @@ import { UPDATE_PROFILE_IMAGE } from "../../utils/mutations";
 const avatar = "../../images/InitialAvatar.jpg";
 import BookList from "../BookList/BookList";
 import FriendList from "../FriendList/FriendList";
-import { Container, Col, Card, Row, Button } from "react-bootstrap";
+
 import calculateStatus from "../../utils/helpers";
-import { useParams } from "react-router-dom";
+
 import Auth from "../../utils/auth";
 import { QUERY_LEDGER } from "../../utils/queries";
 
 const LibraryCard = ({ user }) => {
-  // console.log("user: ", user);
-  //if there is a profile Id, get it from the params
-  // const { profileId } = useParams();
-
   const [isMe, setIsMe] = useState(false);
 
   //check to see if user looking at page is current profile being viewed
@@ -105,21 +101,20 @@ const LibraryCard = ({ user }) => {
     friendsEl.classList.remove("hidden");
   };
 
+  // query the ledger info
   const { loading, data: ledgerData } = useQuery(QUERY_LEDGER, {
     variables: { profileId: user._id },
   });
 
-  // console.log("loading:", loading);
-  // console.log("ledger query data:", ledgerData);
-
   const count = ledgerData?.getUserBookCount?.count ?? 0;
 
-  // console.log("Raw Lent book count:", ledgerData?.getLentBookCount?.count);
+  // define state for the size
   const [editorSize, setEditorSize] = useState({
     width: 200,
     height: 200,
   });
 
+  // define function for handlesizechange
   const handleSizeChange = () => {
     if (window.innerWidth < 768) {
       setEditorSize({ width: 100, height: 100 });

@@ -6,14 +6,8 @@ import { FAV_BOOK, LEND_BOOK } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import LendModalConfirmation from "../Modal-Confirmation/LendModalConfirmation";
-import { useRef } from "react";
 
 function SearchedBookResults({ searchedBooks, userData }) {
-  // define functions for the modal
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   // sets up mutation to add book to favorites list
   const [
     addFavBook,
@@ -46,11 +40,8 @@ function SearchedBookResults({ searchedBooks, userData }) {
       : []
   );
 
-  const modalRef = useRef(null);
-
   // on button press, takes in book data and creates book in database then adds to user's favorite list
   const handleFavBook = async (googleBookId) => {
-    console.log("Book Info: ", googleBookId);
     const bookToFavorite = searchedBooks.find(
       (book) => book.googleBookId === googleBookId
     );
@@ -60,27 +51,6 @@ function SearchedBookResults({ searchedBooks, userData }) {
       const response = await addFavBook({
         variables: { book: bookToFavorite },
       });
-      console.log("response: ", response);
-      console.log("favBookIds from user? ", favBookIds);
-      // updateSavDisplay();
-    } catch (e) {
-      console.log(e);
-      // updateSavDisplay();
-    }
-  };
-
-  // on button press, takes in book data and creates book in database then adds to user's lending list
-  const handleLendBook = async (googleBookId) => {
-    console.log("Book Info: ", googleBookId);
-    const bookToLend = searchedBooks.find(
-      (book) => book.googleBookId === googleBookId
-    );
-
-    try {
-      const response = await addBooksToLend({
-        variables: { book: bookToLend },
-      });
-      console.log("response: ", response);
     } catch (e) {
       console.log(e);
     }

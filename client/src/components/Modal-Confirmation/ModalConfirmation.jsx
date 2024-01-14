@@ -4,18 +4,14 @@ import Modal from "react-bootstrap/Modal";
 import { useMutation } from "@apollo/client";
 import { OPEN_LEDGER, CLOSE_LEDGER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
-// import {
-//   setReturnBookId,
-//   getReturnBookId,
-//   removeReturnBookId,
-// } from "../../utils/localStorage";
 import emailjs from "@emailjs/browser";
 
 function ModalConfirmation({ book, type }) {
+  //define modal state and function to show and close
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   // initiate emailjs on component load
   useEffect(() => emailjs.init("tFj6zAOJjHz2zSQ9C"));
 
@@ -37,9 +33,6 @@ function ModalConfirmation({ book, type }) {
   // when click on return list, save the book google id into local storage
   const handleReturn = () => {
     handleShow();
-    // if (type === "Return") {
-    //   setReturnBookId(book._id);
-    // }
   };
 
   //  handle confirm function
@@ -61,7 +54,6 @@ function ModalConfirmation({ book, type }) {
             borrower: user.data._id,
           },
         });
-        console.log("ledger", ledger);
         // send email notification for this borrow transaction
         const email = await emailjs.send(serviceId, borrowTemplateId, {
           owner_email: book.owner.email,
@@ -76,9 +68,7 @@ function ModalConfirmation({ book, type }) {
       }
     }
     if (type === "Return") {
-      // const returnBookId = getReturnBookId();
       const bookToReturn = book;
-      console.log("book to return", bookToReturn);
       try {
         // close the ledger for this book borrow transaction
         const ledger = await closeLedger({
@@ -86,8 +76,6 @@ function ModalConfirmation({ book, type }) {
             bookId: bookToReturn._id,
           },
         });
-        // removeReturnBookId();
-        console.log("ledger", ledger);
 
         // send email notification for this borrow transaction
         const email = await emailjs.send(serviceId, returnTemplateId, {
@@ -106,7 +94,6 @@ function ModalConfirmation({ book, type }) {
   // if didnt confirm, then close modal and remove the book id from localstorage
   const handleCloseBtn = () => {
     handleClose();
-    // removeReturnBookId();
   };
 
   return (

@@ -32,8 +32,8 @@ const resolvers = {
             path: "booksBorrowed",
             populate: {
               path: "owner",
-              model: "Profile"
-            }
+              model: "Profile",
+            },
           },
           "friends",
         ]);
@@ -68,7 +68,6 @@ const resolvers = {
               { borrower: profileId }, // User as borrower
             ],
           });
-          console.log("User Lent Books Count:", totoalProfileCount);
           return { count: totoalProfileCount };
         } else {
           throw new AuthenticationError("User not authenticated");
@@ -85,7 +84,6 @@ const resolvers = {
       parent,
       { name, email, password, gender, status, lookingFor, favoriteGenres }
     ) => {
-      console.log(lookingFor, favoriteGenres);
       const profile = await Profile.create({
         name,
         email,
@@ -149,7 +147,6 @@ const resolvers = {
     },
     // add a friend
     addFriend: async (parent, { profileId }, context) => {
-      console.log("add Friend");
       if (context.user) {
         const user = await Profile.findOneAndUpdate(
           { _id: context.user._id },
@@ -168,7 +165,6 @@ const resolvers = {
     // remove a friend
     removeFriend: async (parent, { profileId }, context) => {
       if (context.user) {
-        console.log("remove friend back end");
         return Profile.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { friends: profileId } },
@@ -320,7 +316,6 @@ const resolvers = {
         const newBook = await Book.create({
           ...book,
         });
-        console.log("new Book: ", newBook);
         // then grab book _id and use profile.findOneAndUpdate to add to favorites list
         const profile = await Profile.findOneAndUpdate(
           {
@@ -458,7 +453,6 @@ const resolvers = {
             runValidators: true,
           }
         );
-        console.log(updatedBook, updatedBorrower, updatedLender);
 
         return updatedLedger;
       }
