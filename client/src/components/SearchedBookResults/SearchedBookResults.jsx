@@ -113,7 +113,12 @@ function SearchedBookResults({ searchedBooks, userData }) {
 
                 <Card.Body>
                   <p className="small">
-                    Authors: {book.authors.join(", ") || "No authors listed"}
+                    {book.authors?.length === 1
+                      ? "Author: "
+                      : book.authors?.length
+                      ? "Authors: "
+                      : "No authors listed"}
+                    {book.authors?.length ? book.authors.join(", ") : null}
                   </p>
 
                   {auth.loggedIn() ? (
@@ -130,8 +135,7 @@ function SearchedBookResults({ searchedBooks, userData }) {
                             book.googleBookId,
                           ]);
                           handleFavBook(book.googleBookId);
-                        }}
-                      >
+                        }}>
                         {favBookIds?.some(
                           (favoritedBookId) =>
                             favoritedBookId === book.googleBookId
@@ -139,7 +143,7 @@ function SearchedBookResults({ searchedBooks, userData }) {
                           ? "Favorited"
                           : "Add to Favorites"}
                       </button>
-                      <div className="return-book-button">
+                      <div>
                         <LendModalConfirmation
                           book={book}
                           books={searchedBooks}

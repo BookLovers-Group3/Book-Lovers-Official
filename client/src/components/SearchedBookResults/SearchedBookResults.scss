@@ -29,20 +29,48 @@
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.585);
   border: 1.5px solid black;
   border-radius: 5%;
-
 }
 
-.btn-add-fav {
+.btn-add-fav,
+.return-book-button {
   color: var(--ivory);
   background-color: var(--darkgreen);
   border-radius: 10%;
   padding: 8px 15px;
 }
 
+.return-book-button:hover,
 .btn-add-fav:hover {
   color: var(--darkgreen);
   background-color: var(--pink);
 }
+
+.confirmation-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: sepia(20%);
+  line-height: 1.6rem;
+  padding: 5px;
+
+  .modal-title {
+    text-align: center;
+    font-size: cursive;
+    color: rgb(104, 37, 48);
+  }
+  .modal-body {
+    text-align: center;
+    font-size: cursive;
+    color: rgb(104, 37, 48);
+    background-color: rgb(238, 230, 231);
+    
+  }
+}
+.btn-book-d {
+  width: 60%;
+  margin: auto;
+}
+
 
 @media screen and (min-width: 768px) {
   .search-results-container {

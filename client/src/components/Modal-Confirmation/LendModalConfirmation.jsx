@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useMutation } from "@apollo/client";
 import { LEND_BOOK } from "../../utils/mutations";
-import "../SearchedBookResults/SearchedBookResults.scss"
+import "../SearchedBookResults/SearchedBookResults.scss";
 // import {
 //   lendingBookId,
 //   getLendBookId,
@@ -56,33 +56,31 @@ function LendModalConfirmation({ book, lendBookIds, setLendBookIds }) {
 
   return (
     <>
-      <Button
+      <button className="return-book-button"
         variant="primary"
         disabled={lendBookIds?.some(
           (lendingBookId) => lendingBookId === book.googleBookId
         )}
         onClick={() => {
           handleAddToLend();
-        }}
-      >
+        }}>
         {lendBookIds?.some(
           (lendingBookId) => lendingBookId === book.googleBookId
         )
           ? "Added"
           : "Add to Lending List"}
-      </Button>
+      </button>
 
-      <Modal
+      <Modal className = "confirmation-modal"
         show={show}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
-        constainer={null}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmation</Modal.Title>
+        constainer={null}>
+        <Modal.Header>
+          <Modal.Title className="modal-title">Confirmation</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="modal-body">
           Please confirm that you have a physical copy of this book and that you
           are ready to share this book with the rest of the book lovers.
         </Modal.Body>
