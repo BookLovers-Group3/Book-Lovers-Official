@@ -79,11 +79,11 @@ function LendModalConfirmation({ book, lendBookIds, setLendBookIds }) {
         constainer={null}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Request Confirmation</Modal.Title>
+          <Modal.Title>Confirmation</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          You are about to share this book with the rest of the book lovers.
-          Please confirm
+          Please confirm that you have a physical copy of this book and that you
+          are ready to share this book with the rest of the book lovers.
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => handleCloseBtn()}>
