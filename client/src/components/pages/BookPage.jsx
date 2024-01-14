@@ -48,7 +48,12 @@ export default function BookPage() {
           <img src={book.image} alt="" />
           <ModalBookDescription book={book} />
         </div>
-        <div className="single-book-user">
+        <div
+          style={{
+            backgroundColor: book.isAvailable ? "#045762" : "#ea97ad",
+            color: book.isAvailable ? "#f3f2da" : "#045762",
+          }}
+          className="single-book-user">
           <div>By: {book.authors}</div>
           <div>{book.isAvailable ? "Available" : "Unavailable"}</div>
           <div>Owner: {book.owner.name}</div>
