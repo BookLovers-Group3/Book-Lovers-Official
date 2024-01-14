@@ -12,8 +12,10 @@ import calculateStatus from "../../utils/helpers";
 import Auth from "../../utils/auth";
 import { QUERY_LEDGER } from "../../utils/queries";
 
-const LibraryCard = ({ user, theyAreYourFriend }) => {
-  const [isMe, setIsMe] = useState(false);
+const LibraryCard = ({ user, youAreTheirFriend }) => {
+  const [isMe, setIsMe] = useState(
+    user._id === Auth?.getProfile().data._id ? true : false
+  );
 
   //check to see if user looking at page is current profile being viewed
   useEffect(() => {
@@ -179,15 +181,19 @@ const LibraryCard = ({ user, theyAreYourFriend }) => {
           <button className="" onClick={() => showFavBooks()}>
             Favorite Books
           </button>
-          <button className="" onClick={() => showLendingBooks()}>
-            Checkout My Books
-          </button>
-          <button className="" onClick={() => showBorrowedBooks()}>
-            Borrowed Books
-          </button>
-          <button className="" onClick={() => showFriends()}>
-            Friends
-          </button>
+          {isMe || youAreTheirFriend ? (
+            <>
+              <button className="" onClick={() => showLendingBooks()}>
+                Checkout My Books
+              </button>
+              <button className="" onClick={() => showBorrowedBooks()}>
+                Borrowed Books
+              </button>
+              <button className="" onClick={() => showFriends()}>
+                Friends
+              </button>
+            </>
+          ) : null}
         </div>
       </div>
       <div className="hidden favBookList">
