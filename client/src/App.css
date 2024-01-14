@@ -57,6 +57,7 @@ body {
 
 .random-card {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-around;
   margin-bottom: 10px;
@@ -93,6 +94,10 @@ body {
 .book-spotlight {
   font-family: "Dancing Script", cursive;
   margin: 20px;
+}
+
+.btn-container-random {
+  position: relative;
 }
 
 .custom-e-book {

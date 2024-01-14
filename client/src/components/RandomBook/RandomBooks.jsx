@@ -48,28 +48,38 @@ const RandomBooks = ({ randomBook }) => {
 
   return (
     <div>
-      
       {randomBook ? (
-        
         <section className="random-book-container">
-            <div>
+          <div>
             {Auth.loggedIn() && (
-              <button
-                className="btn-favorite-rdm"
-                onClick={() => {
-                  handleFavBook(randomBook);
-                  handleButtonClick();
-                }}>
-                {buttonText === "Favorite Added!" ? (
-                  <HeartFilled
-                    style={{ paddingBottom: "3px", marginRight: "4px" }}
-                  />
-                ) : null}
-                {buttonText}
-              </button>
+              <>
+                <button
+                  className="btn-favorite-rdm"
+                  onClick={() => {
+                    handleFavBook(randomBook);
+                    handleButtonClick();
+                  }}>
+                  {buttonText === "Favorite Added!" ? (
+                    <HeartFilled
+                      style={{ paddingBottom: "3px", marginRight: "4px" }}
+                    />
+                  ) : null}
+                  {buttonText}
+                </button>
+                <div>
+                  {randomBook.saleInfo.isEbook ? (
+                    <a
+                      className="custom-e-book"
+                      href={randomBook.saleInfo.buyLink}
+                      target="_blank">
+                      Buy it as an eBook!
+                    </a>
+                  ) : null}
+                </div>
+              </>
             )}
           </div>
-          
+
           <div className="random-card">
             <div>
               <img
@@ -79,24 +89,16 @@ const RandomBooks = ({ randomBook }) => {
                 }
                 alt={`book cover for ${randomBook.volumeInfo.title}`}
               />
+              <h4> {randomBook.volumeInfo.title}</h4>
               <p>
                 {randomBook.volumeInfo.authors?.join(", ") || "author unknown"}
               </p>
             </div>
-            <h4> {randomBook.volumeInfo.title}</h4>
           </div>
-          <ModalBookDescription randomBook={randomBook} />
-          <div>
-            {randomBook.saleInfo.isEbook ? (
-              <a
-                className="custom-e-book"
-                href={randomBook.saleInfo.buyLink}
-                target="_blank">
-                Buy it as an eBook!
-              </a>
-            ) : null}
+
+          <div className="btn-container-random">
+            <ModalBookDescription randomBook={randomBook} />
           </div>
-        
         </section>
       ) : (
         <p>Loading...</p>

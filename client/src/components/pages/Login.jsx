@@ -43,8 +43,8 @@ const Login = () => {
 
   return (
     <main>
-      <div className="account-container">
-        <div className="custom-card">
+      <div className="account-background ">
+        <div className="custom-card-login">
           <h4>Login</h4>
           <div className="custom-card-body  ">
             {data ? (
@@ -72,7 +72,7 @@ const Login = () => {
                     onChange={handleChange}
                   />
                   <button
-                    className="btn btn-block btn-info"
+                    className="btn-submit"
                     style={{ cursor: "pointer" }}
                     type="submit">
                     Submit
