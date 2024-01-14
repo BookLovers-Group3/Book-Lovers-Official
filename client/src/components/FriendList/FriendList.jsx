@@ -2,6 +2,7 @@ import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { REMOVE_FRIEND } from "../../utils/mutations";
 import { Link } from "react-router-dom";
+import "./FriendList.scss";
 
 export default function FriendList({ friends, isMe }) {
   // get mutation for remove friend
@@ -32,7 +33,9 @@ export default function FriendList({ friends, isMe }) {
             <Col md="4" key={friend._id}>
               <Card key={friend._id} className="custom-card" border="dark">
                 <Card.Title>
-                  <Link to={`/profile/${friend._id}`}>Name: {friend.name}</Link>
+                  <Link className="custom-link" to={`/profile/${friend._id}`}>
+                    {friend.name}
+                  </Link>
                 </Card.Title>
                 {friend.profileImage ? (
                   <Card.Img
