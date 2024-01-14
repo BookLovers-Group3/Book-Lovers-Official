@@ -241,3 +241,8 @@ body {
   margin: 8px;
   border-radius: 50%;
 }
+
+.custom-link {
+  text-decoration: none;
+  color: black;
+}

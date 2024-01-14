@@ -2,6 +2,7 @@ import { Container, Col, Card, Row, Button } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { REMOVE_FRIEND } from "../../utils/mutations";
 import { Link } from "react-router-dom";
+import "./FriendList.scss";
 
 export default function FriendList({ friends, isMe }) {
   // get mutation for remove friend
@@ -45,6 +46,7 @@ export default function FriendList({ friends, isMe }) {
                     {friend.name}
                   </Link>
                 </h3>
+
                 {friend.profileImage ? (
                   <img
                     src={friend.profileImage || "No image available"}
