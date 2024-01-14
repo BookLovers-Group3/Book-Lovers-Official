@@ -7,6 +7,7 @@ import { searchGoogleBooks } from "../../utils/API";
 import { QUERY_ME } from "../../utils/queries";
 import { Navigate } from "react-router-dom";
 import Auth from "../../utils/auth";
+import "./Page.scss";
 
 const BuildBookList = () => {
   const [searchedBooks, setSearchedBooks] = useState([]);
@@ -59,34 +60,34 @@ const BuildBookList = () => {
   return (
     <>
       <div className="search-container">
-        <Container>
-          <h1>Populate your own lending library here!</h1>
-          <Form onSubmit={handleFormSubmit}>
-            <Row>
-              <Col xs={12} md={8}>
-                <Form.Control
-                  name="searchInput"
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  type="text"
-                  size="lg"
-                  placeholder="Search for a book"
-                />
-              </Col>
-              <Col xs={12} md={4}>
-                <Button type="submit" variant="success" size="lg">
-                  Submit Search
-                </Button>
-              </Col>
-            </Row>
-          </Form>
-        </Container>
+        <h2>
+          Search for your favorite books and populate your
+          lending library
+        </h2>
+        <Form onSubmit={handleFormSubmit}>
+          <Row>
+            <Col xs={12} md={8}>
+              <Form.Control
+                name="searchInput"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                type="text"
+                size="lg"
+                placeholder="Search for a book"
+              />
+            </Col>
+            <Col xs={12} md={4}>
+              <button type="submit" variant="success" size="lg">
+                Search
+              </button>
+            </Col>
+          </Row>
+        </Form>
       </div>
 
       <SearchedBookResults
         userData={userData}
-        searchedBooks={searchedBooks}
-      ></SearchedBookResults>
+        searchedBooks={searchedBooks}></SearchedBookResults>
     </>
   );
 };

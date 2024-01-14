@@ -57,17 +57,12 @@ function SearchedBookResults({ searchedBooks, userData }) {
   };
 
   return (
-    <Container>
-      <h2 className="pt-5">
-        {searchedBooks.length
-          ? `Viewing ${searchedBooks.length} results:`
-          : "Search for a book to add it to your personal library list"}
-      </h2>
+    <div className="search-results-container">
       <Row>
         {searchedBooks.map((book) => {
           return (
             <Col md="4" key={book.googleBookId}>
-              <Card className="custom-card" border="dark">
+              <div className="custom-search-card" border="dark">
                 <Card.Title>{book.title}</Card.Title>
                 <ModalBookDescription
                   title={book.title}
@@ -88,33 +83,37 @@ function SearchedBookResults({ searchedBooks, userData }) {
 
                 <Card.Body>
                   <p className="small">
-                    Authors: {book.authors || "No authors listed"}
+                    {book.authors?.length === 1
+                      ? "Author: "
+                      : book.authors?.length
+                      ? "Authors: "
+                      : "No authors listed"}
+                    {book.authors?.length ? book.authors.join(", ") : null}
                   </p>
 
                   {auth.loggedIn() ? (
                     <div>
-                      <Button
+                      <button
                         disabled={favBookIds?.some(
                           (favoritedBookId) =>
                             favoritedBookId === book.googleBookId
                         )}
-                        className="btn-block btn-info"
+                        className="btn-add-fav"
                         onClick={() => {
                           setFavBookIds((favBookIds) => [
                             ...favBookIds,
                             book.googleBookId,
                           ]);
                           handleFavBook(book.googleBookId);
-                        }}
-                      >
+                        }}>
                         {favBookIds?.some(
                           (favoritedBookId) =>
                             favoritedBookId === book.googleBookId
                         )
                           ? "Favorited"
                           : "Add to Favorites"}
-                      </Button>
-                      <div className="return-book-button">
+                      </button>
+                      <div>
                         <LendModalConfirmation
                           book={book}
                           books={searchedBooks}
@@ -126,12 +125,12 @@ function SearchedBookResults({ searchedBooks, userData }) {
                     </div>
                   ) : null}
                 </Card.Body>
-              </Card>
+              </div>
             </Col>
           );
         })}
       </Row>
-    </Container>
+    </div>
   );
 }
 
