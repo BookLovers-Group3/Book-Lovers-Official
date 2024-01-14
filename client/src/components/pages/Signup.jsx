@@ -260,7 +260,7 @@ const Signup = () => {
                 </div>
           
               <button
-                className="btn btn-block btn-info"
+                className="btn-submit"
                 style={{ cursor: "pointer" }}
                 type="submit">
                 Submit
