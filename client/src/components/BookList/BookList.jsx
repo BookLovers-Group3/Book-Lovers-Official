@@ -95,7 +95,7 @@ export default function BookList({ books, type, isMe }) {
                       </Card.Title>
                     </Link>
                   </div>
-                ) : (
+                ) : type === "borrowed" ? (
                   <div>
                     <Link to={`/book/${book._id}`} className="custom-link">
                       <Card.Title className="card-title">
@@ -103,6 +103,8 @@ export default function BookList({ books, type, isMe }) {
                       </Card.Title>
                     </Link>
                   </div>
+                ) : (
+                  <Card.Title className="card-title">{book.title}</Card.Title>
                 )}
                 {book.image ? (
                   <Card.Img
