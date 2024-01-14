@@ -2,6 +2,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useMutation } from "@apollo/client";
 import { LEND_BOOK } from "../../utils/mutations";
+import "../SearchedBookResults/SearchedBookResults.scss"
 // import {
 //   lendingBookId,
 //   getLendBookId,

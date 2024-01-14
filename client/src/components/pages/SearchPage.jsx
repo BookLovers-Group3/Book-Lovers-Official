@@ -61,7 +61,7 @@ const BuildBookList = () => {
     <>
       <div className="search-container">
         <h2>
-          Search for your favorite books and populate your <br />
+          Search for your favorite books and populate your
           lending library
         </h2>
         <Form onSubmit={handleFormSubmit}>

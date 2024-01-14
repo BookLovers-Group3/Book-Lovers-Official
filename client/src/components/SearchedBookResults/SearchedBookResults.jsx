@@ -87,17 +87,12 @@ function SearchedBookResults({ searchedBooks, userData }) {
   };
 
   return (
-    <div>
-      {/* <h2 className="pt-5">
-        {searchedBooks.length
-          ? `Viewing ${searchedBooks.length} results:`
-          : "Search for a book to add it to your personal library list"}
-      </h2> */}
+    <div className="search-results-container">
       <Row>
         {searchedBooks.map((book) => {
           return (
             <Col md="4" key={book.googleBookId}>
-              <Card className="custom-card" border="dark">
+              <div className="custom-search-card" border="dark">
                 <Card.Title>{book.title}</Card.Title>
                 <ModalBookDescription
                   title={book.title}
@@ -118,17 +113,17 @@ function SearchedBookResults({ searchedBooks, userData }) {
 
                 <Card.Body>
                   <p className="small">
-                    Authors: {book.authors || "No authors listed"}
+                    Authors: {book.authors.join(", ") || "No authors listed"}
                   </p>
 
                   {auth.loggedIn() ? (
                     <div>
-                      <Button
+                      <button
                         disabled={favBookIds?.some(
                           (favoritedBookId) =>
                             favoritedBookId === book.googleBookId
                         )}
-                        className="btn-block btn-info"
+                        className="btn-add-fav"
                         onClick={() => {
                           setFavBookIds((favBookIds) => [
                             ...favBookIds,
@@ -143,7 +138,7 @@ function SearchedBookResults({ searchedBooks, userData }) {
                         )
                           ? "Favorited"
                           : "Add to Favorites"}
-                      </Button>
+                      </button>
                       <div className="return-book-button">
                         <LendModalConfirmation
                           book={book}
@@ -156,7 +151,7 @@ function SearchedBookResults({ searchedBooks, userData }) {
                     </div>
                   ) : null}
                 </Card.Body>
-              </Card>
+              </div>
             </Col>
           );
         })}
