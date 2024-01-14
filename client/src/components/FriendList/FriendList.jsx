@@ -35,21 +35,16 @@ export default function FriendList({ friends, isMe }) {
         {friends?.map((friend) => {
           return (
             <Col md="4" key={friend._id}>
-              <section
-                key={friend._id}
-                className="custom-friend-card"
-                border="dark">
-                <h3>
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    to={`/profile/${friend._id}`}>
-                    {friend.name}
-                  </Link>
-                </h3>
-
-                {friend.profileImage ? (
+            <section key={friend._id} className="custom-friend-card" border="dark">
+              <h3>
+                <Link style={{ textDecoration: "none" }} to={`/profile/${friend._id}`}>
+                  {friend.name}
+                </Link>
+              </h3>
+              {friend.profileImage && (
+                <div>
                   <img
-                    src={friend.profileImage || "No image available"}
+                    src={friend.profileImage}
                     alt={`The cover for ${friend.name}`}
                     variant="top"
                     style={{
@@ -58,16 +53,19 @@ export default function FriendList({ friends, isMe }) {
                       margin: "auto",
                     }}
                   />
-                ) : null}
-                {isMe ? (
-                  <button
-                    style={{ width: "50%", margin: "10px auto 0" }}
-                    onClick={() => handleRemoveFriend(friend)}>
-                    Unfriend
-                  </button>
-                ) : null}
-              </section>
-            </Col>
+                  {isMe && (
+                    <button
+                      style={{ width: "50%", margin: "10px auto 0" }}
+                      onClick={() => handleRemoveFriend(friend)}
+                    >
+                      Unfriend
+                    </button>
+                  )}
+                </div>
+              )}
+            </section>
+          </Col>
+          
           );
         })}
       </div>
