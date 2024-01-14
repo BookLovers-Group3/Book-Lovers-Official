@@ -84,7 +84,8 @@ export default function BookList({ books, type, isMe }) {
                 className="custom-card-single"
                 border="dark"
                 style={{
-                  backgroundColor: !book.isAvailable ? null : "lightblue",
+                  backgroundColor: !book.isAvailable ? null : "#ea97ad", 
+            
                 }}
               >
                 {type === "lending" ? (
@@ -121,7 +122,7 @@ export default function BookList({ books, type, isMe }) {
 
                 <Card.Body>
                   <p className="small">
-                    Authors: {book.authors || "No authors listed"}
+                    Authors: {book.authors.join(', ') || "No authors listed"}
                   </p>
                 </Card.Body>
                 {isMe ? (

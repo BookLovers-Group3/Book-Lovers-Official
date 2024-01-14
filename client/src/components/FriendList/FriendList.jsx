@@ -23,22 +23,32 @@ export default function FriendList({ friends, isMe }) {
   };
 
   return (
-    <Container>
+    <div className="custom-friends-container">
       <h2 className="pt-5">
-        {friends?.length ? `${friends?.length} friends:` : "No friends yet"}
+        {friends?.length === 1
+          ? "1 friend:"
+          : friends?.length
+          ? `${friends?.length} friends:`
+          : "No friends yet"}
       </h2>
-      <Row>
+      <div className="custom-friend-container">
         {friends?.map((friend) => {
           return (
             <Col md="4" key={friend._id}>
-              <Card key={friend._id} className="custom-card" border="dark">
-                <Card.Title>
-                  <Link className="custom-link" to={`/profile/${friend._id}`}>
+              <section
+                key={friend._id}
+                className="custom-friend-card"
+                border="dark">
+                <h3>
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    to={`/profile/${friend._id}`}>
                     {friend.name}
                   </Link>
-                </Card.Title>
+                </h3>
+
                 {friend.profileImage ? (
-                  <Card.Img
+                  <img
                     src={friend.profileImage || "No image available"}
                     alt={`The cover for ${friend.name}`}
                     variant="top"
@@ -50,15 +60,17 @@ export default function FriendList({ friends, isMe }) {
                   />
                 ) : null}
                 {isMe ? (
-                  <Button onClick={() => handleRemoveFriend(friend)}>
+                  <button
+                    style={{ width: "50%", margin: "10px auto 0" }}
+                    onClick={() => handleRemoveFriend(friend)}>
                     Unfriend
-                  </Button>
+                  </button>
                 ) : null}
-              </Card>
+              </section>
             </Col>
           );
         })}
-      </Row>
-    </Container>
+      </div>
+    </div>
   );
 }
