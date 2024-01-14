@@ -103,6 +103,14 @@ const LibraryCard = ({ user, youAreTheirFriend }) => {
     friendsEl.classList.remove("hidden");
   };
 
+  const genreList = user.favoriteGenres.map((genre, index) => {
+    return <p key={index}>{genre}</p>;
+  });
+
+  const lookingForList = user.lookingFor.map((lookingFor, index) => {
+    return <p key={index}>{lookingFor}</p>;
+  });
+
   // query the ledger info
   const { loading, data: ledgerData } = useQuery(QUERY_LEDGER, {
     variables: { profileId: user._id },
@@ -167,12 +175,8 @@ const LibraryCard = ({ user, youAreTheirFriend }) => {
             )}
           </div>
           <div className="user-details">
-            <div>
-              Favorite Genres {user.favoriteGenres.map((genre) => genre)}
-            </div>
-            <div>
-              I am looking for:{user.lookingFor.map((lookingFor) => lookingFor)}
-            </div>
+            <div>Favorite Genres: {genreList}</div>
+            <div>I am looking for: {lookingForList}</div>
             <div>Gender Identity: {user.gender}</div>
           </div>
         </div>
