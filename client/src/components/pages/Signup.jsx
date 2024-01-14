@@ -62,8 +62,8 @@ const Signup = () => {
   };
 
   return (
-    <main className="container">
-      <div className="custom-card">
+    <main className="account-container">
+      <div className="account-background">
         <h4>Sign Up</h4>
         <div className="custom-card-body">
           {data ? (
@@ -103,8 +103,7 @@ const Signup = () => {
                 name="gender"
                 type="gender"
                 value={formState.gender}
-                onChange={handleChange}
-              >
+                onChange={handleChange}>
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -114,114 +113,156 @@ const Signup = () => {
                 <option value="Genderqueer">Genderqueer</option>
                 <option value="Ask me!">Ask me!</option>
               </select>
-              <div>
+              <div className="form-genre">
                 <p>Select your favorite genres</p>
-                <input
-                  type="checkbox"
-                  name="favoriteGenres"
-                  value="Fiction"
-                  onChange={handleChangeArr}
-                />
-                <label htmlFor="Fiction">Fiction</label>
-                <input
-                  type="checkbox"
-                  name="favoriteGenres"
-                  value="Mystery"
-                  onChange={handleChangeArr}
-                />
-                <label htmlFor="Mystery">Mystery</label>
-                <input
-                  type="checkbox"
-                  name="favoriteGenres"
-                  value="History"
-                  onChange={handleChangeArr}
-                />
-                <label htmlFor="History">History</label>
-                <input
-                  type="checkbox"
-                  name="favoriteGenres"
-                  value="Biography"
-                  onChange={handleChangeArr}
-                />
-                <label htmlFor="Biography">Biography</label>
-                <input
-                  type="checkbox"
-                  name="favoriteGenres"
-                  value="Thriller"
-                  onChange={handleChangeArr}
-                />
-                <label htmlFor="Thriller">Thriller</label>
-                <input
-                  type="checkbox"
-                  name="favoriteGenres"
-                  value="Fantasy"
-                  onChange={handleChangeArr}
-                />
-                <label htmlFor="Fantasy">Fantasy</label>
-                <input
-                  type="checkbox"
-                  name="favoriteGenres"
-                  value="Romance"
-                  onChange={handleChangeArr}
-                />
-                <label htmlFor="Romance">Romance</label>
-                <input
-                  type="checkbox"
-                  name="favoriteGenres"
-                  value="True Crime"
-                  onChange={handleChangeArr}
-                />
-                <label htmlFor="True Crime">True Crime</label>
-                <input
-                  type="checkbox"
-                  name="favoriteGenres"
-                  value="Education"
-                  onChange={handleChangeArr}
-                />
-                <label htmlFor="Education">Education</label>
-                <input
-                  type="checkbox"
-                  name="favoriteGenres"
-                  value="Other"
-                  onChange={handleChangeArr}
-                />
-                <label htmlFor="Other">Other</label>
+                <div className="genre-options">
+                  <div className="column">
+                    <div className="checkbox-label-pair">
+                      <input
+                        type="checkbox"
+                        name="favoriteGenres"
+                        value="Fiction"
+                        onChange={handleChangeArr}
+                      />
+                      <label htmlFor="Fiction">Fiction</label>
+                    </div>
+                    <div className="checkbox-label-pair">
+                      <input
+                        type="checkbox"
+                        name="favoriteGenres"
+                        value="Mystery"
+                        onChange={handleChangeArr}
+                      />
+                      <label htmlFor="Mystery">Mystery</label>
+                    </div>
+                    <div className="checkbox-label-pair">
+                      <input
+                        type="checkbox"
+                        name="favoriteGenres"
+                        value="History"
+                        onChange={handleChangeArr}
+                      />
+                      <label htmlFor="History">History</label>
+                    </div>
+                  </div>
+
+                  <div className="column">
+                    <div className="checkbox-label-pair">
+                      <input
+                        type="checkbox"
+                        name="favoriteGenres"
+                        value="Biography"
+                        onChange={handleChangeArr}
+                      />
+                      <label htmlFor="Biography">Biography</label>
+                    </div>
+                    <div className="checkbox-label-pair">
+                      <input
+                        type="checkbox"
+                        name="favoriteGenres"
+                        value="Thriller"
+                        onChange={handleChangeArr}
+                      />
+                      <label htmlFor="Thriller">Thriller</label>
+                    </div>
+
+                    <div className="checkbox-label-pair">
+                      <input
+                        type="checkbox"
+                        name="favoriteGenres"
+                        value="Fantasy"
+                        onChange={handleChangeArr}
+                      />
+                      <label htmlFor="Fantasy">Fantasy</label>
+                    </div>
+                  </div>
+
+                  <div className="column">
+                    <div className="checkbox-label-pair">
+                      <input
+                        type="checkbox"
+                        name="favoriteGenres"
+                        value="Romance"
+                        onChange={handleChangeArr}
+                      />
+                      <label htmlFor="Romance">Romance</label>
+                    </div>
+                    <div className="checkbox-label-pair">
+                      <input
+                        type="checkbox"
+                        name="favoriteGenres"
+                        value="True Crime"
+                        onChange={handleChangeArr}
+                      />
+                      <label htmlFor="True Crime">True Crime</label>
+                    </div>
+                    <div className="checkbox-label-pair">
+                      <input
+                        type="checkbox"
+                        name="favoriteGenres"
+                        value="Education"
+                        onChange={handleChangeArr}
+                      />
+                      <label htmlFor="Education">Education</label>
+                    </div>
+                  </div>
+
+                  <div className="column">
+                    <div className="checkbox-label-pair">
+                      <input
+                        type="checkbox"
+                        name="favoriteGenres"
+                        value="Other"
+                        onChange={handleChangeArr}
+                      />
+                      <label htmlFor="Other">Other</label>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div>
+
+              <div className="custom-looking-container">
                 <p>What are you looking for </p>
-                <input
-                  type="checkbox"
-                  name="lookingFor"
-                  value="I am just here to read"
-                  onChange={handleChangeArr}
-                />
-                <label htmlFor="I am just here to read">
-                  I am just here to read
-                </label>
-                <input
-                  type="checkbox"
-                  name="lookingFor"
-                  value="I am looking for book buddies"
-                  onChange={handleChangeArr}
-                />
-                <label htmlFor="I am looking for book buddies">
-                  I am looking for book buddies
-                </label>
-                <input
-                  type="checkbox"
-                  name="lookingFor"
-                  value="I am looking for book lovers"
-                  onChange={handleChangeArr}
-                />
-                <label htmlFor="I am looking for book lovers">
-                  I am looking for book lovers
-                </label>
-              </div>
+  
+                  <div className="checkbox-label-pair">
+                    <input
+                      type="checkbox"
+                      name="lookingFor"
+                      value="I am just here to read"
+                      onChange={handleChangeArr}
+                    />
+                    <label htmlFor="I am just here to read">
+                      Just here to read
+                    </label>
+                  </div>
+                  <div className="checkbox-label-pair">
+                    <input
+                      type="checkbox"
+                      name="lookingFor"
+                      value="I am looking for book buddies"
+                      onChange={handleChangeArr}
+                    />
+                    <label htmlFor="I am looking for book buddies">
+                      Book buddies
+                    </label>
+                  </div>
+                  <div className="checkbox-label-pair">
+                    <input
+                      type="checkbox"
+                      name="lookingFor"
+                      value="I am looking for book lovers"
+                      onChange={handleChangeArr}
+                    />
+                    <label htmlFor="I am looking for book lovers">
+                      Book lovers
+                    </label>
+                  </div>
+                </div>
+          
               <button
                 className="btn btn-block btn-info"
                 style={{ cursor: "pointer" }}
-                type="submit"
-              >
+                type="submit">
                 Submit
               </button>
             </form>

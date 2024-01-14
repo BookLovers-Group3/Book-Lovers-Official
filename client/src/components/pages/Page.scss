@@ -9,6 +9,76 @@
   letter-spacing: 1.25px;
 }
 
+
+
+.custom-looking-container {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  justify-content: space-evenly;
+  margin: 6px;
+  padding: 6px;
+  
+  .checkbox-label-pair {
+    background-color: var(--pink);
+    margin: 8px;
+    padding: 5px;
+    border-radius: 20%;
+    color: black;
+  }
+}
+
+.form-genre {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 0.7rem;
+  margin: 6px;
+  padding: 6px;
+}
+
+.genre-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 6px;
+  padding: 6px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+label {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-label-pair {
+  display: flex;
+  align-items: center;
+  margin: 1px;
+  padding: 1px;
+}
+
+.account-background {
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.185);
+  border-radius: 50%;
+  margin: 25px auto;
+  color: white;
+  text-align: center;
+}
+
+.account-background h4 {
+  color:var(--darkgreen); 
+}
+
 .container {
   margin: 25px auto;
   padding: 20px;
@@ -85,8 +155,6 @@
   display: flex;
   flex-direction: column;
   margin-right: 40px;
-  
-  
 }
 
 .single-book-user {
@@ -94,7 +162,6 @@
   font-family: "Dancing Script", cursive;
   box-shadow: 0 20px 80px #0000002f;
   padding: 1px 5px;
-
 }
 
 .max-width-border-top {
@@ -103,9 +170,7 @@
   margin: auto;
 }
 
-
 @media screen and (min-width: 768px) {
-
   .single-book-user {
     font-size: 2.25rem;
     line-height: 5rem;
@@ -117,11 +182,15 @@
   }
 
   .single-book-details img {
-
     width: 225px;
-    
   }
 
-
+  .account-background {
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.185);
+    border-radius: 50%;
+    width: 70%;
+    margin: auto;
+    padding: 10%;
+    color: white;
+  }
 }
-
