@@ -16,15 +16,13 @@ export default function MePage() {
     return <Navigate to="/" />;
   }
 
-  // const favBooks = userData.;
-
   if (profileLoading) {
     return <div>Loading...</div>;
   }
 
   return (
     <>
-      <LibraryCard user={ user } />
+      <LibraryCard user={user} />
     </>
   );
 }

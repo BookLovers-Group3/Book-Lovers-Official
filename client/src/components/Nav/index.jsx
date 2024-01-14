@@ -18,7 +18,8 @@ const Header = () => {
             <Link
               style={{ textDecoration: "none" }}
               className="custom-title"
-              to="/">
+              to="/"
+            >
               <h1 className="logo-text">Book L&#9825;vers</h1>
             </Link>
           </div>
@@ -29,7 +30,8 @@ const Header = () => {
                 <NavDropdown
                   className="nav-menu"
                   title="Menu"
-                  id="collapsible-nav-dropdown">
+                  id="collapsible-nav-dropdown"
+                >
                   <span className="dropdown-container">
                     <NavDropdown.Item href="/me">
                       View My Profile
@@ -47,12 +49,13 @@ const Header = () => {
               </>
             ) : (
               <>
-                <Link style={{textDecoration: "none"}} to="/login">Login</Link>
+                <Link style={{ textDecoration: "none" }} to="/login">
+                  Login
+                </Link>
               </>
             )}
           </div>
         </div>
-        {/* <p className="tagline">Share your books and social.</p> */}
       </div>
     </nav>
   );
