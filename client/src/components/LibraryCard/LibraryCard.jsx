@@ -149,7 +149,11 @@ const LibraryCard = ({ user, youAreTheirFriend }) => {
       <div className="main-card">
         <div className="top-row">
           <h1>Book Lovers Library</h1>
-          <img className="status-icon" src={calculateStatus(count)} alt="image" />
+          <img
+            className="status-icon"
+            src={calculateStatus(count)}
+            alt="image"
+          />
         </div>
         <div className="user-profile">
           <div className="image-upload-container">
@@ -182,7 +186,9 @@ const LibraryCard = ({ user, youAreTheirFriend }) => {
             )}
           </div>
           <div className="user-details">
-            <div className="list-title">Favorite Genres: {genreList}</div>
+            <div className="list-title">
+              Favorite Genres: <div className="genre-column">{genreList}</div>
+            </div>
             <div className="list-title">I am looking for: {lookingForList}</div>
             <div className="list-title">
               Gender Identity: <p className="list"> {user.gender}</p>

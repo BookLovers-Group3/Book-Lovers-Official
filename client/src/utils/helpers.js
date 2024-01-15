@@ -14,4 +14,18 @@ const calculateStatus = (count) => {
   }
 };
 
+
+const  displayMessage = () => {
+  let message = document.querySelector(".display-message");
+  message.textContent =
+    " Your item was saved to local storage! Double click the save button to remove all items from local storage 💗";
+
+  setTimeout(function () {
+    savedItemId.textContent = "";
+  }, 10000);
+}
+
+
+
+
 export default calculateStatus;

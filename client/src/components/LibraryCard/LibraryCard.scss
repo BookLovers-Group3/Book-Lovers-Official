@@ -176,7 +176,17 @@ body {
     }
   }
   .list {
-    margin-bottom: 0px;
+    margin: 0px 20px;
     font-size: 1rem;
+  }
+
+  .list-title {
+    display: flex;
+    align-items: center;
+    margin: 10px 10px;
+  }
+  .genre-column {
+    display: flex;
+    flex-direction: column;
   }
 }
