@@ -76,10 +76,8 @@ export default function BookList({ books, type, isMe }) {
                 className="custom-card-single"
                 border="dark"
                 style={{
-                  backgroundColor: !book.isAvailable ? null : "#ea97ad", 
-            
-                }}
-              >
+                  backgroundColor: !book.isAvailable ? null : "#ea97ad",
+                }}>
                 {type === "lending" ? (
                   <div>
                     <Link to={`/book/${book._id}`} className="custom-link">
@@ -113,19 +111,22 @@ export default function BookList({ books, type, isMe }) {
                 ) : null}
 
                 <Card.Body>
-                  <p className="small">
-                    Authors: {book.authors.join(', ') || "No authors listed"}
+                  <p className="authors">
+                    {book?.authors.length === 1
+                      ? "Author: "
+                      : book?.authors.length
+                      ? "Authors: "
+                      : "No author listed"}
+                    {book?.authors.join(", ")}
                   </p>
                 </Card.Body>
                 {isMe ? (
                   type === "borrowed" ? (
-                    <div className="return-book-button">
-                      <ModalConfirmation
-                        book={book}
-                        books={books}
-                        type={"Return"}
-                      />
-                    </div>
+                    <ModalConfirmation
+                      book={book}
+                      books={books}
+                      type={"Return"}
+                    />
                   ) : (
                     <Button onClick={() => handleRemoveBook(book)}>
                       Remove

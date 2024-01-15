@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import Auth from "../../utils/auth";
 import { Navigate } from "react-router-dom";
 import { Container, Col, Card, Row } from "react-bootstrap";
+import "./Page.scss";
 
 export default function BookLendingListPage() {
   // query all books that are currently in lending state
@@ -50,8 +51,15 @@ export default function BookLendingListPage() {
           </Link>
 
           <Card.Body>
-            <p className="small">
-              Authors: {book?.authors || "No authors listed"}
+            <p>
+              {book?.authors.length === 1
+                ? "Author: "
+                : book?.authors.length
+                ? "Authors: "
+                : "No Authors listed"}
+              {book?.authors.length
+                ? book.authors.join(", ")
+                : "No authors listed"}
             </p>
             <Link className="custom-link" to={`/profile/${book.owner._id}`}>
               <p className="small">Owner: {book.owner.name}</p>
@@ -63,11 +71,11 @@ export default function BookLendingListPage() {
   });
 
   return (
-    <Container>
-      <h2 className="pt-5">
+    <div className="search-container">
+      <h2 className="pt-2">
         {books?.length ? `Viewing ${books?.length} books:` : `No books yet`}
       </h2>
-      <Row>{bookLendingList}</Row>
-    </Container>
+      <Row className="single-book-container ">{bookLendingList}</Row>
+    </div>
   );
 }
