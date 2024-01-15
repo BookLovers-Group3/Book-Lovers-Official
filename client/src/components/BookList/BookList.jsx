@@ -81,11 +81,24 @@ export default function BookList({ books, type, isMe }) {
                     !book?.isAvailable
                       ? "#ea97ad"
                       : "#045762",
+                  color:
+                    (type === "lending" || type === "borrowed") &&
+                    !book?.isAvailable
+                      ? "black"
+                      : "white",
                 }}>
                 {type === "lending" ? (
                   <div>
                     <Link to={`/book/${book._id}`} className="custom-link">
-                      <Card.Title className="card-title">
+                      <Card.Title
+                        style={{
+                          color:
+                            (type === "lending" || type === "borrowed") &&
+                            !book?.isAvailable
+                              ? "black"
+                              : "white",
+                        }}
+                        className="card-title">
                         {book.title}
                       </Card.Title>
                     </Link>

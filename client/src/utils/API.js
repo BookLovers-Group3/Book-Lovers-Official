@@ -1,4 +1,4 @@
-const apiKey = import.meta.env.VITE_APP_API_KEY
+const apiKey = 'AIzaSyBwCQBF158MghX98KTFlhuQrqL8Iqb6hjc'
 
 export const searchGoogleBooks = (query) => {
   return fetch(
