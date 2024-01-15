@@ -111,13 +111,13 @@ export default function ProfilePage() {
       {theyAreYourFriend && youAreTheirFriend ? (
         <div>
           <p>You and {user?.name} are friends!</p>
-          <Button onClick={() => handleRemoveFriend()}>Remove Friend</Button>
+          {/* <Button onClick={() => handleRemoveFriend()}>Remove Friend</Button> */}
         </div>
       ) : theyAreYourFriend && !youAreTheirFriend ? (
         <div>
           <p>You have added {user?.name} as a friend.</p>
           <p>Start borrowing books!</p>
-          <Button onClick={() => handleRemoveFriend()}>Remove Friend</Button>
+          {/* <Button onClick={() => handleRemoveFriend()}>Remove Friend</Button> */}
         </div>
       ) : (
         <div>
