@@ -159,7 +159,7 @@ export const QUERY_LEDGER = gql`
   }
 `;
 
-export const QUERY_LEDGER_SPECIFC_USER = gql`
+export const QUERY_LEDGER_SPECIFIC_USER = gql`
   query getBorrowCountFromSpecificUser($profileId: ID!) {
     getBorrowCountFromSpecificUser(profileId: $profileId) {
       borrowCount

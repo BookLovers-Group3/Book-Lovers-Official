@@ -149,6 +149,7 @@ const LibraryCard = ({ user, youAreTheirFriend }) => {
       <div className="main-card">
         <div className="top-row">
           <h1>Book Lovers Library</h1>
+          <h2 className="user-name">{user.name}</h2>
           <img
             className="status-icon"
             src={calculateStatus(count)}
@@ -195,7 +196,7 @@ const LibraryCard = ({ user, youAreTheirFriend }) => {
             </div>
           </div>
         </div>
-        <h2 className="user-name">{user.name}</h2>
+
         <div className="user-list">
           <button className="" onClick={() => showFavBooks()}>
             Favorite Books

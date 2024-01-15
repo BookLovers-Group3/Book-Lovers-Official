@@ -4,7 +4,7 @@ import { Navigate, useParams } from "react-router-dom";
 import {
   QUERY_SINGLE_PROFILE,
   QUERY_ME,
-  QUERY_LEDGER_SPECIFC_USER,
+  QUERY_LEDGER_SPECIFIC_USER,
 } from "../../utils/queries";
 import { ADD_FRIEND, REMOVE_FRIEND } from "../../utils/mutations";
 import Auth from "../../utils/auth";
@@ -30,7 +30,7 @@ export default function ProfilePage() {
   const [youAreTheirFriend, setYouAreTheirFriend] = useState();
   const [theyAreYourFriend, setTheyAreYourFriend] = useState();
 
-console.log("meData", meData)
+  console.log("meData", meData);
 
   useEffect(() => {
     // console.log("meData", meData);
@@ -44,7 +44,8 @@ console.log("meData", meData)
   }, [meData, userId]);
 
   const { loading: borrowLoading, data: borrowData } = useQuery(
-    QUERY_LEDGER_SPECIFC_USER
+    QUERY_LEDGER_SPECIFIC_USER, {variables: {profileId: profileId}}
+    
   );
 
   console.log("borrowData", borrowData);
@@ -149,7 +150,7 @@ console.log("meData", meData)
           borrowNumber > 0 ? "custom-message" : "custom-message-hidden"
         }>
         {borrowNumber > 0
-          ? `You have borrowed ${borrowNumber.length} from this user. Maybe you should connect!`
+          ? `You have borrowed ${borrowNumber} from this user. Maybe you should connect!`
           : null}
       </div>
     </div>
