@@ -82,7 +82,7 @@ const resolvers = {
         if (context.user) {
           const borrowCount = await Ledger.countDocuments({
             lender: profileId,
-            borrower: context.user.id,
+            borrower: context.user._id,
           });
           return { borrowCount: borrowCount };
         } else {
