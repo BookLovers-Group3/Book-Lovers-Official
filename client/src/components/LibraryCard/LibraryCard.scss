@@ -131,6 +131,16 @@ body {
   font-size: 0.75rem;
 }
 
+.list-title {
+  color: var(--text-color);
+}
+
+.list {
+  margin-bottom: 0px;
+  color: white;
+  font-size: 1rem;
+}
+
 @media (min-width: 768px) {
   .avatar-editor-container {
     padding: 20px;
@@ -160,5 +170,9 @@ body {
       font-family: cursive;
       margin-top: 15px;
     }
+  }
+  .list {
+    margin-bottom: 0px;
+    font-size: 0.7rem;
   }
 }

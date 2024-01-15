@@ -104,11 +104,19 @@ const LibraryCard = ({ user, youAreTheirFriend }) => {
   };
 
   const genreList = user.favoriteGenres.map((genre, index) => {
-    return <p key={index}>{genre}</p>;
+    return (
+      <p className="list" key={index}>
+        {genre}
+      </p>
+    );
   });
 
   const lookingForList = user.lookingFor.map((lookingFor, index) => {
-    return <p key={index}>{lookingFor}</p>;
+    return (
+      <p key={index} className="list">
+        {lookingFor}
+      </p>
+    );
   });
 
   // query the ledger info
@@ -175,9 +183,11 @@ const LibraryCard = ({ user, youAreTheirFriend }) => {
             )}
           </div>
           <div className="user-details">
-            <div>Favorite Genres: {genreList}</div>
-            <div>I am looking for: {lookingForList}</div>
-            <div>Gender Identity: {user.gender}</div>
+            <div className="list-title">Favorite Genres: {genreList}</div>
+            <div className="list-title">I am looking for: {lookingForList}</div>
+            <div className="list-title">
+              Gender Identity: <p className="list"> {user.gender}</p>
+            </div>
           </div>
         </div>
         <h2 className="user-name">{user.name}</h2>
