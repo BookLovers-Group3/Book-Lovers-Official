@@ -152,7 +152,7 @@ const LibraryCard = ({ user, youAreTheirFriend }) => {
           <img
             className="status-icon"
             src={calculateStatus(count)}
-            alt="image"
+            alt="image of status"
           />
         </div>
         <div className="user-profile">

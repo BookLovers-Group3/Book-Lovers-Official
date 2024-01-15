@@ -76,6 +76,22 @@ const resolvers = {
         console.error("Error counting books", error);
       }
     },
+
+    getBorrowCountFromSpecificUser: async (parent, { profileId }, context) => {
+      try {
+        if (context.user) {
+          const borrowCount = await Ledger.countDocuments({
+            lender: profileId,
+            borrower: context.user.id,
+          });
+          return { borrowCount: borrowCount };
+        } else {
+          throw new AuthenticationError("User not authenticated");
+        }
+      } catch (error) {
+        console.error("Error counting borrowed books", error);
+      }
+    },
   },
 
   Mutation: {

@@ -199,7 +199,6 @@ body {
 }
 
 .custom-friend-text {
-
   color: var(--darkgreen);
   font-size: 1rem;
   width: 50%;
@@ -207,6 +206,20 @@ body {
   box-shadow: 0 0 10px rgba(22, 23, 22, 0.8);
   border-radius: 5%;
   padding: 5px;
+}
+
+.custom-message {
+  background-color: var(--pink);
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(22, 23, 22, 0.8);
+}
+
+.custom-message-hidden {
+  display: none;
 }
 
 @media screen and (min-width: 768px) {
@@ -245,8 +258,12 @@ body {
   }
 
   .custom-friend-text {
+    width: 35%;
+  }
 
-width: 35%;
+
+  .custom-message {
+   width: 50%;
   }
 }
 

@@ -59,6 +59,10 @@ const typeDefs = `
     count: Int
   }
 
+  type BorrowCountFromSpecificUser {
+    borrowCount: Int
+  }
+
   type Query {
     books: [Book]
     profiles: [Profile!]
@@ -68,6 +72,7 @@ const typeDefs = `
     book(bookId: ID!): Book
     me: Profile
     getUserBookCount(profileId: ID!): UserBookCount
+    getBorrowCountFromSpecificUser(profileId: ID!): BorrowCountFromSpecificUser
   }
 
   type Mutation {
