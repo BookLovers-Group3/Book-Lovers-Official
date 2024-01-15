@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { Navigate, useParams } from "react-router-dom";
-import { QUERY_SINGLE_PROFILE, QUERY_ME } from "../../utils/queries";
+import {
+  QUERY_SINGLE_PROFILE,
+  QUERY_ME,
+  QUERY_LEDGER_SPECIFIC_USER,
+} from "../../utils/queries";
 import { ADD_FRIEND, REMOVE_FRIEND } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { Button } from "react-bootstrap";
@@ -20,14 +24,16 @@ export default function ProfilePage() {
   const friends = user?.friends;
   console.log("friendId", userId);
   //this is the user that I am now under
-  console.log("profile", user);
+  console.log("me", user);
   // console.log("user", user)
   const { loading: meLoading, data: meData } = useQuery(QUERY_ME);
   const [youAreTheirFriend, setYouAreTheirFriend] = useState();
   const [theyAreYourFriend, setTheyAreYourFriend] = useState();
 
+  console.log("meData", meData);
+
   useEffect(() => {
-    console.log("meData", meData);
+    // console.log("meData", meData);
 
     if (meData?.me?.friends) {
       const isFriend = meData.me.friends.some(
@@ -36,6 +42,16 @@ export default function ProfilePage() {
       setTheyAreYourFriend(isFriend);
     }
   }, [meData, userId]);
+
+  const { loading: borrowLoading, data: borrowData } = useQuery(
+    QUERY_LEDGER_SPECIFIC_USER, {variables: {profileId: profileId}}
+    
+  );
+
+  console.log("borrowData", borrowData);
+  const borrowNumber =
+    borrowData?.getBorrowCountFromSpecificUser?.borrowCount ?? 0;
+  console.log("borrow", borrowNumber);
 
   // mutation for adding friend
   const [addFriend, { loading: addLoading, data: addData, error: addError }] =
@@ -57,7 +73,7 @@ export default function ProfilePage() {
       for (const friend of friends) {
         if (friend._id === Auth?.getProfile().data._id) {
           setYouAreTheirFriend(true);
-          console.log("useEffect to check friends triggered");
+          // console.log("useEffect to check friends triggered");
           break;
         }
       }
@@ -66,7 +82,7 @@ export default function ProfilePage() {
 
   // define function to add friend with each other
   const handleAddFriend = async () => {
-    console.log("Adding friend. Profile ID:", profileId);
+    // console.log("Adding friend. Profile ID:", profileId);
     const response = await addFriend({
       variables: { profileId: profileId },
     });
@@ -103,8 +119,8 @@ export default function ProfilePage() {
     return <Navigate to="/me" />;
   }
 
-  console.log("they are your friend? ", theyAreYourFriend);
-  console.log("you are their friend? ", youAreTheirFriend);
+  // console.log("they are your friend? ", theyAreYourFriend);
+  // console.log("you are their friend? ", youAreTheirFriend);
 
   return (
     <div>
@@ -127,7 +143,16 @@ export default function ProfilePage() {
           </div>
         )}
       </div>
+
       <LibraryCard user={user} youAreTheirFriend={youAreTheirFriend} />
+      <div
+        className={
+          borrowNumber > 0 ? "custom-message" : "custom-message-hidden"
+        }>
+        {borrowNumber > 0
+          ? `You have borrowed ${borrowNumber} from this user. Maybe you should connect!`
+          : null}
+      </div>
     </div>
   );
 }
