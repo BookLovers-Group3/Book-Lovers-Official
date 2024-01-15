@@ -76,7 +76,11 @@ export default function BookList({ books, type, isMe }) {
                 className="custom-card-single"
                 border="dark"
                 style={{
-                  backgroundColor: !book.isAvailable ? null : "#ea97ad",
+                  backgroundColor:
+                    (type === "lending" || type === "borrowed") &&
+                    !book?.isAvailable
+                      ? "#ea97ad"
+                      : "#045762",
                 }}>
                 {type === "lending" ? (
                   <div>
