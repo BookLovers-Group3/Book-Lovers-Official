@@ -13,7 +13,7 @@ function ModalConfirmation({ book, type }) {
   const handleShow = () => setShow(true);
 
   // initiate emailjs on component load
-  useEffect(() => emailjs.init("tFj6zAOJjHz2zSQ9C"));
+  useEffect(() => emailjs.init("4ynWDXprnuhyyUKxX"));
 
   //get requesting user data
   const user = Auth.getProfile();
