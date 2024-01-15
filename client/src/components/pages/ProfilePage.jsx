@@ -108,23 +108,25 @@ export default function ProfilePage() {
 
   return (
     <div>
-      {theyAreYourFriend && youAreTheirFriend ? (
-        <div>
-          <p>You and {user?.name} are friends!</p>
-          {/* <Button onClick={() => handleRemoveFriend()}>Remove Friend</Button> */}
-        </div>
-      ) : theyAreYourFriend && !youAreTheirFriend ? (
-        <div>
-          <p>You have added {user?.name} as a friend.</p>
-          <p>Start borrowing books!</p>
-          {/* <Button onClick={() => handleRemoveFriend()}>Remove Friend</Button> */}
-        </div>
-      ) : (
-        <div>
-          <p>You have not added {user?.name} as a friend</p>
-          <Button onClick={() => handleAddFriend()}>Add Friend</Button>
-        </div>
-      )}
+      <div className="custom-friend-text">
+        {theyAreYourFriend && youAreTheirFriend ? (
+          <div>
+            <p>You and {user?.name} are friends!</p>
+            {/* <Button onClick={() => handleRemoveFriend()}>Remove Friend</Button> */}
+          </div>
+        ) : theyAreYourFriend && !youAreTheirFriend ? (
+          <div>
+            <p>You have added {user?.name} as a friend.</p>
+            <p>Start borrowing books!</p>
+            {/* <Button onClick={() => handleRemoveFriend()}>Remove Friend</Button> */}
+          </div>
+        ) : (
+          <div>
+            <p>You have not added {user?.name} as a friend</p>
+            <Button onClick={() => handleAddFriend()}>Add Friend</Button>
+          </div>
+        )}
+      </div>
       <LibraryCard user={user} youAreTheirFriend={youAreTheirFriend} />
     </div>
   );
