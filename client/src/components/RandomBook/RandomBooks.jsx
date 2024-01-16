@@ -58,6 +58,7 @@ const RandomBooks = ({ randomBook }) => {
                     handleFavBook(randomBook);
                     handleButtonClick();
                   }}
+                  disabled={buttonText === "Favorite Added!" ? true : false}
                 >
                   {buttonText === "Favorite Added!" ? (
                     <HeartFilled

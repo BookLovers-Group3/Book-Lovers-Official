@@ -44,8 +44,8 @@ export default function ProfilePage() {
   }, [meData, userId]);
 
   const { loading: borrowLoading, data: borrowData } = useQuery(
-    QUERY_LEDGER_SPECIFIC_USER, {variables: {profileId: profileId}}
-    
+    QUERY_LEDGER_SPECIFIC_USER,
+    { variables: { profileId: profileId } }
   );
 
   console.log("borrowData", borrowData);
@@ -147,9 +147,10 @@ export default function ProfilePage() {
       <LibraryCard user={user} youAreTheirFriend={youAreTheirFriend} />
       <div
         className={
-          borrowNumber > 0 ? "custom-message" : "custom-message-hidden"
-        }>
-        {borrowNumber > 0
+          borrowNumber > 5 ? "custom-message" : "custom-message-hidden"
+        }
+      >
+        {borrowNumber > 5
           ? `You have borrowed ${borrowNumber} from this user. Maybe you should connect!`
           : null}
       </div>
