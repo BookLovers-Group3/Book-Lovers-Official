@@ -91,15 +91,19 @@ label {
   margin: 5px auto;
   padding: 20px;
   border-radius: 20%;
-  background-color: var(  --darkgreen);
+  background-color: var(--darkgreen);
   color: var(--ivory);
 
   a {
-    color: var(--ivory)
+    color: var(--ivory);
   }
 
   img {
     box-shadow: 0 20px 80px rgba(0, 0, 0, 0.785);
+  }
+
+  img:hover {
+    box-shadow: 0 20px 80px var(--green);
   }
 }
 
@@ -182,7 +186,7 @@ label {
 
 .authors {
   margin-top: 5px;
-  letter-spacing: .05rem;
+  letter-spacing: 0.05rem;
 }
 .btn-submit {
   background-color: var(--pink);
@@ -223,6 +227,10 @@ label {
   background-color: var(--pink);
 }
 
+.small:hover {
+  color: var(--pink);
+}
+
 @media screen and (min-width: 768px) {
   .single-book-user {
     font-size: 2.25rem;
@@ -253,11 +261,10 @@ label {
     margin: 5px auto;
     padding: 20px;
     border-radius: 20%;
-    background-color: var(  --darkgreen);
+    background-color: var(--darkgreen);
     color: var(--ivory);
- 
   }
   .small {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 }
