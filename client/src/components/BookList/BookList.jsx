@@ -145,9 +145,9 @@ export default function BookList({ books, type, isMe }) {
                       type={"Return"}
                     />
                   ) : (
-                    <Button onClick={() => handleRemoveBook(book)}>
+                    <button className="btn-remove"onClick={() => handleRemoveBook(book)}>
                       Remove
-                    </Button>
+                    </button>
                   )
                 ) : null}
               </div>
