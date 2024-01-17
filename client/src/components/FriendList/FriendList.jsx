@@ -38,13 +38,11 @@ export default function FriendList({ friends, isMe }) {
               <section
                 key={friend._id}
                 className="custom-friend-card"
-                border="dark"
-              >
+                border="dark">
                 <h3>
                   <Link
                     style={{ textDecoration: "none" }}
-                    to={`/profile/${friend._id}`}
-                  >
+                    to={`/profile/${friend._id}`}>
                     {friend.name}
                   </Link>
                 </h3>
@@ -65,8 +63,7 @@ export default function FriendList({ friends, isMe }) {
                   {isMe && (
                     <button
                       style={{ width: "100px", margin: "10px auto 0" }}
-                      onClick={() => handleRemoveFriend(friend)}
-                    >
+                      onClick={() => handleRemoveFriend(friend)}>
                       Unfriend
                     </button>
                   )}
