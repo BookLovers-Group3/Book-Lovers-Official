@@ -29,7 +29,7 @@ Additionally, Book-Lovers goes beyond the conventional boundaries of social plat
 
 Join Book-Lovers to explore a world where connections are forged through the shared love of stories, allowing you to discover new books, build meaningful relationships, and celebrate the beauty of reading together.
 
-## Installation
+## Local Installation
 
 ### 1. Install dependencies
 
@@ -129,6 +129,7 @@ Thank you for considering contributing to Book-Lovers! 📚💙
 9. [MDN Web Docs - window.innerWidth](https://developer.mozilla.org/en-US/docs/Web/API/window/innerWidth)
 10. [Handling Window Resizing with a React Context](https://medium.com/@christian_maehler/handle-window-resizing-with-a-react-context-4392b47285e4)
 11. [CodePen - Responsive Image Gallery](https://codepen.io/joeashworth/pen/PXvRzb)
+12. [Bookworm Icons](https://stock.adobe.com/search?k=bookworm&search_type=usertyped&asset_id=393365255)
 
 ## Deployed-Link
 
