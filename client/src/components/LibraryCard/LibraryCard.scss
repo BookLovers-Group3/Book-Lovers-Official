@@ -58,7 +58,6 @@ body {
   padding: 10px;
   color: var(--text-color);
   border: 2px solid var(--border-color);
-
   border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
   color: white;
   box-shadow: 5px 5px rgba(0, 0, 0, 0.15);
@@ -66,8 +65,6 @@ body {
 }
 
 .user-list {
-  // display: flex;
-  // flex-wrap: wrap;
   margin: 5px 15px;
   padding: 20px;
   color: white;
@@ -80,7 +77,6 @@ body {
     margin: 5px;
     cursor: pointer;
     border-radius: 5px;
-    /* Add any other styles you need for your buttons */
   }
 
   button:hover {
@@ -96,19 +92,23 @@ body {
 .user-list a:hover {
   color: var(--link-hover-color);
 }
+.upload-label {
+  justify-content: center;
+}
 
 .hidden {
   display: none;
 }
 
 .status-icon {
-  background-color: var(--status-icon-bg);
+  background-color: var(--pink);
   position: absolute;
   right: -60px;
   top: -20px;
   color: var(--status-icon-text);
   padding: 15px;
   border-radius: 30%;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.15);
 }
 
 .avatar-editor-container {
