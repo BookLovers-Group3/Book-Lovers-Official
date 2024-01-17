@@ -65,8 +65,6 @@ body {
 }
 
 .user-list {
-  // display: flex;
-  // flex-wrap: wrap;
   margin: 5px 15px;
   padding: 20px;
   color: white;
@@ -79,7 +77,6 @@ body {
     margin: 5px;
     cursor: pointer;
     border-radius: 5px;
-    /* Add any other styles you need for your buttons */
   }
 
   button:hover {
@@ -94,6 +91,9 @@ body {
 
 .user-list a:hover {
   color: var(--link-hover-color);
+}
+.upload-label {
+  justify-content: center;
 }
 
 .hidden {
